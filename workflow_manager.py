@@ -308,8 +308,7 @@ class MoleculeFlow:
             spin=spin,
             keywords=keywords, # <--- 使用处理过(去掉了geom=check)的关键词
             nproc=G16_PARAMS['nproc'],
-            mem=mem_val,
-            old_chk=f"{job_name}.chk" # 依然传递 chk 路径，write_gjf 会写入 %oldchk
+            mem=mem_val
         )
 
         # 6. 提交

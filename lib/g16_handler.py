@@ -5,9 +5,10 @@ import subprocess
 from pathlib import Path
 
 
-def write_gjf(folder, job_name, keywords, charge, spin, coords, old_chk=None, nproc=56, mem="512GB"):
+def write_gjf(folder, job_name, keywords, charge, spin, coords, nproc=56, mem="512GB"):
     """
     生成 Gaussian 输入文件 (.gjf)
+    [修改] 移除了 old_chk 参数，避免写入 %oldchk
     """
     filename = folder / f"{job_name}.gjf"
     chk_name = f"{job_name}.chk"
@@ -20,11 +21,11 @@ def write_gjf(folder, job_name, keywords, charge, spin, coords, old_chk=None, np
     content.append(f"%mem={mem}")
     content.append(f"%chk={chk_name}")
     
-    if old_chk:
-        content.append(f"%oldchk={old_chk}")
+    # [删除] 移除了 %oldchk 的写入逻辑
+    # if old_chk:
+    #     content.append(f"%oldchk={old_chk}")
     
     # --- Route Section ---
-    # 这里直接填入你 config.py 中的长字符串
     content.append(keywords)
     content.append("") # 必须空一行
     
@@ -33,18 +34,16 @@ def write_gjf(folder, job_name, keywords, charge, spin, coords, old_chk=None, np
     content.append("") # 必须空一行
     
     # --- Molecule Specification ---
-    # 如果是读取几何结构 (freq calc), 不需要写坐标
     if "geom=allcheck" in keywords or "geom=check" in keywords:
         pass 
     else:
         content.append(f"{charge} {spin}")
-        content.append(coords.strip()) # 确保坐标字符串前后无多余空行
+        content.append(coords.strip())
         content.append("") # 必须空一行作为结束
         
     # 写入文件
     with open(filename, 'w') as f:
         f.write("\n".join(content))
-        # 确保文件末尾有且仅有一个额外的空行（Gaussian 最佳实践）
         f.write("\n\n")
     
     print(f"  [Gen] Input generated: {filename}")
