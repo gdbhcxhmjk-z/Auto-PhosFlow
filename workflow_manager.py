@@ -15,7 +15,8 @@ from lib.g16_handler import (
     read_xyz_coords, 
     extract_geom_with_obabel, 
     check_imaginary_frequencies,
-    check_job_elapsed_time, # 确保 lib/g16_handler.py 中已有此函数
+    check_job_elapsed_time, 
+    check_g16_termination
 )
 from lib.momap_handler import (
     write_momap_inp, 
@@ -147,11 +148,10 @@ class MoleculeFlow:
         opt_dir = self.dirs[opt_key]
         freq_dir = self.dirs[freq_key]
         
-        # 1. 检查 Freq 是否完美完成
-        if self._is_step_perfect(freq_dir, f"{self.name}_{freq_key}.log"):
-            return True
-
-        # 2. 检查 Opt 是否需要运行
+        # --- 1. 检查 Opt 步骤 ---
+        opt_log = opt_dir / f"{self.name}_{opt_key}.log"
+        
+        # 如果 Opt 没完成 (没有 job.done)
         if not self._check_done(opt_dir):
             keywords = G16_PARAMS[opt_key]
             is_retry = (opt_dir / "RETRY_CALCALL").exists()
@@ -167,14 +167,27 @@ class MoleculeFlow:
             
             self._run_opt_step(opt_key, source_type, source_file, charge, spin, custom_keywords=keywords)
             return False 
+        
+        # [新增] 如果 Opt 显示已完成，必须强校验 Log 是否正常结束
+        elif not check_g16_termination(opt_log):
+            self._mark_fatal_error(f"{opt_key} 异常结束 (Error Termination)。请检查 Log: {opt_log}")
+            return False
 
-        # 3. 检查 Freq 是否需要运行
+        # --- 2. 检查 Freq 步骤 ---
+        freq_log = freq_dir / f"{self.name}_{freq_key}.log"
+        
+        # 如果 Freq 没完成
         if not self._check_done(freq_dir):
             self._run_freq_step(freq_key, opt_key, charge, spin)
             return False
+            
+        # [新增] 如果 Freq 显示已完成，强校验 Log
+        elif not check_g16_termination(freq_log):
+            self._mark_fatal_error(f"{freq_key} 异常结束 (Error Termination)。请检查 Log: {freq_log}")
+            return False
 
-        # 4. 虚频检查与决策
-        freq_log = freq_dir / f"{self.name}_{freq_key}.log"
+        # --- 3. 虚频检查与决策 ---
+        # (此时 Log 肯定是 Normal termination 的)
         has_imag, imag_vals = check_imaginary_frequencies(freq_log)
 
         if not has_imag:

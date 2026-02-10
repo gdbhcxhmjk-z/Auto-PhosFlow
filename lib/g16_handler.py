@@ -235,3 +235,26 @@ def check_job_elapsed_time(log_path):
     except Exception as e:
         print(f"  [Error] Failed to read time from {log_path.name}: {e}")
         return 999.0
+
+def check_g16_termination(log_file):
+    """
+    检查 Gaussian Log 是否以 'Normal termination' 结束。
+    返回: True (正常), False (异常或未完成)
+    """
+    log_file = Path(log_file)
+    if not log_file.exists():
+        return False
+
+    try:
+        # 读取文件末尾 2KB 足够判断
+        with open(log_file, 'rb') as f:
+            try:
+                f.seek(-2048, 2)
+            except OSError:
+                f.seek(0)
+            tail = f.read().decode('utf-8', errors='ignore')
+            
+        return "Normal termination" in tail
+    except Exception as e:
+        print(f"  [Error] Failed to read log tail for {log_file.name}: {e}")
+        return False

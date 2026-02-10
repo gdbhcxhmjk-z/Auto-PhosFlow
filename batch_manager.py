@@ -57,6 +57,11 @@ class BatchController:
             for name in sorted(self.db.keys()):
                 writer.writerow(self.db[name])
 
+    def log(self, message):
+        """[新增] 统一日志输出格式，带时间戳"""
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        print(f"[{timestamp}] {message}", flush=True) # flush=True 确保实时写入文件
+
     # === 核心：飞书报警函数 ===
     def send_feishu_alert(self, title, message):
         """
@@ -143,7 +148,7 @@ class BatchController:
         self.scan_new_molecules()
         
         running_jobs = [name for name, data in self.db.items() if data['Status'] == 'RUNNING']
-        print(f"  [Status] Active: {len(running_jobs)} / Limit: {MAX_CONCURRENT}")
+        self.log(f"[Status] Active Jobs: {len(running_jobs)} / Limit: {MAX_CONCURRENT}")
 
         # 填补空缺
         slots_available = MAX_CONCURRENT - len(running_jobs)
@@ -156,19 +161,22 @@ class BatchController:
                 print(f"  [Activate] Molecule '{name}' moved to RUNNING queue.")
             running_jobs.extend(to_activate)
 
-        if not running_jobs:
+       if not running_jobs:
             print("  [Idle] No active tasks. Waiting for new files...")
             return
 
         for name in running_jobs:
             xyz_path = SOURCE_DIR / f"{name}.xyz"
             
+            # [修改] 增加处理当前分子的日志
+            # print(f"  Processing {name}...") 
+            
             if not xyz_path.exists():
                 msg = f"源文件丢失: {name}.xyz"
-                print(f"  [Warn] {msg}")
+                self.log(f"[Error] {msg}")  # <--- 记录到 Log
                 self.db[name]['Status'] = 'FAILED'
                 self.db[name]['Remark'] = 'XYZ Missing'
-                self.send_feishu_alert("文件丢失错误", msg) # <--- 报警
+                self.send_feishu_alert("文件丢失错误", msg)
                 continue
 
             try:
@@ -176,49 +184,41 @@ class BatchController:
                 
                 # 检查致命错误
                 if flow._is_failed():
+                     if self.db[name]['Status'] != 'FAILED': # 防止重复打印
+                         self.log(f"[Stop] Molecule {name} has FATAL ERROR. Skipping.")
                      self.db[name]['Status'] = 'FAILED'
-                     # 读取具体错误原因
-                     try:
-                         with open(flow.error_file, 'r') as ef:
-                             err_msg = ef.read().strip()
-                     except:
-                         err_msg = "Unknown Fatal Error"
-                     
-                     self.db[name]['Remark'] = 'Fatal Error'
-                     # <--- 发送报警
-                     self.send_feishu_alert(f"计算失败: {name}", f"原因: {err_msg[-200:]}") # 只发最后200字符
+                     self.db[name]['Remark'] = 'Fatal Error (See Log)'
                 
                 # 检查完成
                 elif (flow.root / "REPORT_PLQY.txt").exists():
+                    if self.db[name]['Status'] != 'COMPLETED':
+                        self.log(f"[Done] Molecule {name} Analysis Completed!")
                     self.db[name]['Status'] = 'COMPLETED'
                     self.db[name]['Current_Stage'] = 'Finished'
                     self.db[name]['Remark'] = 'PLQY Report Generated'
-                    # 可选：完成后也发个喜报
-                    # self.send_feishu_alert("任务完成", f"分子 {name} 计算结束。")
                 
                 else:
                     # 正常推进
+                    # 这里不需要额外 print，因为 workflow_manager.py 里的 _submit_to_queue 会打印提交信息
                     flow.process()
+                    
                     current_stage = self.determine_stage(flow)
                     self.db[name]['Current_Stage'] = current_stage
                     self.db[name]['Remark'] = 'Processing'
 
             except Exception as e:
                 err_msg = f"未捕获异常: {str(e)}"
-                print(f"  [Error] {err_msg}")
-                traceback.print_exc()
+                self.log(f"[Exception] {name}: {err_msg}") # <--- 记录详细报错到 Log
+                traceback.print_exc() # 打印堆栈信息
                 
                 self.db[name]['Status'] = 'ERROR'
                 self.db[name]['Remark'] = str(e)[:50]
-                self.send_feishu_alert(f"程序崩溃: {name}", err_msg) # <--- 报警
+                self.send_feishu_alert(f"程序崩溃: {name}", err_msg)
 
             self.db[name]['Last_Updated'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         self._save_db()
-        
-        # 执行超时检查
         self.run_watchdog()
-        
         print(f"  [Cycle] Finished.")
 
 if __name__ == "__main__":
