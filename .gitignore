@@ -3,7 +3,7 @@ __pycache__/
 *.py[cod]
 .env
 venv/
-*.csv
+
 
 # --- Gaussian Intermediate Files ---
 *.chk
@@ -29,6 +29,7 @@ core.*
 # 忽略结果目录，避免上传几百GB的数据
 results/
 manager.log
+status_report.csv
 # 忽略临时测试目录
 test/test_gen_output/
 test/mock_workflow_run/
@@ -39,5 +40,5 @@ Thumbs.db
 
 # --- Optional ---
 # 如果你想保留 molecules 文件夹结构但不想上传你的真实分子，可以取消下面注释
-# molecules/*
+molecules/*
 # !molecules/dummy.xyz
