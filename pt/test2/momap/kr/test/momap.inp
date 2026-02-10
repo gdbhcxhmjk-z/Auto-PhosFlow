@@ -1,0 +1,31 @@
+do_spec_tvcf_ft   = 1
+do_spec_tvcf_spec = 1
+
+&spec_tvcf
+  DUSHIN        = .f.
+  HERZ          = .f.
+  Temp          = 300 K
+  tmax          = 3000 fs
+  dt            = 0.01 fs
+  Ead           = 0.1031397  au
+  EDMA          = 1.0 debye
+  EDME          = 0.18086 debye
+  FreqScale     = 1.0
+  DSFile        = "evc.dint.dat"
+  isgauss       = .f.
+  BroadenType   = "gaussian"
+  Broadenfunc   = "frequency"
+  FWHM          = 20 cm-1
+  GFile         = "spec.tvcf.gauss.dat"
+  NScale        = 10
+  Emin          = -0.3 au
+  Emax          =  0.3 au
+  dE            = 0.00001 au
+  logFile       = "spec.tvcf.log"
+  FoFile        = "spec.tvcf.fo.dat"
+  FtFile        = "spec.tvcf.ft.dat"
+  FoSFile       = "spec.tvcf.spec.dat"
+  spectra0      = .f.
+  IntEmin       = 0.0 au
+  IntEmax       = 0.09 au
+/

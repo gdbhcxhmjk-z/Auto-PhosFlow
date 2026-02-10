@@ -1,0 +1,22 @@
+do_ic_tvcf_ft   = 1
+do_ic_tvcf_spec = 1
+
+&ic_tvcf
+  DUSHIN        = .t.
+  Temp          = 300 K
+  tmax          = 3000 fs
+  dt            = 0.01 fs
+  Ead           = 0.1236933099999078  au
+  DSFile        = "evc.cart.dat"
+  CoulFile      = "evc.cart.nac"
+  isgauss       = .t.
+  BroadenType   = "gaussian"
+  Broadenfunc   = "frequency"
+  FWHM          = 500 cm-1
+  GFile         = "spec.tvcf.gauss.dat"
+  NScale        = 20
+  Emax          =  0.3 au
+  logFile       = "ic.tvcf.log"
+  FtFile        = "ic.tvcf.ft.dat"
+  FoFile        = "ic.tvcf.fo.dat"
+/

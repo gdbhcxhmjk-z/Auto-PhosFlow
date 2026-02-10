@@ -1,0 +1,7 @@
+do_evc= 1
+
+&evc
+ffreq(1) = "s0.log"
+ffreq(2) = "s1.log"
+fnacme   = "s1.log"
+/

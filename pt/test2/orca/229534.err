@@ -1,0 +1,73 @@
+Scratch directory /home/gongcunxi/scratch/_229534 created.
+mkdir: cannot create directory ‘/home/gongcunxi/scratch’: Permission denied
+Using /home/gongcunxi/scratch/_229534 for temporary ORCA files.
+cp: failed to access '/home/gongcunxi/scratch/_229534': Permission denied
+/home/share/ce/slurm/spool/d/job229534/slurm_script: line 50: cd: /home/gongcunxi/scratch/_229534: Permission denied
+ORCA job start at Sun Feb 8 23:12:29 CST 2026
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+planck-cpu01
+Numbers of Processors:  56
+
+real	0m0.321s
+user	0m0.012s
+sys	0m0.027s
+rm: cannot remove '/home/gongcunxi/scratch/_229534/15_1_soc.inp': Permission denied
+rm: cannot remove '/home/gongcunxi/scratch/_229534/stdout.txt': Permission denied
+mv: cannot stat '/home/gongcunxi/scratch/_229534/*': Permission denied
+ORCA job finished at Sun Feb 8 23:12:29 CST 2026
+Work Directory is /home/zhangwenjie/work/pt/test2/orca
+rm: cannot remove '/home/gongcunxi/scratch/_229534': Permission denied

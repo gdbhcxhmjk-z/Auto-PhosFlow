@@ -1,0 +1,33 @@
+  __  __    ___    __  __      _      ____  
+ |  \/  |  / _ \  |  \/  |    / \    |  _ \ 
+ | |\/| | | | | | | |\/| |   / _ \   | |_) |
+ | |  | | | |_| | | |  | |  / ___ \  |  __/ 
+ |_|  |_|  \___/  |_|  |_| /_/   \_\ |_|       Version 2024A (2.3.7)
+
+ Copyright (c) 2017 Shuaigroup @ Tsinghua University &
+         Institute of Chemistry, Chinese Academy of Sciences.
+         All Rights Reserved.
+
+Cite photophysics work as (required):
+1. Y. Niu, W. Li, Q. Peng, H. Geng, Y. Yi, L. Wang, G. Nan, D. Wang, Z. Shuai,
+   Molecular Physics, 2018, doi: 10.1080/00268976.2017.1402966.
+2. Q. Peng, Y. Yi, Z. Shuai, J. Shao, J. Am. Chem. Soc., 2007, 129, 9333-9339.
+3. Y. Niu, Q. Peng, Z. Shuai, Sci. China, Ser. B, 2008, 51, 1153-1158.
+4. Z. Shuai, Chin. J. Chem., 2020, 38, 1223-1232.
+
+Cite photophysics work as (recommended):
+1. Z. Shuai, Q. Peng, Phys. Rep., 2014, 537, 123.
+2. Z. Shuai, Q. Peng, Nat. Sci. Rev., 2017, 4, 224.
+
+Do isc_ft calculation
+/home/software/momap/2024a/bin/openmpi/bin/mpiexec -hostfile hosts /home/software/momap/2024a/bin/TVCORF_ISC_para.exe momap.inp
+Normal finish of isc_ft calculation
+Do isc_spec calculation
+/home/software/momap/2024a/bin/TVSPEC_ISC.exe momap.inp
+Note: The following floating-point exceptions are signalling: IEEE_INVALID_FLAG
+Normal finish of isc_spec calculation
+****************************************
+*        ALL SUCCESSFULLY DONE.        *
+****************************************
+Normal termination of MOMAP at 2026-02-09 21:07:29.579101
+DURATION: 0 days 0 hours 4 minutes 42 seconds.

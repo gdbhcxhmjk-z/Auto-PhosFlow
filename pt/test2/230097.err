@@ -1,0 +1,13 @@
+Scratch directory /tmp/zgshuai_230097/g16_tmp created.
+Working directory: /tmp/zgshuai_230097
+planck-cpu02
+Nodes: planck-cpu02
+Starting Gaussian run at Mon Feb  9 16:27:13 CST 2026
+
+real	2m39.402s
+user	142m32.694s
+sys	0m7.365s
+Finished Gaussian run at Mon Feb  9 16:29:52 CST 2026
+Copying result files back to /home/zhangwenjie/work/pt/test2...
+Moving SCRDIR to local hidden directory...
+Job completed.
