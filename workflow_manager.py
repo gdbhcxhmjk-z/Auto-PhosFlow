@@ -342,6 +342,7 @@ class MoleculeFlow:
         if (folder / "run.slurm").exists(): return
 
         print(f"  [Step] Preparing ORCA SOC calculation...")
+        folder.mkdir(parents=True, exist_ok=True)
         
         # 准备坐标 (T1 Opt Log)
         t1_log = self.dirs['t1_opt'] / f"{self.name}_t1_opt.log"
@@ -353,7 +354,7 @@ class MoleculeFlow:
             print(f"  [Error] Failed to extract T1 geom for ORCA: {e}")
             return
 
-        folder.mkdir(parents=True, exist_ok=True)
+        
         
         # 生成 ORCA 文件 (需要 lib/orca_handler.py 中的 write_orca_inp)
         from lib.orca_handler import write_orca_inp # 延迟导入防止循环引用

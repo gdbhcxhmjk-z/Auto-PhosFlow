@@ -58,6 +58,11 @@ run_status=$?
 
 echo "Finished Gaussian run at $(date)"
 
+if [ $run_status -eq 0 ] && [ -f "$job_base.chk" ]; then
+    echo "Generating fchk file from $job_base.chk ..."
+    formchk "$job_base.chk" "$job_base.fchk"
+fi
+
 # --- 回传 ---
 echo "Copying result files back..."
 # 排除 slurm 脚本和 err 日志，防止覆盖
