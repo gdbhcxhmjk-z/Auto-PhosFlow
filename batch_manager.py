@@ -161,7 +161,7 @@ class BatchController:
                 print(f"  [Activate] Molecule '{name}' moved to RUNNING queue.")
             running_jobs.extend(to_activate)
 
-       if not running_jobs:
+        if not running_jobs:
             print("  [Idle] No active tasks. Waiting for new files...")
             return
 

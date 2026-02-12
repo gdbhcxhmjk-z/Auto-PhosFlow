@@ -1,7 +1,50 @@
-Submitted batch job 232002
-Submitted batch job 232003
-Submitted batch job 232004
-Submitted batch job 232005
-Submitted batch job 232006
-Submitted batch job 232007
-Submitted batch job 232008
+🚀 Auto-PhosFlow Batch Manager Started.
+   Webhook: https://open.feishu.cn/open-ap...
+--------------------------------------------------
+
+[03:03:52] === Starting Schedule Cycle ===
+  [Scanner] Found 1 new molecules.
+[2026-02-13 03:03:52] [Status] Active Jobs: 0 / Limit: 10
+Submitted batch job 232669
+Submitted batch job 232670
+  [Activate] Molecule '15_2' moved to RUNNING queue.
+
+--- Processing 15_2 ---
+  [Check] s0_freq passed frequency check.
+  [Check] s1_freq passed frequency check.
+  [Check] t1_freq passed frequency check.
+  [Info] Gaussian stages completed. Ready for ORCA/MOMAP.
+  [Step] Preparing ORCA SOC calculation...
+  [Gen] ORCA input generated: results/15_2/07_ORCA_SOC/orca.inp
+  [Submit] Submitting task in results/15_2/07_ORCA_SOC
+  [Step] Preparing MOMAP EVC for Kic...
+  [Submit] Submitting task in results/15_2/10_MOMAP_Kic
+  [Watchdog] Checking task health...
+  [Cycle] Finished.
+
+[03:08:53] === Starting Schedule Cycle ===
+[2026-02-13 03:08:53] [Status] Active Jobs: 1 / Limit: 10
+
+--- Processing 15_2 ---
+  [Check] s0_freq passed frequency check.
+  [Check] s1_freq passed frequency check.
+  [Check] t1_freq passed frequency check.
+  [Info] Gaussian stages completed. Ready for ORCA/MOMAP.
+  [Step] Preparing MOMAP EVC for Kic...
+  [Watchdog] Checking task health...
+  [Cycle] Finished.
+
+[03:13:53] === Starting Schedule Cycle ===
+[2026-02-13 03:13:53] [Status] Active Jobs: 1 / Limit: 10
+
+--- Processing 15_2 ---
+  [Check] s0_freq passed frequency check.
+  [Check] s1_freq passed frequency check.
+  [Check] t1_freq passed frequency check.
+  [Info] Gaussian stages completed. Ready for ORCA/MOMAP.
+  [Step] Preparing MOMAP EVC for Kic...
+  [Watchdog] Checking task health...
+  [Cycle] Finished.
+
+[03:18:53] === Starting Schedule Cycle ===
+[2026-02-13 03:18:53] [Status] Active Jobs: 1 / Limit: 10

@@ -518,10 +518,18 @@ class MoleculeFlow:
             
             s0_src = self.dirs['s0_freq'] / f"{self.name}_s0_freq.log"
             s1_src = self.dirs['s1_freq'] / f"{self.name}_s1_freq.log"
+            # [Fix] 定义 fchk 路径
+            s0_fchk = self.dirs['s0_freq'] / f"{self.name}_s0_freq.fchk"
+            s1_fchk = self.dirs['s1_freq'] / f"{self.name}_s1_freq.fchk"
+
             if not (s0_src.exists() and s1_src.exists()): return
             
             shutil.copy(s0_src, folder / "s0.log")
             shutil.copy(s1_src, folder / "s1.log")
+            
+            # [Fix] 复制 fchk 文件 (如果存在)
+            if s0_fchk.exists(): shutil.copy(s0_fchk, folder / "s0.fchk")
+            if s1_fchk.exists(): shutil.copy(s1_fchk, folder / "s1.fchk")
             
             # Kic 特殊: 需要 fnacme
             write_momap_inp(folder, mode='evc', s0_log="s0.log", log2="s1.log", fnacme="s1.log")
