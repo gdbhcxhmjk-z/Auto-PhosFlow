@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import time
 import shutil
 import re
-import subprocess  # <--- [Fix 1] 补全缺失的 subprocess
+import subprocess
 from pathlib import Path
 from datetime import datetime
 
 # 引入配置和库
-from config import G16_PARAMS, MOMAP_PARAMS # 确保导入 MOMAP_PARAMS
+from config import G16_PARAMS, MOMAP_PARAMS
 from lib.g16_handler import (
     write_gjf, 
     read_xyz_coords, 
@@ -70,49 +73,42 @@ class MoleculeFlow:
         """检查当前分子是否已标记为失败"""
         return self.error_file.exists()
 
-    def process(self):
-        """主流程控制"""
-        print(f"\n--- Processing {self.name} ---")
+    def process(self, silent=True):
+        """
+        主流程控制
+        silent=True: 静默模式，只打印关键动作(提交/报错/修复)，不打印重复的检查通过信息
+        """
+        # [修改] 只有非静默模式才打印标题
+        if not silent:
+            print(f"\n--- Processing {self.name} ---")
         
         # 0. 熔断检查
         if self._is_failed():
-            print(f"  [Skip] Molecule marked as failed. See {self.error_file}")
+            if not silent:
+                print(f"  [Skip] Molecule marked as failed. See {self.error_file}")
             return
 
         # --- 1. S0 State Cycle ---
-        s0_ok = self._handle_gaussian_cycle(
-            state_label='s0',
-            source_type='xyz', 
-            source_file=self.xyz_file,  # <--- [Fix 2] 修正变量名 self.xyz -> self.xyz_file
-            charge=0, spin=1
-        )
+        # [修改] 传递 silent 参数
+        s0_ok = self._handle_gaussian_cycle('s0', 'xyz', self.xyz_file, 0, 1, silent)
         if not s0_ok: return
 
-        # 准备 S0 Log 用于后续
         s0_log = self.dirs['s0_opt'] / f"{self.name}_s0_opt.log"
 
         # --- 2. S1 State Cycle ---
-        s1_ok = self._handle_gaussian_cycle(
-            state_label='s1',
-            source_type='log',
-            source_file=s0_log,
-            charge=0, spin=1
-        )
+        s1_ok = self._handle_gaussian_cycle('s1', 'log', s0_log, 0, 1, silent)
         if not s1_ok: return
 
         # --- 3. T1 State Cycle ---
-        t1_ok = self._handle_gaussian_cycle(
-            state_label='t1',
-            source_type='log',
-            source_file=s0_log,
-            charge=0, spin=3
-        )
+        t1_ok = self._handle_gaussian_cycle('t1', 'log', s0_log, 0, 3, silent)
         if not t1_ok: return
         
-        if s1_ok and t1_ok:
+        # [修改] 只有第一次达成时(或非静默)才打印
+        if s1_ok and t1_ok and not silent:
             print(f"  [Info] Gaussian stages completed. Ready for ORCA/MOMAP.")
         
         # --- 4. ORCA SOC Calculation ---
+        # ORCA 内部逻辑是 "有锁即停"，所以不需要 silent 参数，它如果不跑就是静默的
         if s1_ok and t1_ok:
             self._handle_orca_step()
         
@@ -142,7 +138,7 @@ class MoleculeFlow:
     # =========================================================================
     # 核心逻辑：高斯计算循环 (Opt + Freq + Imag Check + Retry)
     # =========================================================================
-    def _handle_gaussian_cycle(self, state_label, source_type, source_file, charge, spin):
+    def _handle_gaussian_cycle(self, state_label, source_type, source_file, charge, spin, silent=True):
         opt_key = f"{state_label}_opt"
         freq_key = f"{state_label}_freq"
         opt_dir = self.dirs[opt_key]
@@ -156,7 +152,7 @@ class MoleculeFlow:
             keywords = G16_PARAMS[opt_key]
             is_retry = (opt_dir / "RETRY_CALCALL").exists()
             
-            # 重试逻辑：修改关键词
+            # [Action] 重试是动作，强制打印
             if is_retry:
                 print(f"  [Repair] Resubmitting {opt_key} using opt=calcall...")
                 if "opt=" in keywords:
@@ -168,7 +164,7 @@ class MoleculeFlow:
             self._run_opt_step(opt_key, source_type, source_file, charge, spin, custom_keywords=keywords)
             return False 
         
-        # [新增] 如果 Opt 显示已完成，必须强校验 Log 是否正常结束
+        # [Error] 异常结束是错误，强制打印
         elif not check_g16_termination(opt_log):
             self._mark_fatal_error(f"{opt_key} 异常结束 (Error Termination)。请检查 Log: {opt_log}")
             return False
@@ -176,24 +172,24 @@ class MoleculeFlow:
         # --- 2. 检查 Freq 步骤 ---
         freq_log = freq_dir / f"{self.name}_{freq_key}.log"
         
-        # 如果 Freq 没完成
         if not self._check_done(freq_dir):
             self._run_freq_step(freq_key, opt_key, charge, spin)
             return False
             
-        # [新增] 如果 Freq 显示已完成，强校验 Log
         elif not check_g16_termination(freq_log):
             self._mark_fatal_error(f"{freq_key} 异常结束 (Error Termination)。请检查 Log: {freq_log}")
             return False
 
         # --- 3. 虚频检查与决策 ---
-        # (此时 Log 肯定是 Normal termination 的)
         has_imag, imag_vals = check_imaginary_frequencies(freq_log)
 
         if not has_imag:
-            print(f"  [Check] {freq_key} passed frequency check.")
+            # [Check] 检查通过，如果是 silent 模式则保持沉默
+            if not silent:
+                print(f"  [Check] {freq_key} passed frequency check.")
             return True
         else:
+            # [Warning] 虚频警告，强制打印
             print(f"  [Warning] Imaginary frequencies found in {freq_key}: {imag_vals}")
             
             if (opt_dir / "RETRY_CALCALL").exists():
@@ -201,7 +197,6 @@ class MoleculeFlow:
                 self._mark_fatal_error(f"{state_label} failed convergence (Imaginary Freq after Retry).")
                 return False
 
-            # 检查时间成本
             elapsed_hours = check_job_elapsed_time(freq_log)
             print(f"  [Time] Freq calculation took {elapsed_hours:.2f} hours.")
 
@@ -215,7 +210,7 @@ class MoleculeFlow:
                 return False
 
     # =========================================================================
-    # 任务提交的具体实现 (Opt & Freq) - [Fix 3] 补全逻辑
+    # 任务提交的具体实现 (Opt & Freq)
     # =========================================================================
     def _run_opt_step(self, step_key, source_type, source_file, charge, spin, custom_keywords=None):
         folder = self.dirs[step_key]
@@ -240,8 +235,6 @@ class MoleculeFlow:
 
         # 2. 生成 Gaussian 输入文件
         keywords = custom_keywords if custom_keywords else G16_PARAMS[step_key]
-        
-        # === 修复点：优先读取 mem_opt，如果没有则尝试读 mem，防止报错 ===
         mem_val = G16_PARAMS.get('mem_opt', G16_PARAMS.get('mem', '256GB'))
         
         write_gjf(
@@ -263,7 +256,6 @@ class MoleculeFlow:
         folder = self.dirs[step_key]
         job_name = f"{self.name}_{step_key}"
         
-        # 检查是否正在运行
         if (folder / "run.slurm").exists() and not (folder / "job.done").exists():
             return
 
@@ -271,7 +263,6 @@ class MoleculeFlow:
         folder.mkdir(parents=True, exist_ok=True)
         
         # 1. 拷贝 Opt 产生的 chk 文件 
-        # (虽然我们要显式写坐标，但保留 chk 用于 guess=read 加速 SCF 依然是极好的习惯)
         opt_chk = self.dirs[prev_opt_key] / f"{self.name}_{prev_opt_key}.chk"
         freq_chk = folder / f"{job_name}.chk"
         
@@ -281,7 +272,7 @@ class MoleculeFlow:
             print(f"  [Wait] Opt Checkpoint not found: {opt_chk}")
             return
 
-        # 2. [新增] 从上一步 Log 提取坐标 (显式加载)
+        # 2. 从上一步 Log 提取坐标
         prev_opt_log = self.dirs[prev_opt_key] / f"{self.name}_{prev_opt_key}.log"
         
         if not prev_opt_log.exists():
@@ -289,37 +280,25 @@ class MoleculeFlow:
             return
 
         try:
-            # 使用 obabel 提取最后一帧结构
             coords = extract_geom_with_obabel(prev_opt_log, temp_dir=folder)
         except Exception as e:
-            # 如果提取失败，标记错误
             self._mark_fatal_error(f"Failed to extract coords from {prev_opt_key}: {e}")
             return
 
-        # 3. [关键] 处理关键词
-        # 获取原始配置
+        # 3. 处理关键词
         raw_keywords = G16_PARAMS[step_key]
-        
-        # ⚠️ 冲突处理：
-        # 如果我们显式写入了坐标，就不能同时保留 'geom=allcheck' 或 'geom=check'。
-        # 但我们通常希望保留 'guess=read' (从chk读波函数)。
         keywords = raw_keywords.replace("geom=allcheck", "").replace("geom=check", "")
         
-        # 确保加上 guess=read (如果原配置没写，建议加上以利用 chk 加速)
-        # if "guess=read" not in keywords:
-        #    keywords += " guess=read" 
-
-        # 4. 获取内存设置 (优先 mem_freq)
         mem_val = G16_PARAMS.get('mem_freq', G16_PARAMS.get('mem', '256GB'))
 
-        # 5. 生成输入文件
+        # 5. 生成输入文件 (修正：移除了 old_chk 参数)
         write_gjf(
             folder=folder,
             job_name=job_name,
-            coords=coords,     # <--- 这里填入提取的坐标
+            coords=coords,
             charge=charge,
             spin=spin,
-            keywords=keywords, # <--- 使用处理过(去掉了geom=check)的关键词
+            keywords=keywords,
             nproc=G16_PARAMS['nproc'],
             mem=mem_val
         )
@@ -337,16 +316,14 @@ class MoleculeFlow:
         job_name = f"{self.name}_orca"
         
         if (folder / "job.done").exists(): return
-
-        # 检查是否正在运行
         if (folder / "run.slurm").exists(): return
 
         print(f"  [Step] Preparing ORCA SOC calculation...")
+        # [Fix] 提前创建文件夹，防止 OpenBabel 报错
         folder.mkdir(parents=True, exist_ok=True)
         
-        # 准备坐标 (T1 Opt Log)
         t1_log = self.dirs['t1_opt'] / f"{self.name}_t1_opt.log"
-        if not t1_log.exists(): return # 等待
+        if not t1_log.exists(): return 
             
         try:
             coords = extract_geom_with_obabel(t1_log, temp_dir=folder)
@@ -354,10 +331,7 @@ class MoleculeFlow:
             print(f"  [Error] Failed to extract T1 geom for ORCA: {e}")
             return
 
-        
-        
-        # 生成 ORCA 文件 (需要 lib/orca_handler.py 中的 write_orca_inp)
-        from lib.orca_handler import write_orca_inp # 延迟导入防止循环引用
+        from lib.orca_handler import write_orca_inp 
         write_orca_inp(folder, job_name, coords, nproc=56, mem_per_core=8000)
         
         write_orca_slurm(folder, job_name, input_file="orca.inp", nproc=56)
@@ -392,11 +366,8 @@ class MoleculeFlow:
             if t1_fchk.exists(): shutil.copy(t1_fchk, folder / "t1.fchk")
 
             write_momap_inp(folder, mode='evc', s0_log="s0.log", t1_log="t1.log")
-            
-            # 提交 EVC
             write_momap_slurm(folder, f"{job_name}_evc", input_file="momap.inp")
             
-            # 如果 evc.out 不存在，提交任务
             if not (folder / "evc.out").exists():
                  self._submit_to_queue(folder)
             
@@ -406,6 +377,10 @@ class MoleculeFlow:
                 passed, best_file = check_evc_reorg(folder)
                 if passed:
                     (folder / "job.done").unlink()
+                    # [Fix] 删除旧的 slurm，防止死锁
+                    if (folder / "run.slurm").exists():
+                        (folder / "run.slurm").unlink()
+                        
                     with open(evc_done_flag, 'w') as f:
                         f.write(best_file)
                     print(f"  [Done] EVC passed. Selected {best_file}")
@@ -415,8 +390,6 @@ class MoleculeFlow:
 
         # --- Phase 2: Kr Rate ---
         if (folder / "job.done").exists(): return
-
-        # 检查是否正在运行
         if (folder / "run.slurm").exists(): return
 
         print(f"  [Step] Preparing MOMAP Kr calculation...")
@@ -424,12 +397,10 @@ class MoleculeFlow:
         with open(evc_done_flag, 'r') as f:
             ds_file = f.read().strip()
         
-        # 计算 Ead (au) = E(T1) - E(S0)
         e_s0 = get_gaussian_energy(folder / "s0.log")
         e_t1 = get_gaussian_energy(folder / "t1.log")
         ead = abs(e_t1 - e_s0)
 
-        # 提取 EDME
         orca_out = self.dirs['orca'] / f"{self.name}_orca.out"
         if not orca_out.exists(): orca_out = self.dirs['orca'] / f"{self.name}_orca.log"
         edme = extract_orca_edme(orca_out)
@@ -448,7 +419,6 @@ class MoleculeFlow:
         job_name = f"{self.name}_kisc"
         evc_done_flag = folder / "evc.done"
         
-        # --- Phase 1: EVC ---
         if not evc_done_flag.exists():
             if (folder / "run_evc.slurm").exists() and not (folder / "job.done").exists(): return
 
@@ -457,14 +427,21 @@ class MoleculeFlow:
             
             s0_src = self.dirs['s0_freq'] / f"{self.name}_s0_freq.log"
             t1_src = self.dirs['t1_freq'] / f"{self.name}_t1_freq.log"
+            
+            # [Fix] Kisc 也加上 fchk 复制逻辑 (更稳健)
+            s0_fchk = self.dirs['s0_freq'] / f"{self.name}_s0_freq.fchk"
+            t1_fchk = self.dirs['t1_freq'] / f"{self.name}_t1_freq.fchk"
+
             if not (s0_src.exists() and t1_src.exists()): return
             
             shutil.copy(s0_src, folder / "s0.log")
             shutil.copy(t1_src, folder / "t1.log")
+            if s0_fchk.exists(): shutil.copy(s0_fchk, folder / "s0.fchk")
+            if t1_fchk.exists(): shutil.copy(t1_fchk, folder / "t1.fchk")
             
             write_momap_inp(folder, mode='evc', s0_log="s0.log", t1_log="t1.log")
-            
             write_momap_slurm(folder, f"{job_name}_evc", input_file="momap.inp")
+            
             if not (folder / "evc.out").exists():
                  self._submit_to_queue(folder)
             
@@ -472,13 +449,15 @@ class MoleculeFlow:
                 passed, best_file = check_evc_reorg(folder)
                 if passed:
                     (folder / "job.done").unlink()
+                    # [Fix] 删除旧的 slurm
+                    if (folder / "run.slurm").exists():
+                        (folder / "run.slurm").unlink()
                     with open(evc_done_flag, 'w') as f:
                         f.write(best_file)
                 else:
                     self._mark_fatal_error("Kisc EVC Reorg too high.")
             return
 
-        # --- Phase 2: Kisc Rate ---
         if (folder / "job.done").exists(): return
         if (folder / "run.slurm").exists(): return
 
@@ -509,7 +488,6 @@ class MoleculeFlow:
         job_name = f"{self.name}_kic"
         evc_done_flag = folder / "evc.done"
         
-        # --- Phase 1: EVC (S0 vs S1) ---
         if not evc_done_flag.exists():
             if (folder / "run_evc.slurm").exists() and not (folder / "job.done").exists(): return
 
@@ -518,7 +496,8 @@ class MoleculeFlow:
             
             s0_src = self.dirs['s0_freq'] / f"{self.name}_s0_freq.log"
             s1_src = self.dirs['s1_freq'] / f"{self.name}_s1_freq.log"
-            # [Fix] 定义 fchk 路径
+            
+            # [Fix] 之前缺失的 fchk 处理逻辑
             s0_fchk = self.dirs['s0_freq'] / f"{self.name}_s0_freq.fchk"
             s1_fchk = self.dirs['s1_freq'] / f"{self.name}_s1_freq.fchk"
 
@@ -527,29 +506,29 @@ class MoleculeFlow:
             shutil.copy(s0_src, folder / "s0.log")
             shutil.copy(s1_src, folder / "s1.log")
             
-            # [Fix] 复制 fchk 文件 (如果存在)
+            # [Fix] 复制 fchk 文件
             if s0_fchk.exists(): shutil.copy(s0_fchk, folder / "s0.fchk")
             if s1_fchk.exists(): shutil.copy(s1_fchk, folder / "s1.fchk")
             
-            # Kic 特殊: 需要 fnacme
             write_momap_inp(folder, mode='evc', s0_log="s0.log", log2="s1.log", fnacme="s1.log")
-            
             write_momap_slurm(folder, f"{job_name}_evc", input_file="momap.inp")
+            
             if not (folder / "evc.out").exists():
                  self._submit_to_queue(folder)
             
             if (folder / "job.done").exists():
-                # 强制检查 cart.dat
                 passed, _ = check_evc_reorg(folder)
                 if passed:
                     (folder / "job.done").unlink()
+                    # [Fix] 删除旧的 slurm
+                    if (folder / "run.slurm").exists():
+                        (folder / "run.slurm").unlink()
                     with open(evc_done_flag, 'w') as f:
-                        f.write("evc.cart.dat") # 强制
+                        f.write("evc.cart.dat") 
                 else:
                     self._mark_fatal_error("Kic EVC Reorg too high.")
             return
 
-        # --- Phase 2: Kic Rate ---
         if (folder / "job.done").exists(): return
         if (folder / "run.slurm").exists(): return
 
@@ -629,7 +608,6 @@ Analysis Report for {self.name}
 
     # --- 辅助操作 ---
     def _trigger_retry(self, opt_dir, freq_dir):
-        """触发重算：清理现场，打上标记"""
         import shutil
         (opt_dir / "RETRY_CALCALL").touch()
         print(f"  [Reset] Flagged {opt_dir.name} for RETRY with opt=calcall.")
@@ -654,7 +632,6 @@ Analysis Report for {self.name}
                     print(f"  [Warn] Failed to delete chk {chk_file.name}: {e}")
 
     def _is_step_perfect(self, folder, log_name):
-        """检查步骤是否完成且逻辑正确 (即 Done + 无虚频)"""
         if not (folder / "job.done").exists():
             return False
         has_imag, _ = check_imaginary_frequencies(folder / log_name)
@@ -665,8 +642,7 @@ Analysis Report for {self.name}
 
     def _submit_to_queue(self, folder):
         print(f"  [Submit] Submitting task in {folder}")
-        # 注意: run.slurm 由 write_xxx_slurm 生成
-        # [Fix] 补全了顶部的 import subprocess
+        # [Fix] 使用 subprocess.run
         subprocess.run("sbatch run.slurm", shell=True, cwd=folder)
 
 # # --- 测试模式 ---
@@ -737,3 +713,5 @@ if __name__ == "__main__":
                 traceback.print_exc()
 
     print("\n✅ 本轮扫描结束。")
+
+    

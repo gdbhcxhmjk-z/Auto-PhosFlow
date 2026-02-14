@@ -29,7 +29,13 @@ TIMEOUT_THRESHOLD_HOURS = 48         # 超时阈值 (小时)
 
 class BatchController:
     def __init__(self):
-        self.db = {} 
+        self.db = {}         # 1. 先创建空字典
+        self._load_db()      # 2. 再调用加载 (原地修改 self.db，不要写 self.db = ...)
+        self.lock_file = Path("manager.lock")
+        
+        # [新增] 用于记录上一次的 Log 状态，防止刷屏
+        self.last_active_count = -1
+        self.last_idle_state = False
         self._load_db()
         
         SOURCE_DIR.mkdir(exist_ok=True)
@@ -143,26 +149,49 @@ class BatchController:
                     pass
 
     def run_cycle(self):
-        print(f"\n[{datetime.now().strftime('%H:%M:%S')}] === Starting Schedule Cycle ===")
+        #print(f"\n[{datetime.now().strftime('%H:%M:%S')}] === Starting Schedule Cycle ===")
         
         self.scan_new_molecules()
         
         running_jobs = [name for name, data in self.db.items() if data['Status'] == 'RUNNING']
         self.log(f"[Status] Active Jobs: {len(running_jobs)} / Limit: {MAX_CONCURRENT}")
+        current_count = len(running_jobs)
+        
+        # 补齐任务
+        while len(running_jobs) < MAX_CONCURRENT:
+            pending_candidates = [n for n, d in self.db.items() if d['Status'] == 'PENDING']
+            if not pending_candidates:
+                break
+            
+            next_mol = pending_candidates[0]
+            self.db[next_mol]['Status'] = 'RUNNING'
+            self.db[next_mol]['Start_Time'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            self.log(f"[Start] 启动新任务: {next_mol}") # 这个重要，保留
+            running_jobs.append(next_mol)
+            
+        # [修改] 只有当任务数量发生变化时，才打印状态条
+        # 或者每隔 12 次循环(1小时)强制打印一次心跳
+        active_count = len(running_jobs)
+        if active_count != self.last_active_count:
+            self.log(f"[Status] Active Jobs: {active_count} / Limit: {MAX_CONCURRENT}")
+            self.last_active_count = active_count
+            self.last_idle_state = False # 重置空闲状态
 
-        # 填补空缺
-        slots_available = MAX_CONCURRENT - len(running_jobs)
-        if slots_available > 0:
-            pending_mols = [name for name, data in self.db.items() if data['Status'] == 'PENDING']
-            to_activate = pending_mols[:slots_available]
-            for name in to_activate:
-                self.db[name]['Status'] = 'RUNNING'
-                self.db[name]['Remark'] = 'Activated'
-                print(f"  [Activate] Molecule '{name}' moved to RUNNING queue.")
-            running_jobs.extend(to_activate)
+        # # 填补空缺
+        # slots_available = MAX_CONCURRENT - len(running_jobs)
+        # if slots_available > 0:
+        #     pending_mols = [name for name, data in self.db.items() if data['Status'] == 'PENDING']
+        #     to_activate = pending_mols[:slots_available]
+        #     for name in to_activate:
+        #         self.db[name]['Status'] = 'RUNNING'
+        #         self.db[name]['Remark'] = 'Activated'
+        #         print(f"  [Activate] Molecule '{name}' moved to RUNNING queue.")
+        #     running_jobs.extend(to_activate)
 
         if not running_jobs:
-            print("  [Idle] No active tasks. Waiting for new files...")
+            if not self.last_idle_state:
+                print(f"[{datetime.now().strftime('%H:%M:%S')}] [Idle] No active tasks. Waiting for new files...")
+                self.last_idle_state = True
             return
 
         for name in running_jobs:
@@ -182,14 +211,12 @@ class BatchController:
             try:
                 flow = MoleculeFlow(name, xyz_path, RESULTS_DIR)
                 
-                # 检查致命错误
                 if flow._is_failed():
-                     if self.db[name]['Status'] != 'FAILED': # 防止重复打印
+                     if self.db[name]['Status'] != 'FAILED':
                          self.log(f"[Stop] Molecule {name} has FATAL ERROR. Skipping.")
                      self.db[name]['Status'] = 'FAILED'
                      self.db[name]['Remark'] = 'Fatal Error (See Log)'
                 
-                # 检查完成
                 elif (flow.root / "REPORT_PLQY.txt").exists():
                     if self.db[name]['Status'] != 'COMPLETED':
                         self.log(f"[Done] Molecule {name} Analysis Completed!")
@@ -198,9 +225,8 @@ class BatchController:
                     self.db[name]['Remark'] = 'PLQY Report Generated'
                 
                 else:
-                    # 正常推进
-                    # 这里不需要额外 print，因为 workflow_manager.py 里的 _submit_to_queue 会打印提交信息
-                    flow.process()
+                    # [修改] 传入 silent=True，让它闭嘴，除非有事发生
+                    flow.process(silent=True)
                     
                     current_stage = self.determine_stage(flow)
                     self.db[name]['Current_Stage'] = current_stage
@@ -219,7 +245,7 @@ class BatchController:
 
         self._save_db()
         self.run_watchdog()
-        print(f"  [Cycle] Finished.")
+        #print(f"  [Cycle] Finished.")
 
 if __name__ == "__main__":
     controller = BatchController()
