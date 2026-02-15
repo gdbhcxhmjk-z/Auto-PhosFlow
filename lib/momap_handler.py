@@ -237,8 +237,34 @@ def extract_orca_soc(orca_out):
         print("  [Error] Could not find '1 0' transition in SOC table.")
         return 0.0
 
+def check_evc_err_file(folder):
+    """
+    检查 MOMAP EVC 计算是否报错
+    返回: 
+        'OK': 没有错误
+        'COORD_ERROR': 内坐标定义改变 (需要 set_cart=t)
+        'FATAL': 其他错误
+    """
+    # 优先检查 momap.err，如果不存在检查 job.err
+    err_files = [folder / "momap.err", folder / "job.err"]
+    
+    for f in err_files:
+        if f.exists():
+            try:
+                with open(f, 'r', errors='ignore') as log:
+                    content = log.read()
+                    if "Definitions of internal coordinates are changed" in content:
+                        return 'COORD_ERROR'
+                    if "Terminated with ERROR" in content:
+                        # 如果是 ERROR 但不是内坐标问题，视为 FATAL
+                        return 'FATAL'
+            except:
+                pass
+    return 'OK'
+
+
 # --- 更新: 输入文件生成器 (支持 kisc) ---
-def write_momap_inp(folder, mode, config_params=None, **runtime_kwargs):
+def write_momap_inp(folder, mode, config_params=None, use_cartesian=False, **runtime_kwargs):
     """
     Args:
         mode: 'evc', 'kr', 'kisc', 'kic'
@@ -259,12 +285,14 @@ def write_momap_inp(folder, mode, config_params=None, **runtime_kwargs):
         nac_line = ""
         if 'fnacme' in runtime_kwargs:
             nac_line = f' fnacme   = "{runtime_kwargs["fnacme"]}"'
+        cart_line = " set_cart = t" if use_cartesian else ""
             
         content = f"""do_evc = 1
 &evc
  ffreq(1) = "{log1}"
  ffreq(2) = "{log2}"
 {nac_line}
+{cart_line}
 /
 """
 

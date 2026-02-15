@@ -53,15 +53,19 @@ class BatchController:
     def _init_csv(self):
         with open(STATUS_FILE, 'w', encoding='utf-8', newline='') as f:
             writer = csv.writer(f)
-            writer.writerow(['Name', 'Status', 'Current_Stage', 'Last_Updated', 'Remark'])
+            writer.writerow(['Name', 'Status', 'Current_Stage', 'Last_Updated', 'Remark', 'Start_Time'])
 
     def _save_db(self):
         with open(STATUS_FILE, 'w', encoding='utf-8', newline='') as f:
-            headers = ['Name', 'Status', 'Current_Stage', 'Last_Updated', 'Remark']
+            # [修改] 添加 Start_Time
+            headers = ['Name', 'Status', 'Current_Stage', 'Last_Updated', 'Remark', 'Start_Time']
             writer = csv.DictWriter(f, fieldnames=headers)
             writer.writeheader()
             for name in sorted(self.db.keys()):
-                writer.writerow(self.db[name])
+                row_data = self.db[name].copy()
+                if 'Start_Time' not in row_data:
+                    row_data['Start_Time'] = ''
+                writer.writerow(row_data)
 
     def log(self, message):
         """[新增] 统一日志输出格式，带时间戳"""

@@ -24,7 +24,8 @@ from lib.g16_handler import (
 from lib.momap_handler import (
     write_momap_inp, 
     check_evc_reorg, 
-    get_gaussian_energy, 
+    get_gaussian_energy,
+    check_evc_err_file, 
     extract_orca_edme,
     extract_orca_soc
 )
@@ -344,9 +345,35 @@ class MoleculeFlow:
         folder = self.dirs['kr']
         job_name = f"{self.name}_kr"
         evc_done_flag = folder / "evc.done"
+        retry_flag = folder / "RETRY_CART"
         
         # --- Phase 1: EVC ---
         if not evc_done_flag.exists():
+            # [Fix] 检查是否卡在报错状态
+            err_status = check_evc_err_file(folder)
+            
+            if err_status == 'COORD_ERROR':
+                if not retry_flag.exists():
+                    print(f"  [Repair] EVC Internal Coord Error. Retrying with set_cart=t ...")
+                    # 创建标记
+                    retry_flag.touch()
+                    # 删除旧的 slurm 和 job.done，强制重跑
+                    if (folder / "run.slurm").exists(): (folder / "run.slurm").unlink()
+                    if (folder / "job.done").exists(): (folder / "job.done").unlink()
+                    # 重新生成输入文件 (use_cartesian=True)
+                    write_momap_inp(folder, mode='evc', s0_log="s0.log", t1_log="t1.log", use_cartesian=True)
+                    # 重新生成 Slurm 脚本
+                    write_momap_slurm(folder, f"{job_name}_evc", input_file="momap.inp")
+                    # 提交
+                    self._submit_to_queue(folder)
+                    return
+                else:
+                    self._mark_fatal_error("EVC failed even with set_cart=t.")
+                    return
+            elif err_status == 'FATAL':
+                 self._mark_fatal_error("MOMAP EVC calculation crashed (See momap.err).")
+                 return
+
             if (folder / "run_evc.slurm").exists() and not (folder / "job.done").exists():
                  return
 
@@ -365,7 +392,9 @@ class MoleculeFlow:
             if s0_fchk.exists(): shutil.copy(s0_fchk, folder / "s0.fchk")
             if t1_fchk.exists(): shutil.copy(t1_fchk, folder / "t1.fchk")
 
-            write_momap_inp(folder, mode='evc', s0_log="s0.log", t1_log="t1.log")
+            use_cart = retry_flag.exists()
+            write_momap_inp(folder, mode='evc', s0_log="s0.log", t1_log="t1.log", use_cartesian=use_cart)
+            
             write_momap_slurm(folder, f"{job_name}_evc", input_file="momap.inp")
             
             if not (folder / "evc.out").exists():
@@ -418,8 +447,37 @@ class MoleculeFlow:
         folder = self.dirs['kisc']
         job_name = f"{self.name}_kisc"
         evc_done_flag = folder / "evc.done"
+        retry_flag = folder / "RETRY_CART"
         
         if not evc_done_flag.exists():
+            # [Fix] 检查是否卡在报错状态
+            err_status = check_evc_err_file(folder)
+            
+            if err_status == 'COORD_ERROR':
+                if not retry_flag.exists():
+                    print(f"  [Repair] EVC Internal Coord Error. Retrying with set_cart=t ...")
+                    # 创建标记
+                    retry_flag.touch()
+                    # 删除旧的 slurm 和 job.done，强制重跑
+                    if (folder / "run.slurm").exists(): (folder / "run.slurm").unlink()
+                    if (folder / "job.done").exists(): (folder / "job.done").unlink()
+                    # 重新生成输入文件 (use_cartesian=True)
+                    write_momap_inp(folder, mode='evc', s0_log="s0.log", t1_log="t1.log", use_cartesian=True)
+                    # 重新生成 Slurm 脚本
+                    write_momap_slurm(folder, f"{job_name}_evc", input_file="momap.inp")
+                    # 提交
+                    self._submit_to_queue(folder)
+                    return
+                else:
+                    self._mark_fatal_error("EVC failed even with set_cart=t.")
+                    return
+            elif err_status == 'FATAL':
+                 self._mark_fatal_error("MOMAP EVC calculation crashed (See momap.err).")
+                 return
+
+            if (folder / "run_evc.slurm").exists() and not (folder / "job.done").exists():
+                 return
+
             if (folder / "run_evc.slurm").exists() and not (folder / "job.done").exists(): return
 
             print(f"  [Step] Preparing MOMAP EVC for Kisc...")
@@ -439,7 +497,9 @@ class MoleculeFlow:
             if s0_fchk.exists(): shutil.copy(s0_fchk, folder / "s0.fchk")
             if t1_fchk.exists(): shutil.copy(t1_fchk, folder / "t1.fchk")
             
-            write_momap_inp(folder, mode='evc', s0_log="s0.log", t1_log="t1.log")
+            use_cart = retry_flag.exists()
+            write_momap_inp(folder, mode='evc', s0_log="s0.log", t1_log="t1.log", use_cartesian=use_cart)
+            
             write_momap_slurm(folder, f"{job_name}_evc", input_file="momap.inp")
             
             if not (folder / "evc.out").exists():
@@ -487,8 +547,37 @@ class MoleculeFlow:
         folder = self.dirs['kic']
         job_name = f"{self.name}_kic"
         evc_done_flag = folder / "evc.done"
+        retry_flag = folder / "RETRY_CART"
         
         if not evc_done_flag.exists():
+            # [Fix] 检查是否卡在报错状态
+            err_status = check_evc_err_file(folder)
+            
+            if err_status == 'COORD_ERROR':
+                if not retry_flag.exists():
+                    print(f"  [Repair] EVC Internal Coord Error. Retrying with set_cart=t ...")
+                    # 创建标记
+                    retry_flag.touch()
+                    # 删除旧的 slurm 和 job.done，强制重跑
+                    if (folder / "run.slurm").exists(): (folder / "run.slurm").unlink()
+                    if (folder / "job.done").exists(): (folder / "job.done").unlink()
+                    # 重新生成输入文件 (use_cartesian=True)
+                    write_momap_inp(folder, mode='evc', s0_log="s0.log", t1_log="t1.log", use_cartesian=True)
+                    # 重新生成 Slurm 脚本
+                    write_momap_slurm(folder, f"{job_name}_evc", input_file="momap.inp")
+                    # 提交
+                    self._submit_to_queue(folder)
+                    return
+                else:
+                    self._mark_fatal_error("EVC failed even with set_cart=t.")
+                    return
+            elif err_status == 'FATAL':
+                 self._mark_fatal_error("MOMAP EVC calculation crashed (See momap.err).")
+                 return
+
+            if (folder / "run_evc.slurm").exists() and not (folder / "job.done").exists():
+                 return
+
             if (folder / "run_evc.slurm").exists() and not (folder / "job.done").exists(): return
 
             print(f"  [Step] Preparing MOMAP EVC for Kic...")
@@ -510,7 +599,9 @@ class MoleculeFlow:
             if s0_fchk.exists(): shutil.copy(s0_fchk, folder / "s0.fchk")
             if s1_fchk.exists(): shutil.copy(s1_fchk, folder / "s1.fchk")
             
-            write_momap_inp(folder, mode='evc', s0_log="s0.log", log2="s1.log", fnacme="s1.log")
+            use_cart = retry_flag.exists()
+            write_momap_inp(folder, mode='evc', s0_log="s0.log", t1_log="s1.log", use_cartesian=use_cart)
+            
             write_momap_slurm(folder, f"{job_name}_evc", input_file="momap.inp")
             
             if not (folder / "evc.out").exists():
