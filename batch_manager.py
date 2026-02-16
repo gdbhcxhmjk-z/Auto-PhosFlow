@@ -17,14 +17,17 @@ SOURCE_DIR = Path("molecules")       # 分子源目录
 RESULTS_DIR = Path("results")        # 结果目录
 STATUS_FILE = Path("status_report.csv") # 进度记录文件
 
-MAX_CONCURRENT = 10                  # 并行度
+MAX_CONCURRENT = 14                  # 并行度
 CHECK_INTERVAL = 300                 # 轮询间隔 (秒)
 
 # --- 报警配置 (飞书) ---
 ENABLE_ALERT = True
 # 替换为你的飞书 Webhook 地址
 WEBHOOK_URL = "https://open.feishu.cn/open-apis/bot/v2/hook/8295e851-d6ae-4eba-bb08-4ba2cd1579e3"
-TIMEOUT_THRESHOLD_HOURS = 48         # 超时阈值 (小时)
+TIMEOUT_THRESHOLD_HOURS = 30         # 超时阈值 (小时)
+AUTO_EXIT = True                     # 是否开启自动退出
+MAX_IDLE_CYCLES = 2                 # CHECK_INTERVAL*MAX_IDLE_CYCLES
+
 # ===========================================
 
 class BatchController:
@@ -37,6 +40,7 @@ class BatchController:
         self.last_active_count = -1
         self.last_idle_state = False
         self._load_db()
+        self.idle_count = 0
         
         SOURCE_DIR.mkdir(exist_ok=True)
         RESULTS_DIR.mkdir(exist_ok=True)
@@ -193,10 +197,34 @@ class BatchController:
         #     running_jobs.extend(to_activate)
 
         if not running_jobs:
+            # 1. 打印空闲日志 (只在刚进入空闲状态时打印一次，防止刷屏)
             if not self.last_idle_state:
                 print(f"[{datetime.now().strftime('%H:%M:%S')}] [Idle] No active tasks. Waiting for new files...")
                 self.last_idle_state = True
+            
+            # 2. 自动退出倒计时
+            if AUTO_EXIT:
+                self.idle_count += 1
+                
+                # 可选：如果想看倒计时，取消下面这行的注释
+                # remaining = MAX_IDLE_CYCLES - self.idle_count
+                # print(f"  [Debug] Idle count: {self.idle_count}/{MAX_IDLE_CYCLES}")
+
+                if self.idle_count >= MAX_IDLE_CYCLES:
+                    self.log(f"[Stop] 🛑 Auto-exit triggered after {MAX_IDLE_CYCLES} idle cycles.")
+                    self._save_db()
+                    import sys
+                    sys.exit(0) # 优雅退出程序
+            
+            # 3. 既然空闲，就直接结束本次循环，不执行后面的代码
             return
+
+        # ---------------------------------------------------------
+        # [新增] 如果有任务正在运行 (说明不空闲)
+        # ---------------------------------------------------------
+        # 重置计数器和状态
+        self.idle_count = 0 
+        self.last_idle_state = False
 
         for name in running_jobs:
             xyz_path = SOURCE_DIR / f"{name}.xyz"

@@ -600,7 +600,7 @@ class MoleculeFlow:
             if s1_fchk.exists(): shutil.copy(s1_fchk, folder / "s1.fchk")
             
             use_cart = retry_flag.exists()
-            write_momap_inp(folder, mode='evc', s0_log="s0.log", t1_log="s1.log", use_cartesian=use_cart)
+            write_momap_inp(folder, mode='evc', s0_log="s0.log", t1_log="s1.log",fnacme="s1.log", use_cartesian=use_cart)
             
             write_momap_slurm(folder, f"{job_name}_evc", input_file="momap.inp")
             
