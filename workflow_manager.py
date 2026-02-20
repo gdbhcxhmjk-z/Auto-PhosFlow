@@ -430,8 +430,11 @@ class MoleculeFlow:
         e_t1 = get_gaussian_energy(folder / "t1.log")
         ead = abs(e_t1 - e_s0)
 
-        orca_out = self.dirs['orca'] / f"{self.name}_orca.out"
-        if not orca_out.exists(): orca_out = self.dirs['orca'] / f"{self.name}_orca.log"
+        orca_out = self.dirs['orca'] / "orca.out"
+        if not orca_out.exists(): 
+            orca_out = self.dirs['orca'] / f"{self.name}_orca.out"
+        if not orca_out.exists():
+            orca_out = self.dirs['orca'] / "orca.log"
         edme = extract_orca_edme(orca_out)
 
         write_momap_inp(folder, mode='kr', config_params=MOMAP_PARAMS,
@@ -530,8 +533,12 @@ class MoleculeFlow:
         e_t1 = get_gaussian_energy(folder / "t1.log")
         ead = abs(e_t1 - e_s0)
         
-        orca_out = self.dirs['orca'] / f"{self.name}_orca.out"
-        if not orca_out.exists(): orca_out = self.dirs['orca'] / f"{self.name}_orca.log"
+        orca_out = self.dirs['orca'] / "orca.out"
+        
+        if not orca_out.exists(): 
+            orca_out = self.dirs['orca'] / f"{self.name}_orca.out"
+        if not orca_out.exists():
+            orca_out = self.dirs['orca'] / "orca.log"
         hso = extract_orca_soc(orca_out)
         
         write_momap_inp(folder, mode='kisc', config_params=MOMAP_PARAMS,
@@ -562,7 +569,7 @@ class MoleculeFlow:
                     if (folder / "run.slurm").exists(): (folder / "run.slurm").unlink()
                     if (folder / "job.done").exists(): (folder / "job.done").unlink()
                     # 重新生成输入文件 (use_cartesian=True)
-                    write_momap_inp(folder, mode='evc', s0_log="s0.log", t1_log="t1.log", use_cartesian=True)
+                    write_momap_inp(folder, mode='evc', s0_log="s0.log", t1_log="s1.log", use_cartesian=True)
                     # 重新生成 Slurm 脚本
                     write_momap_slurm(folder, f"{job_name}_evc", input_file="momap.inp")
                     # 提交

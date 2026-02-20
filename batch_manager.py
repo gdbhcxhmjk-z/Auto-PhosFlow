@@ -6,6 +6,7 @@ import csv
 import glob
 import requests  # <--- 需要安装
 import traceback
+import sys, contextlib  # <---用于重定向输出
 from pathlib import Path
 from datetime import datetime, timedelta
 
@@ -13,7 +14,7 @@ from datetime import datetime, timedelta
 from workflow_manager import MoleculeFlow
 
 # ================= 配置区域 =================
-SOURCE_DIR = Path("molecules")       # 分子源目录
+SOURCE_DIR = Path("molecules/round0")       # 分子源目录
 RESULTS_DIR = Path("results")        # 结果目录
 STATUS_FILE = Path("status_report.csv") # 进度记录文件
 
@@ -257,9 +258,11 @@ class BatchController:
                     self.db[name]['Remark'] = 'PLQY Report Generated'
                 
                 else:
-                    # [修改] 传入 silent=True，让它闭嘴，除非有事发生
-                    flow.process(silent=True)
-                    
+                    mol_log_path = flow.root / "workflow.log"
+                    with open(mol_log_path, "a", encoding="utf-8") as wf_log:
+                        wf_log.write(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] >>> Cycle Start <<<\n")
+                        with contextlib.redirect_stdout(wf_log):
+                            flow.process(silent=False)
                     current_stage = self.determine_stage(flow)
                     self.db[name]['Current_Stage'] = current_stage
                     self.db[name]['Remark'] = 'Processing'
