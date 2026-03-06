@@ -258,3 +258,33 @@ def check_g16_termination(log_file):
     except Exception as e:
         print(f"  [Error] Failed to read log tail for {log_file.name}: {e}")
         return False
+
+def check_g16_error(log_file):
+    """
+    检查 Gaussian Log 是否包含致命报错 (Error termination)。
+    返回: (是否报错: bool, 报错摘要: str)
+    """
+    log_file = Path(log_file)
+    if not log_file.exists():
+        return False, ""
+
+    try:
+        # 报错通常在文件末尾，读取最后 4KB 足够了
+        with open(log_file, 'rb') as f:
+            try:
+                f.seek(-4096, 2)
+            except OSError:
+                f.seek(0)
+            lines = f.read().decode('utf-8', errors='ignore').splitlines()
+            
+        for i, line in enumerate(lines):
+            if "Error termination" in line:
+                # 尝试捕获上一行的具体报错原因 (例如电子数不匹配)
+                reason = lines[i-1].strip() if i > 0 else "Unknown error"
+                # 组合详细报错信息
+                err_msg = f"{reason} | {line.strip()}"
+                return True, err_msg
+                
+        return False, ""
+    except Exception:
+        return False, ""

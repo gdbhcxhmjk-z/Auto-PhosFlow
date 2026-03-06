@@ -14,11 +14,11 @@ from datetime import datetime, timedelta
 from workflow_manager import MoleculeFlow
 
 # ================= 配置区域 =================
-SOURCE_DIR = Path("molecules/round0")       # 分子源目录
+SOURCE_DIR = Path("molecules")       # 分子源目录
 RESULTS_DIR = Path("results")        # 结果目录
 STATUS_FILE = Path("status_report.csv") # 进度记录文件
 
-MAX_CONCURRENT = 14                  # 并行度
+MAX_CONCURRENT = 15                  # 并行度
 CHECK_INTERVAL = 300                 # 轮询间隔 (秒)
 
 # --- 报警配置 (飞书) ---
@@ -105,7 +105,7 @@ class BatchController:
             print(f"  [Error] Failed to send Feishu webhook: {e}")
 
     def scan_new_molecules(self):
-        xyz_files = glob.glob(str(SOURCE_DIR / "*.xyz"))
+        xyz_files = list(SOURCE_DIR.rglob("*.xyz"))
         new_count = 0
         for p in xyz_files:
             name = Path(p).stem
@@ -152,8 +152,24 @@ class BatchController:
                             msg = f"分子 {name} 已卡住 {hours_running:.1f} 小时。\n当前阶段: {data['Current_Stage']}"
                             self.send_feishu_alert("任务超时警告 (Timeout)", msg)
                             
-                            # 标记已报警，防止下次循环重复发
-                            self.db[name]['Remark'] += " [Timeout Alert Sent]"
+                            # 1. 报警记录
+                        if "Timeout Alert Sent" not in data['Remark']:
+                            self.send_feishu_alert("任务超时被强制终止", msg)
+                            
+                        # 2. 数据库状态标记为失败，让出并行名额
+                        self.db[name]['Status'] = 'FAILED'
+                        self.db[name]['Remark'] = 'Timeout Killed'
+                        
+                        # 3. 写入 FATAL_ERROR.txt，彻底截断该分子后续的 workflow
+                        err_file = RESULTS_DIR / name / "FATAL_ERROR.txt"
+                        with open(err_file, 'a', encoding='utf-8') as f:
+                            f.write(f"[{now.strftime('%Y-%m-%d %H:%M:%S')}] FATAL ERROR: Timeout after {hours_running:.1f} hours. Killed by Watchdog.\n")
+                        
+                        # 4. 暴力清洗：使用 grep 和 xargs 组合杀掉队列中该分子的所有任务
+                        import subprocess
+                        # squeue 取出当前用户的任务，grep 筛选包含 "分子名_" 的任务，awk 取 JobID，xargs 执行 scancel
+                        cmd = f"squeue -h -o '%i %j' -u $USER | grep '{name}_' | awk '{{print $1}}' | xargs -r scancel"
+                        subprocess.run(cmd, shell=True)
                 except:
                     pass
 
@@ -228,21 +244,31 @@ class BatchController:
         self.last_idle_state = False
 
         for name in running_jobs:
-            xyz_path = SOURCE_DIR / f"{name}.xyz"
+            # [升级] 动态搜索真实的 xyz 路径，支持任何层级的 round 目录
+            found_xyzs = list(SOURCE_DIR.rglob(f"{name}.xyz"))
             
-            # [修改] 增加处理当前分子的日志
-            # print(f"  Processing {name}...") 
-            
-            if not xyz_path.exists():
+            if not found_xyzs:
                 msg = f"源文件丢失: {name}.xyz"
-                self.log(f"[Error] {msg}")  # <--- 记录到 Log
+                self.log(f"[Error] {msg}")  
                 self.db[name]['Status'] = 'FAILED'
                 self.db[name]['Remark'] = 'XYZ Missing'
                 self.send_feishu_alert("文件丢失错误", msg)
                 continue
 
+            xyz_path = found_xyzs[0]
+            
+            # [升级] 提取它所在的 round 名字 (例如 'round0')
+            round_name = xyz_path.parent.name
+            
+            # 如果文件直接放在 molecules 下，就放 results 根目录，否则放到 results/roundX 下
+            if round_name == SOURCE_DIR.name:
+                target_results_dir = RESULTS_DIR
+            else:
+                target_results_dir = RESULTS_DIR / round_name
+
             try:
-                flow = MoleculeFlow(name, xyz_path, RESULTS_DIR)
+                # 传入动态计算好的结果目录
+                flow = MoleculeFlow(name, xyz_path, target_results_dir)
                 
                 if flow._is_failed():
                      if self.db[name]['Status'] != 'FAILED':
@@ -250,12 +276,14 @@ class BatchController:
                      self.db[name]['Status'] = 'FAILED'
                      self.db[name]['Remark'] = 'Fatal Error (See Log)'
                 
-                elif (flow.root / "REPORT_PLQY.txt").exists():
+                elif (flow.root / "REPORT_PLQY.txt").exists() or (flow.dirs['kr'] / "job.done").exists():
                     if self.db[name]['Status'] != 'COMPLETED':
-                        self.log(f"[Done] Molecule {name} Analysis Completed!")
-                    self.db[name]['Status'] = 'COMPLETED'
-                    self.db[name]['Current_Stage'] = 'Finished'
-                    self.db[name]['Remark'] = 'PLQY Report Generated'
+                        self.log(f"[Done] Molecule {name} Partial Stage (Kr) Completed!")
+                    
+                    # 标记为完成，释放并发名额，躲避看门狗追杀
+                    self.db[name]['Status'] = 'COMPLETED' 
+                    self.db[name]['Current_Stage'] = self.determine_stage(flow) # 这里会显示 MOMAP Kr Done
+                    self.db[name]['Remark'] = 'Partial Completed (Kr)'
                 
                 else:
                     mol_log_path = flow.root / "workflow.log"

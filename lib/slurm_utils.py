@@ -1,14 +1,75 @@
 # lib/slurm_utils.py
-import os
+import os,re
+import subprocess
 from config import ENV_PATHS
 
-def write_g16_slurm(folder, job_name, nproc=56, partition="planck-cpu01"):
+
+def get_idle_partition(default_partition="planck-cpu01", required_cores=56):
+    """
+    动态获取空闲的计算队列。
+    利用标准 sinfo 命令查询，输出决策日志到 workflow.log。
+    """
+    preferred_partitions = ["planck-cpu01", "planck-cpu02",  "airs-cpu","bayestat-cpu"]
+    
+    try:
+        # [修改1] 去掉 -N，加上 shell=True 保证能继承环境变量找到 sinfo 命令
+        # 使用你测试成功的原生命令格式
+        cmd = 'sinfo -h -o "%P %T %c"'
+        res = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+        
+        if res.returncode != 0:
+            print(f"  [Queue Warning] sinfo failed: {res.stderr.strip()}")
+            return default_partition
+            
+        lines = res.stdout.strip().split('\n')
+        idle_parts = []
+        
+        for line in lines:
+            parts = line.split()
+            if len(parts) >= 3:
+                part_name = parts[0].replace('*', '')
+                state = parts[1].lower()
+                
+                # 提取纯数字核心数
+                core_str = re.sub(r'\D', '', parts[2])
+                if not core_str: continue
+                cores = int(core_str)
+                
+                # 状态包含 idle 或 mix，且核心数达标
+                if ('idle' in state or 'mix' in state) and cores >= required_cores:
+                    if part_name not in idle_parts:
+                        idle_parts.append(part_name)
+        
+        print(f"  [Queue Scan] Discovered available queues: {idle_parts}")
+        
+        # 优先从偏好列表中挑
+        for p in preferred_partitions:
+            if p in idle_parts:
+                print(f"  [Queue Auto-Select] Assigned to preferred queue: {p}")
+                return p
+                
+        # 如果偏好列表没找到，随便给一个满足条件的
+        if idle_parts:
+            print(f"  [Queue Auto-Select] Assigned to backup queue: {idle_parts[0]}")
+            return idle_parts[0]
+            
+    except Exception as e:
+        print(f"  [Queue Error] Auto-select crashed: {e}")
+        
+    print(f"  [Queue Default] Falling back to default: {default_partition}")
+    return default_partition
+
+
+def write_g16_slurm(folder, job_name, nproc=56, partition="auto"):
     """
     生成 Gaussian 提交脚本 (基于你的 g16 模板)
     使用本地 /tmp 加速 I/O
     """
     script_path = folder / "run.slurm"
     username = ENV_PATHS['username']
+
+    if partition == "auto":
+        partition = get_idle_partition(required_cores=nproc)
     
     content = f"""#!/bin/bash
 #SBATCH --output="%j.err"
@@ -84,7 +145,7 @@ echo "Job completed."
         f.write(content)
     return script_path
 
-def write_orca_slurm(folder, job_name, input_file="orca.inp", nproc=56, partition="planck-cpu01"):
+def write_orca_slurm(folder, job_name, input_file="orca.inp", nproc=56, partition="auto"):
     """
     生成 ORCA 提交脚本 (基于你的 ORCA 模板)
     使用 Scratch 目录
@@ -92,6 +153,9 @@ def write_orca_slurm(folder, job_name, input_file="orca.inp", nproc=56, partitio
     script_path = folder / "run.slurm"
     username = ENV_PATHS['username']
     scratch_root = ENV_PATHS['scratch_root']
+
+    if partition == "auto":
+        partition = get_idle_partition(required_cores=nproc)
     
     content = f"""#!/bin/bash
 #SBATCH --output="%j.err"
@@ -166,15 +230,17 @@ rm -rf $SCRDIR
         f.write(content)
     return script_path
 
-def write_momap_slurm(folder, job_name, input_file="momap.inp", nproc=56, partition="planck-cpu01"):
+def write_momap_slurm(folder, job_name, input_file="momap.inp", nproc=56, partition="auto"):
     """
     生成 MOMAP 提交脚本
     直接在当前目录运行 (无需临时文件夹)
     """
     script_path = folder / "run.slurm"
+    if partition == "auto":
+        partition = get_idle_partition(required_cores=nproc)
     
     content = f"""#!/bin/bash
-#SBATCH --time=1000:00:00
+#SBATCH --time=168:00:00
 #SBATCH --job-name="{job_name}"
 #SBATCH --output="momap.err"
 #SBATCH --nodes=1

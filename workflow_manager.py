@@ -19,7 +19,8 @@ from lib.g16_handler import (
     extract_geom_with_obabel, 
     check_imaginary_frequencies,
     check_job_elapsed_time, 
-    check_g16_termination
+    check_g16_termination,
+    check_g16_error
 )
 from lib.momap_handler import (
     write_momap_inp, 
@@ -96,9 +97,12 @@ class MoleculeFlow:
 
         s0_log = self.dirs['s0_opt'] / f"{self.name}_s0_opt.log"
 
-        # --- 2. S1 State Cycle ---
-        s1_ok = self._handle_gaussian_cycle('s1', 'log', s0_log, 0, 1, silent)
-        if not s1_ok: return
+        # --- 2. S1 State Cycle [暂时跳过] ---
+        # s1_ok = self._handle_gaussian_cycle('s1', 'log', s0_log, 0, 1, silent)
+        # if not s1_ok: return
+        
+        # [伪造 S1 成功标志，防止后续的 "s1_ok and t1_ok" 检查卡死]
+        s1_ok = True
 
         # --- 3. T1 State Cycle ---
         t1_ok = self._handle_gaussian_cycle('t1', 'log', s0_log, 0, 3, silent)
@@ -122,19 +126,19 @@ class MoleculeFlow:
         # Kr & Kisc 依赖 S0, T1, ORCA
         if s0_done and t1_done and orca_done:
             self._handle_momap_kr()
-            self._handle_momap_kisc()
+            # self._handle_momap_kisc()
             
-        # Kic 依赖 S0, S1 (不依赖 ORCA)
-        if s0_done and s1_done:
-            self._handle_momap_kic()
+        # # Kic 依赖 S0, S1 (不依赖 ORCA)
+        # if s0_done and s1_done:
+        #     self._handle_momap_kic()
 
-        # --- 6. Analysis ---    
-        kr_done = (self.dirs['kr'] / "job.done").exists()
-        kisc_done = (self.dirs['kisc'] / "job.done").exists()
-        kic_done = (self.dirs['kic'] / "job.done").exists()
+        # # --- 6. Analysis ---    
+        # kr_done = (self.dirs['kr'] / "job.done").exists()
+        # kisc_done = (self.dirs['kisc'] / "job.done").exists()
+        # kic_done = (self.dirs['kic'] / "job.done").exists()
         
-        if kr_done and kisc_done and kic_done:
-            self._run_final_analysis()
+        # if kr_done and kisc_done and kic_done:
+        #     self._run_final_analysis()
 
     # =========================================================================
     # 核心逻辑：高斯计算循环 (Opt + Freq + Imag Check + Retry)
@@ -147,6 +151,13 @@ class MoleculeFlow:
         
         # --- 1. 检查 Opt 步骤 ---
         opt_log = opt_dir / f"{self.name}_{opt_key}.log"
+        # ==========================================================
+        # 优先检查 Gaussian Opt 是否直接报错退出
+        has_err, err_msg = check_g16_error(opt_log)
+        if has_err:
+            self._mark_fatal_error(f"{opt_key} 崩溃退出: {err_msg}")
+            return False
+        # ==========================================================
         
         # 如果 Opt 没完成 (没有 job.done)
         if not self._check_done(opt_dir):
@@ -172,7 +183,13 @@ class MoleculeFlow:
 
         # --- 2. 检查 Freq 步骤 ---
         freq_log = freq_dir / f"{self.name}_{freq_key}.log"
-        
+        # ==========================================================
+        # [新增] 优先检查 Gaussian Freq 是否直接报错退出
+        has_err, err_msg = check_g16_error(freq_log)
+        if has_err:
+            self._mark_fatal_error(f"{freq_key} 崩溃退出: {err_msg}")
+            return False
+        # ==========================================================
         if not self._check_done(freq_dir):
             self._run_freq_step(freq_key, opt_key, charge, spin)
             return False
@@ -478,10 +495,9 @@ class MoleculeFlow:
                  self._mark_fatal_error("MOMAP EVC calculation crashed (See momap.err).")
                  return
 
-            if (folder / "run_evc.slurm").exists() and not (folder / "job.done").exists():
-                 return
 
-            if (folder / "run_evc.slurm").exists() and not (folder / "job.done").exists(): return
+
+            if (folder / "run.slurm").exists() and not (folder / "job.done").exists(): return
 
             print(f"  [Step] Preparing MOMAP EVC for Kisc...")
             folder.mkdir(parents=True, exist_ok=True)
@@ -582,10 +598,7 @@ class MoleculeFlow:
                  self._mark_fatal_error("MOMAP EVC calculation crashed (See momap.err).")
                  return
 
-            if (folder / "run_evc.slurm").exists() and not (folder / "job.done").exists():
-                 return
-
-            if (folder / "run_evc.slurm").exists() and not (folder / "job.done").exists(): return
+            if (folder / "run.slurm").exists() and not (folder / "job.done").exists(): return
 
             print(f"  [Step] Preparing MOMAP EVC for Kic...")
             folder.mkdir(parents=True, exist_ok=True)
