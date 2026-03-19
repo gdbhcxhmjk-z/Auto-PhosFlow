@@ -553,7 +553,7 @@ class MoleculeFlow:
         
         s0_log = self.dirs['s0_freq'] / f"{self.name}_s0_freq.log"
         t1_log = self.dirs['t1_freq'] / f"{self.name}_t1_freq.log"
-        ead_val = get_gaussian_energy(s0_log) - get_gaussian_energy(t1_log)
+        ead_val = get_gaussian_energy(t1_log) - get_gaussian_energy(s0_log)
 
         # 命名为标准 momap.inp
         write_momap_inp(folder, 'kr', config_params=MOMAP_PARAMS, inp_filename="momap.inp",
@@ -588,7 +588,7 @@ class MoleculeFlow:
 
         s0_log = self.dirs['s0_freq'] / f"{self.name}_s0_freq.log"
         t1_log = self.dirs['t1_freq'] / f"{self.name}_t1_freq.log"
-        ead_val = get_gaussian_energy(s0_log) - get_gaussian_energy(t1_log)
+        ead_val = get_gaussian_energy(t1_log) - get_gaussian_energy(s0_log)
 
         write_momap_inp(folder, 'kisc', config_params=MOMAP_PARAMS, inp_filename="momap.inp",
                         DSFile="evc.chenxiao.dat", Hso=hso_val, Ead=ead_val)
@@ -620,7 +620,7 @@ class MoleculeFlow:
         
         s0_log = self.dirs['s0_freq'] / f"{self.name}_s0_freq.log"
         s1_log = self.dirs['s1_freq'] / f"{self.name}_s1_freq.log"
-        ead_val = get_gaussian_energy(s0_log) - get_gaussian_energy(s1_log)
+        ead_val = get_gaussian_energy(s1_log) - get_gaussian_energy(s0_log)
 
         # 同时向 momap.inp 提供 DSFile 和 CoulFile
         write_momap_inp(folder, 'kic', config_params=MOMAP_PARAMS, inp_filename="momap.inp",
