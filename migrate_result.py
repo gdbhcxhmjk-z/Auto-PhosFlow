@@ -12,9 +12,9 @@ STATUS_FILE = Path("status_report.csv")
 RESULTS_DIR = Path("results")
 
 # 云服务器配置 (通过 SSH/SCP/RSYNC)
-REMOTE_USER = "your_username"        # 云端用户名
-REMOTE_HOST = "192.168.1.100"        # 云端IP或域名
-REMOTE_BASE_DIR = "/path/to/cloud/storage" # 云端存放数据的根目录
+REMOTE_USER = "root"        # 云端用户名
+REMOTE_HOST = "ercm1428943.bohrium.tech"        # 云端IP或域名
+REMOTE_BASE_DIR = "/share/Pt" # 云端存放数据的根目录
 
 # 迁移模式
 USE_RSYNC = True    # 推荐为True，支持断点续传。若云端无rsync，可改为False使用scp

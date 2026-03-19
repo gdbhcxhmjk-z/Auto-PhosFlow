@@ -2,400 +2,400 @@ Name,Status,Current_Stage,Last_Updated,Remark,Start_Time
 15_2,COMPLETED,Finished,2026-02-16 19:03:17,PLQY Report Generated,2026-02-16 18:33:16
 cluster000_rank0_idx0341345_CC,COMPLETED,MOMAP Kr Done,2026-03-03 15:14:12,Partial Completed (Kr),2026-02-28 16:52:25
 cluster000_rank2_idx0568338_CC,COMPLETED,MOMAP Kr Done,2026-03-04 14:56:50,Partial Completed (Kr),2026-03-04 07:36:11
-cluster001_rank0_idx0180412_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster001_rank4_idx0071392_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster002_rank0_idx0133509_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster002_rank2_idx0177384_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster001_rank0_idx0180412_CC,COMPLETED,MOMAP Kr Done,2026-03-09 20:14:34,Partial Completed (Kr),2026-03-09 13:23:55
+cluster001_rank4_idx0071392_CC,COMPLETED,MOMAP Kr Done,2026-03-09 13:18:55,Partial Completed (Kr),2026-03-09 08:18:19
+cluster002_rank0_idx0133509_CC,COMPLETED,MOMAP Kr Done,2026-03-08 17:51:50,Partial Completed (Kr),2026-03-08 07:54:59
+cluster002_rank2_idx0177384_CC,ERROR,Init,2026-03-17 06:05:49,[Errno 122] Disk quota exceeded,2026-03-17 06:05:49
 cluster003_rank0_idx0417248_CC,COMPLETED,MOMAP Kr Done,2026-03-02 07:30:48,Partial Completed (Kr),2026-03-01 09:24:12
-cluster003_rank2_idx0242147_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster003_rank2_idx0242147_CC,COMPLETED,MOMAP Kr Done,2026-03-16 15:55:01,Partial Completed (Kr),2026-03-16 09:59:51
 cluster004_rank0_idx0482095_CC,COMPLETED,MOMAP Kr Done,2026-03-01 00:18:27,Partial Completed (Kr),2026-02-28 16:52:25
-cluster004_rank5_idx0259375_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster005_rank0_idx0067226_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster004_rank5_idx0259375_CC,COMPLETED,MOMAP Kr Done,2026-03-07 06:01:21,Partial Completed (Kr),2026-03-06 23:15:53
+cluster005_rank0_idx0067226_CC,COMPLETED,MOMAP Kr Done,2026-03-09 17:54:19,Partial Completed (Kr),2026-03-09 10:18:35
 cluster005_rank2_idx0461890_CC,COMPLETED,MOMAP Kr Done,2026-03-04 16:52:02,Partial Completed (Kr),2026-03-04 09:16:20
 cluster006_rank2_idx0401797_CC,COMPLETED,MOMAP Kr Done,2026-03-04 05:16:00,Partial Completed (Kr),2026-03-03 21:39:56
 cluster006_rank3_idx0019492_CC,COMPLETED,MOMAP Kr Done,2026-03-05 19:54:15,Partial Completed (Kr),2026-03-05 13:23:44
-cluster007_rank1_idx0140880_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster007_rank4_idx0208752_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster008_rank1_idx0339958_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster007_rank1_idx0140880_CC,COMPLETED,MOMAP Kr Done,2026-03-07 23:13:28,Partial Completed (Kr),2026-03-07 16:02:10
+cluster007_rank4_idx0208752_CC,COMPLETED,MOMAP Kr Done,2026-03-13 02:33:54,Partial Completed (Kr),2026-03-12 15:49:44
+cluster008_rank1_idx0339958_CC,COMPLETED,MOMAP Kr Done,2026-03-15 15:56:53,Partial Completed (Kr),2026-03-15 08:31:37
 cluster008_rank2_idx0131206_CC,COMPLETED,MOMAP Kr Done,2026-03-01 06:18:54,Partial Completed (Kr),2026-02-28 22:28:12
-cluster009_rank0_idx0275600_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster009_rank1_idx0499122_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster009_rank0_idx0275600_CC,COMPLETED,MOMAP Kr Done,2026-03-10 03:13:15,Partial Completed (Kr),2026-03-09 20:19:36
+cluster009_rank1_idx0499122_CC,FAILED,Starting / In Progress,2026-03-17 00:00:23,Fatal Error (See Log),2026-03-16 22:50:18
 cluster010_rank1_idx0385279_CC,ERROR,Gaussian T1 Done,2026-03-06 09:10:05,[Errno 122] Disk quota exceeded: 'results/round1/c,2026-03-06 03:34:45
 cluster010_rank3_idx0198207_CC,COMPLETED,MOMAP Kr Done,2026-03-06 01:24:36,Partial Completed (Kr),2026-03-05 21:59:24
 cluster011_rank0_idx0521349_CC,COMPLETED,MOMAP Kr Done,2026-03-05 06:08:14,Partial Completed (Kr),2026-03-05 00:22:49
 cluster011_rank3_idx0060890_CC,COMPLETED,MOMAP Kr Done,2026-03-01 00:13:26,Partial Completed (Kr),2026-02-28 16:52:25
-cluster012_rank1_idx0312840_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster012_rank1_idx0312840_CC,COMPLETED,MOMAP Kr Done,2026-03-07 22:03:10,Partial Completed (Kr),2026-03-07 15:26:59
 cluster012_rank4_idx0355989_CC,COMPLETED,MOMAP Kr Done,2026-03-06 02:49:40,Partial Completed (Kr),2026-03-05 20:19:18
 cluster013_rank0_idx0429291_CC,ERROR,Gaussian T1 Done,2026-03-06 14:50:25,[Errno 122] Disk quota exceeded: 'results/round1/c,2026-03-06 09:15:06
-cluster013_rank1_idx0202185_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster014_rank0_idx0038592_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster014_rank5_idx0468288_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster015_rank0_idx0158959_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster015_rank5_idx0498745_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster013_rank1_idx0202185_CC,COMPLETED,MOMAP Kr Done,2026-03-07 09:51:39,Partial Completed (Kr),2026-03-07 04:11:12
+cluster014_rank0_idx0038592_CC,ERROR,Init,2026-03-17 06:36:34,[Errno 122] Disk quota exceeded,2026-03-17 06:36:27
+cluster014_rank5_idx0468288_CC,COMPLETED,MOMAP Kr Done,2026-03-07 12:36:52,Partial Completed (Kr),2026-03-07 06:06:21
+cluster015_rank0_idx0158959_CC,COMPLETED,MOMAP Kr Done,2026-03-15 13:01:44,Partial Completed (Kr),2026-03-15 03:11:29
+cluster015_rank5_idx0498745_CC,FAILED,Starting / In Progress,2026-03-17 03:45:36,Fatal Error (See Log),2026-03-17 02:55:31
 cluster016_rank0_idx0599935_CC,COMPLETED,MOMAP Kr Done,2026-03-05 07:23:20,Partial Completed (Kr),2026-03-04 22:37:37
-cluster016_rank2_idx0495918_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster017_rank2_idx0297207_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster016_rank2_idx0495918_CC,COMPLETED,MOMAP Kr Done,2026-03-07 20:12:47,Partial Completed (Kr),2026-03-07 15:26:59
+cluster017_rank2_idx0297207_CC,COMPLETED,MOMAP Kr Done,2026-03-09 22:29:52,Partial Completed (Kr),2026-03-09 17:09:16
 cluster017_rank3_idx0297205_CC,COMPLETED,MOMAP Kr Done,2026-03-03 09:38:33,Partial Completed (Kr),2026-03-03 00:27:29
 cluster018_rank0_idx0529377_CC,COMPLETED,MOMAP Kr Done,2026-03-01 15:04:41,Partial Completed (Kr),2026-03-01 07:13:57
-cluster018_rank4_idx0323209_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster019_rank3_idx0360556_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster019_rank4_idx0187029_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster020_rank0_idx0545240_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster018_rank4_idx0323209_CC,COMPLETED,MOMAP Kr Done,2026-03-12 10:14:07,Partial Completed (Kr),2026-03-12 01:52:44
+cluster019_rank3_idx0360556_CC,COMPLETED,MOMAP Kr Done,2026-03-09 10:08:34,Partial Completed (Kr),2026-03-09 03:47:54
+cluster019_rank4_idx0187029_CC,FAILED,Starting / In Progress,2026-03-16 23:35:22,Fatal Error (See Log),2026-03-16 22:15:12
+cluster020_rank0_idx0545240_CC,COMPLETED,MOMAP Kr Done,2026-03-07 04:06:12,Partial Completed (Kr),2026-03-06 19:40:40
 cluster020_rank1_idx0396536_CC,COMPLETED,MOMAP Kr Done,2026-03-03 00:22:29,Partial Completed (Kr),2026-03-02 18:26:48
-cluster021_rank0_idx0433701_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster021_rank0_idx0433701_CC,ERROR,Init,2026-03-17 06:10:53,[Errno 122] Disk quota exceeded,2026-03-17 06:10:50
 cluster021_rank4_idx0100823_CC,COMPLETED,MOMAP Kr Done,2026-03-01 23:45:16,Partial Completed (Kr),2026-03-01 15:09:41
-cluster022_rank0_idx0388763_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster022_rank2_idx0238343_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster023_rank0_idx0603280_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster023_rank3_idx0166670_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster022_rank0_idx0388763_CC,ERROR,Starting / In Progress,2026-03-17 03:05:32,[Errno 122] Disk quota exceeded,2026-03-14 16:31:05
+cluster022_rank2_idx0238343_CC,COMPLETED,MOMAP Kr Done,2026-03-08 00:23:49,Partial Completed (Kr),2026-03-07 15:26:59
+cluster023_rank0_idx0603280_CC,COMPLETED,MOMAP Kr Done,2026-03-10 14:19:33,Partial Completed (Kr),2026-03-10 07:38:41
+cluster023_rank3_idx0166670_CC,COMPLETED,MOMAP Kr Done,2026-03-10 09:23:50,Partial Completed (Kr),2026-03-10 04:33:24
 cluster024_rank0_idx0198520_CC,COMPLETED,MOMAP Kr Done,2026-03-05 21:24:21,Partial Completed (Kr),2026-03-05 15:59:02
-cluster024_rank3_idx0476922_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster025_rank0_idx0334696_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster025_rank1_idx0247575_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster026_rank0_idx0487387_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster026_rank1_idx0487388_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster024_rank3_idx0476922_CC,FAILED,Gaussian S0 Done,2026-03-15 15:16:50,Fatal Error (See Log),2026-03-14 12:00:48
+cluster025_rank0_idx0334696_CC,COMPLETED,MOMAP Kr Done,2026-03-08 17:56:50,Partial Completed (Kr),2026-03-08 07:04:47
+cluster025_rank1_idx0247575_CC,FAILED,Starting / In Progress,2026-03-17 07:21:38,Fatal Error (See Log),2026-03-17 05:05:44
+cluster026_rank0_idx0487387_CC,COMPLETED,MOMAP Kr Done,2026-03-09 08:13:19,Partial Completed (Kr),2026-03-08 20:12:09
+cluster026_rank1_idx0487388_CC,ERROR,Init,2026-03-17 06:31:26,[Errno 122] Disk quota exceeded,2026-03-17 06:31:23
 cluster027_rank4_idx0558183_CC,COMPLETED,MOMAP Kr Done,2026-03-01 07:08:57,Partial Completed (Kr),2026-03-01 00:23:28
-cluster027_rank6_idx0559335_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster028_rank0_idx0045421_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster028_rank1_idx0242421_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster029_rank2_idx0112203_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster027_rank6_idx0559335_CC,COMPLETED,MOMAP Kr Done,2026-03-08 07:49:59,Partial Completed (Kr),2026-03-07 23:18:29
+cluster028_rank0_idx0045421_CC,FAILED,Starting / In Progress,2026-03-17 06:00:48,Fatal Error (See Log),2026-03-17 04:30:40
+cluster028_rank1_idx0242421_CC,ERROR,Init,2026-03-17 06:31:25,[Errno 122] Disk quota exceeded,2026-03-17 06:31:23
+cluster029_rank2_idx0112203_CC,FAILED,Starting / In Progress,2026-03-17 05:00:43,Fatal Error (See Log),2026-03-17 04:35:40
 cluster029_rank3_idx0288496_CC,COMPLETED,MOMAP Kr Done,2026-03-01 12:49:29,Partial Completed (Kr),2026-03-01 06:23:54
 cluster030_rank0_idx0128282_CC,COMPLETED,MOMAP Kr Done,2026-03-03 15:44:19,Partial Completed (Kr),2026-03-03 08:03:17
 cluster030_rank2_idx0001032_CC,COMPLETED,MOMAP Kr Done,2026-03-01 13:14:32,Partial Completed (Kr),2026-03-01 08:14:03
-cluster031_rank1_idx0229699_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster031_rank4_idx0286293_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster031_rank1_idx0229699_CC,COMPLETED,MOMAP Kr Done,2026-03-13 23:35:05,Partial Completed (Kr),2026-03-13 14:24:31
+cluster031_rank4_idx0286293_CC,ERROR,Gaussian S0 Done,2026-03-16 23:35:22,[Errno 122] Disk quota exceeded,2026-03-08 23:07:25
 cluster032_rank0_idx0329169_CC,COMPLETED,MOMAP Kr Done,2026-03-04 01:50:42,Partial Completed (Kr),2026-03-03 19:24:45
 cluster032_rank1_idx0034728_CC,COMPLETED,MOMAP Kr Done,2026-03-05 20:14:18,Partial Completed (Kr),2026-03-05 13:53:48
-cluster033_rank0_idx0397989_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster033_rank1_idx0036883_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster034_rank2_idx0050533_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster034_rank3_idx0533700_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster033_rank0_idx0397989_CC,COMPLETED,MOMAP Kr Done,2026-03-14 20:26:13,Partial Completed (Kr),2026-03-14 11:55:48
+cluster033_rank1_idx0036883_CC,COMPLETED,MOMAP Kr Done,2026-03-11 13:10:16,Partial Completed (Kr),2026-03-11 06:55:07
+cluster034_rank2_idx0050533_CC,COMPLETED,MOMAP Kr Done,2026-03-10 23:59:38,Partial Completed (Kr),2026-03-10 17:54:55
+cluster034_rank3_idx0533700_CC,COMPLETED,MOMAP Kr Done,2026-03-15 21:42:04,Partial Completed (Kr),2026-03-15 15:21:50
 cluster035_rank2_idx0173734_CC,COMPLETED,MOMAP Kr Done,2026-03-03 00:22:29,Partial Completed (Kr),2026-03-02 17:21:44
 cluster035_rank3_idx0398172_CC,COMPLETED,MOMAP Kr Done,2026-03-04 21:47:33,Partial Completed (Kr),2026-03-04 15:06:52
-cluster036_rank8_idx0194588_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster036_rank8_idx0194588_CC,FAILED,Starting / In Progress,2026-03-17 06:05:49,Fatal Error (See Log),2026-03-17 05:30:45
 cluster036_rank9_idx0155085_CC,FAILED,Starting / In Progress,2026-03-05 10:43:34,Fatal Error (See Log),2026-03-04 21:17:31
-cluster037_rank0_idx0570165_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster037_rank4_idx0424625_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster038_rank0_idx0536717_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster038_rank1_idx0507959_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster039_rank0_idx0028050_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster039_rank1_idx0556766_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster040_rank1_idx0229374_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster037_rank0_idx0570165_CC,ERROR,Init,2026-03-17 06:10:52,[Errno 122] Disk quota exceeded,2026-03-17 06:10:50
+cluster037_rank4_idx0424625_CC,FAILED,ORCA Done,2026-03-08 09:35:27,Fatal Error (See Log),2026-03-07 22:08:11
+cluster038_rank0_idx0536717_CC,COMPLETED,MOMAP Kr Done,2026-03-10 00:20:06,Partial Completed (Kr),2026-03-09 16:14:11
+cluster038_rank1_idx0507959_CC,ERROR,Init,2026-03-17 06:21:20,[Errno 122] Disk quota exceeded,2026-03-17 06:20:55
+cluster039_rank0_idx0028050_CC,ERROR,Init,2026-03-17 06:21:04,[Errno 122] Disk quota exceeded,2026-03-17 06:20:55
+cluster039_rank1_idx0556766_CC,FAILED,Starting / In Progress,2026-03-17 06:56:37,Fatal Error (See Log),2026-03-17 05:15:45
+cluster040_rank1_idx0229374_CC,COMPLETED,MOMAP Kr Done,2026-03-12 21:23:35,Partial Completed (Kr),2026-03-12 15:44:43
 cluster040_rank3_idx0463420_CC,COMPLETED,MOMAP Kr Done,2026-03-02 20:36:58,Partial Completed (Kr),2026-03-02 13:36:22
-cluster041_rank2_idx0487507_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster041_rank3_idx0380747_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster042_rank0_idx0524275_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster042_rank1_idx0278368_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster043_rank0_idx0114895_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster043_rank1_idx0193140_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster044_rank3_idx0093428_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster041_rank2_idx0487507_CC,COMPLETED,MOMAP Kr Done,2026-03-12 12:19:23,Partial Completed (Kr),2026-03-10 14:24:34
+cluster041_rank3_idx0380747_CC,COMPLETED,MOMAP Kr Done,2026-03-09 03:42:53,Partial Completed (Kr),2026-03-08 17:31:42
+cluster042_rank0_idx0524275_CC,COMPLETED,MOMAP Kr Done,2026-03-13 14:19:31,Partial Completed (Kr),2026-03-13 02:38:54
+cluster042_rank1_idx0278368_CC,FAILED,Starting / In Progress,2026-03-17 01:05:25,Fatal Error (See Log),2026-03-16 23:40:22
+cluster043_rank0_idx0114895_CC,COMPLETED,MOMAP Kr Done,2026-03-13 05:14:03,Partial Completed (Kr),2026-03-12 23:23:41
+cluster043_rank1_idx0193140_CC,COMPLETED,MOMAP Kr Done,2026-03-15 08:26:37,Partial Completed (Kr),2026-03-15 01:56:26
+cluster044_rank3_idx0093428_CC,FAILED,Starting / In Progress,2026-03-09 06:13:07,Fatal Error (See Log),2026-03-08 19:42:02
 cluster044_rank4_idx0580725_CC,COMPLETED,MOMAP Kr Done,2026-03-03 07:58:16,Partial Completed (Kr),2026-03-03 03:52:49
-cluster045_rank2_idx0402757_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster045_rank2_idx0402757_CC,COMPLETED,MOMAP Kr Done,2026-03-15 01:51:26,Partial Completed (Kr),2026-03-14 20:16:12
 cluster045_rank7_idx0051493_CC,COMPLETED,MOMAP Kr Done,2026-03-03 06:58:11,Partial Completed (Kr),2026-03-03 00:27:29
 cluster046_rank0_idx0197300_CC,COMPLETED,MOMAP Kr Done,2026-03-03 09:48:36,Partial Completed (Kr),2026-02-28 16:52:25
-cluster046_rank2_idx0290373_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster047_rank6_idx0232741_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster046_rank2_idx0290373_CC,FAILED,Starting / In Progress,2026-03-17 01:10:25,Fatal Error (See Log),2026-03-16 23:25:19
+cluster047_rank6_idx0232741_CC,ERROR,Init,2026-03-17 06:26:23,[Errno 122] Disk quota exceeded,2026-03-17 06:26:20
 cluster048_rank0_idx0208761_CC,COMPLETED,MOMAP Kr Done,2026-03-03 19:59:46,Partial Completed (Kr),2026-03-03 15:49:19
-cluster048_rank1_idx0071529_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster048_rank1_idx0071529_CC,COMPLETED,MOMAP Kr Done,2026-03-12 23:18:41,Partial Completed (Kr),2026-03-12 17:19:53
 cluster049_rank0_idx0397575_CC,COMPLETED,MOMAP Kr Done,2026-02-28 22:23:12,Partial Completed (Kr),2026-02-28 16:52:25
-cluster049_rank1_idx0524979_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster050_rank0_idx0016577_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster050_rank4_idx0285089_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster051_rank1_idx0181193_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster049_rank1_idx0524979_CC,FAILED,Starting / In Progress,2026-03-17 06:31:23,Fatal Error (See Log),2026-03-17 04:40:41
+cluster050_rank0_idx0016577_CC,COMPLETED,MOMAP Kr Done,2026-03-07 06:01:21,Partial Completed (Kr),2026-03-06 15:10:28
+cluster050_rank4_idx0285089_CC,ERROR,Init,2026-03-17 06:41:35,[Errno 122] Disk quota exceeded,2026-03-17 06:41:34
+cluster051_rank1_idx0181193_CC,COMPLETED,MOMAP Kr Done,2026-03-08 21:37:18,Partial Completed (Kr),2026-03-08 11:55:54
 cluster051_rank5_idx0181197_CC,COMPLETED,MOMAP Kr Done,2026-03-01 00:03:23,Partial Completed (Kr),2026-02-28 16:52:25
-cluster052_rank0_idx0270831_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster052_rank0_idx0270831_CC,COMPLETED,MOMAP Kr Done,2026-03-08 11:50:53,Partial Completed (Kr),2026-03-07 22:48:20
 cluster052_rank1_idx0373785_CC,COMPLETED,MOMAP Kr Done,2026-03-04 15:01:51,Partial Completed (Kr),2026-03-04 05:21:00
 cluster053_rank0_idx0299582_CC,FAILED,Starting / In Progress,2026-03-06 07:54:58,Fatal Error (See Log),2026-03-05 10:48:35
-cluster053_rank1_idx0581162_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster054_rank0_idx0076732_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster054_rank2_idx0562960_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster055_rank0_idx0412624_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster055_rank2_idx0529840_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster053_rank1_idx0581162_CC,FAILED,Gaussian S0 Done,2026-03-16 00:14:35,Fatal Error (See Log),2026-03-15 21:47:04
+cluster054_rank0_idx0076732_CC,COMPLETED,MOMAP Kr Done,2026-03-10 17:35:41,Partial Completed (Kr),2026-03-10 09:28:50
+cluster054_rank2_idx0562960_CC,COMPLETED,MOMAP Kr Done,2026-03-10 13:09:55,Partial Completed (Kr),2026-03-10 04:53:27
+cluster055_rank0_idx0412624_CC,COMPLETED,MOMAP Kr Done,2026-03-10 02:58:13,Partial Completed (Kr),2026-03-09 20:39:37
+cluster055_rank2_idx0529840_CC,FAILED,Starting / In Progress,2026-03-17 04:50:42,Fatal Error (See Log),2026-03-17 03:50:36
 cluster056_rank0_idx0355363_CC,COMPLETED,MOMAP Kr Done,2026-03-03 15:04:08,Partial Completed (Kr),2026-02-28 16:52:25
-cluster056_rank2_idx0381337_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster057_rank4_idx0529839_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster057_rank5_idx0231721_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster056_rank2_idx0381337_CC,ERROR,Init,2026-03-17 06:15:55,[Errno 122] Disk quota exceeded,2026-03-17 06:15:53
+cluster057_rank4_idx0529839_CC,FAILED,Starting / In Progress,2026-03-07 15:21:59,Fatal Error (See Log),2026-03-07 12:01:47
+cluster057_rank5_idx0231721_CC,COMPLETED,MOMAP Kr Done,2026-03-11 07:40:09,Partial Completed (Kr),2026-03-11 01:44:47
 cluster058_rank0_idx0286921_CC,COMPLETED,MOMAP Kr Done,2026-02-28 23:08:16,Partial Completed (Kr),2026-02-28 16:52:25
-cluster058_rank3_idx0555522_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster059_rank4_idx0273591_CC,RUNNING,Gaussian T1 Done,2026-03-06 15:00:26,Processing,2026-03-06 01:29:36
-cluster059_rank5_idx0459491_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster060_rank2_idx0566997_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster060_rank3_idx0060888_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster061_rank0_idx0004258_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster058_rank3_idx0555522_CC,COMPLETED,MOMAP Kr Done,2026-03-08 00:23:49,Partial Completed (Kr),2026-03-07 15:26:59
+cluster059_rank4_idx0273591_CC,FAILED,Gaussian T1 Done,2026-03-07 15:21:59,Fatal Error (See Log),2026-03-06 01:29:36
+cluster059_rank5_idx0459491_CC,COMPLETED,MOMAP Kr Done,2026-03-08 00:13:45,Partial Completed (Kr),2026-03-07 14:41:57
+cluster060_rank2_idx0566997_CC,COMPLETED,MOMAP Kr Done,2026-03-10 16:02:10,Partial Completed (Kr),2026-03-10 08:03:43
+cluster060_rank3_idx0060888_CC,COMPLETED,MOMAP Kr Done,2026-03-11 22:22:20,Partial Completed (Kr),2026-03-11 15:56:00
+cluster061_rank0_idx0004258_CC,COMPLETED,MOMAP Kr Done,2026-03-14 11:05:44,Partial Completed (Kr),2026-03-14 04:10:18
 cluster061_rank1_idx0533980_CC,COMPLETED,MOMAP Kr Done,2026-03-02 21:52:09,Partial Completed (Kr),2026-03-02 12:21:15
 cluster062_rank0_idx0182420_CC,COMPLETED,MOMAP Kr Done,2026-03-05 00:17:49,Partial Completed (Kr),2026-03-04 16:47:00
-cluster062_rank3_idx0012179_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster063_rank2_idx0212350_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster063_rank4_idx0515419_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster064_rank1_idx0187052_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster064_rank3_idx0187053_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster065_rank0_idx0425619_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster065_rank1_idx0186531_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster066_rank0_idx0506663_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster062_rank3_idx0012179_CC,COMPLETED,MOMAP Kr Done,2026-03-09 12:08:47,Partial Completed (Kr),2026-03-09 01:42:41
+cluster063_rank2_idx0212350_CC,COMPLETED,MOMAP Kr Done,2026-03-09 10:28:37,Partial Completed (Kr),2026-03-09 00:47:35
+cluster063_rank4_idx0515419_CC,COMPLETED,MOMAP Kr Done,2026-03-10 00:46:46,Partial Completed (Kr),2026-03-09 17:59:20
+cluster064_rank1_idx0187052_CC,ERROR,Init,2026-03-17 06:36:29,[Errno 122] Disk quota exceeded,2026-03-17 06:36:27
+cluster064_rank3_idx0187053_CC,COMPLETED,MOMAP Kr Done,2026-03-10 05:53:32,Partial Completed (Kr),2026-03-10 00:25:08
+cluster065_rank0_idx0425619_CC,FAILED,Starting / In Progress,2026-03-17 01:35:27,Fatal Error (See Log),2026-03-17 00:50:24
+cluster065_rank1_idx0186531_CC,COMPLETED,MOMAP Kr Done,2026-03-13 19:34:47,Partial Completed (Kr),2026-03-13 13:54:28
+cluster066_rank0_idx0506663_CC,FAILED,ORCA Done,2026-03-07 21:23:03,Fatal Error (See Log),2026-03-07 15:26:59
 cluster066_rank3_idx0443451_CC,COMPLETED,MOMAP Kr Done,2026-03-04 22:57:40,Partial Completed (Kr),2026-03-04 15:01:51
-cluster067_rank0_idx0524078_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster067_rank2_idx0081618_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster068_rank1_idx0321979_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster067_rank0_idx0524078_CC,COMPLETED,MOMAP Kr Done,2026-03-09 09:13:26,Partial Completed (Kr),2026-03-09 03:42:53
+cluster067_rank2_idx0081618_CC,COMPLETED,MOMAP Kr Done,2026-03-09 14:34:02,Partial Completed (Kr),2026-03-09 01:22:38
+cluster068_rank1_idx0321979_CC,COMPLETED,MOMAP Kr Done,2026-03-07 06:06:21,Partial Completed (Kr),2026-03-06 23:55:56
 cluster068_rank2_idx0305566_CC,COMPLETED,MOMAP Kr Done,2026-03-04 08:26:16,Partial Completed (Kr),2026-03-03 21:44:56
-cluster069_rank1_idx0504405_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster069_rank1_idx0504405_CC,COMPLETED,MOMAP Kr Done,2026-03-11 02:44:51,Partial Completed (Kr),2026-03-10 20:17:18
 cluster069_rank5_idx0512431_CC,COMPLETED,MOMAP Kr Done,2026-03-05 13:18:44,Partial Completed (Kr),2026-03-05 06:03:13
-cluster070_rank1_idx0534364_CC,RUNNING,Starting / In Progress,2026-03-06 15:00:26,Processing,2026-03-06 14:55:25
-cluster070_rank4_idx0468496_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster070_rank1_idx0534364_CC,COMPLETED,MOMAP Kr Done,2026-03-06 23:50:55,Partial Completed (Kr),2026-03-06 14:55:25
+cluster070_rank4_idx0468496_CC,ERROR,Starting / In Progress,2026-03-17 03:45:36,[Errno 122] Disk quota exceeded,2026-03-07 15:26:59
 cluster071_rank0_idx0330564_CC,COMPLETED,MOMAP Kr Done,2026-03-03 15:34:18,Partial Completed (Kr),2026-03-03 09:53:36
 cluster071_rank4_idx0450465_CC,COMPLETED,MOMAP Kr Done,2026-03-04 15:06:52,Partial Completed (Kr),2026-03-04 08:31:16
-cluster072_rank3_idx0509832_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster072_rank5_idx0490814_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster073_rank5_idx0481361_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster072_rank3_idx0509832_CC,FAILED,Starting / In Progress,2026-03-17 04:00:38,Fatal Error (See Log),2026-03-17 03:10:32
+cluster072_rank5_idx0490814_CC,COMPLETED,MOMAP Kr Done,2026-03-13 13:49:28,Partial Completed (Kr),2026-03-13 06:54:08
+cluster073_rank5_idx0481361_CC,FAILED,Starting / In Progress,2026-03-17 05:10:45,Fatal Error (See Log),2026-03-17 03:35:35
 cluster073_rank6_idx0358863_CC,COMPLETED,MOMAP Kr Done,2026-03-06 03:59:48,Partial Completed (Kr),2026-03-05 21:29:22
 cluster074_rank0_idx0394531_CC,COMPLETED,MOMAP Kr Done,2026-03-03 12:13:51,Partial Completed (Kr),2026-03-03 03:02:46
-cluster074_rank2_idx0218612_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster075_rank0_idx0601964_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster074_rank2_idx0218612_CC,COMPLETED,MOMAP Kr Done,2026-03-12 03:47:51,Partial Completed (Kr),2026-03-11 22:27:21
+cluster075_rank0_idx0601964_CC,COMPLETED,MOMAP Kr Done,2026-03-13 06:49:08,Partial Completed (Kr),2026-03-12 21:28:35
 cluster075_rank2_idx0303545_CC,COMPLETED,MOMAP Kr Done,2026-03-02 20:41:59,Partial Completed (Kr),2026-03-02 14:41:27
-cluster076_rank1_idx0310705_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster076_rank3_idx0387025_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster077_rank1_idx0082630_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster077_rank4_idx0240791_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster078_rank0_idx0331662_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster078_rank1_idx0599934_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster079_rank2_idx0044604_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster079_rank4_idx0449012_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster080_rank0_idx0561126_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster080_rank2_idx0163542_CC,RUNNING,Starting / In Progress,2026-03-06 15:00:26,Processing,2026-03-02 16:16:39
-cluster081_rank0_idx0274938_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster076_rank1_idx0310705_CC,COMPLETED,MOMAP Kr Done,2026-03-08 23:02:25,Partial Completed (Kr),2026-03-08 17:56:50
+cluster076_rank3_idx0387025_CC,COMPLETED,MOMAP Kr Done,2026-03-12 01:47:44,Partial Completed (Kr),2026-03-11 18:16:15
+cluster077_rank1_idx0082630_CC,FAILED,Gaussian S0 Done,2026-03-09 10:18:35,Fatal Error (See Log),2026-03-09 07:48:16
+cluster077_rank4_idx0240791_CC,FAILED,Starting / In Progress,2026-03-17 00:45:24,Fatal Error (See Log),2026-03-16 23:40:22
+cluster078_rank0_idx0331662_CC,COMPLETED,MOMAP Kr Done,2026-03-08 20:12:09,Partial Completed (Kr),2026-03-08 09:40:27
+cluster078_rank1_idx0599934_CC,COMPLETED,MOMAP Kr Done,2026-03-12 08:43:06,Partial Completed (Kr),2026-03-12 03:52:51
+cluster079_rank2_idx0044604_CC,ERROR,Gaussian S0 Done,2026-03-16 22:45:18,[Errno 122] Disk quota exceeded,2026-03-10 03:38:18
+cluster079_rank4_idx0449012_CC,ERROR,Init,2026-03-17 06:26:20,[Errno 122] Disk quota exceeded,2026-03-17 06:26:20
+cluster080_rank0_idx0561126_CC,COMPLETED,MOMAP Kr Done,2026-03-08 09:35:27,Partial Completed (Kr),2026-03-08 01:34:02
+cluster080_rank2_idx0163542_CC,FAILED,Starting / In Progress,2026-03-07 15:21:59,Fatal Error (See Log),2026-03-02 16:16:39
+cluster081_rank0_idx0274938_CC,FAILED,Starting / In Progress,2026-03-07 15:21:59,Fatal Error (See Log),2026-03-07 06:11:22
 cluster081_rank1_idx0440539_CC,COMPLETED,MOMAP Kr Done,2026-03-04 09:11:20,Partial Completed (Kr),2026-03-04 01:55:44
-cluster082_rank3_idx0236607_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster082_rank3_idx0236607_CC,ERROR,Init,2026-03-17 06:21:05,[Errno 122] Disk quota exceeded,2026-03-17 06:20:55
 cluster082_rank9_idx0057039_CC,COMPLETED,MOMAP Kr Done,2026-03-02 03:50:30,Partial Completed (Kr),2026-03-01 19:15:00
-cluster083_rank1_idx0465695_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster083_rank1_idx0465695_CC,ERROR,Init,2026-03-17 06:31:27,[Errno 122] Disk quota exceeded,2026-03-17 06:31:23
 cluster083_rank4_idx0323995_CC,COMPLETED,MOMAP Kr Done,2026-03-04 21:12:31,Partial Completed (Kr),2026-03-04 17:17:05
-cluster084_rank5_idx0119401_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster084_rank5_idx0119401_CC,COMPLETED,MOMAP Kr Done,2026-03-14 07:00:26,Partial Completed (Kr),2026-03-13 23:40:05
 cluster084_rank7_idx0420985_CC,COMPLETED,MOMAP Kr Done,2026-03-02 01:25:22,Partial Completed (Kr),2026-03-01 18:54:57
-cluster085_rank0_idx0525955_CC,RUNNING,Starting / In Progress,2026-03-06 15:00:26,Processing,2026-03-03 15:19:13
-cluster085_rank3_idx0554472_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster086_rank2_idx0182412_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster086_rank5_idx0448423_CC,RUNNING,Gaussian S0 Done,2026-03-06 15:00:26,Processing,2026-02-28 16:52:25
-cluster087_rank0_idx0030735_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster087_rank1_idx0381515_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster088_rank0_idx0425743_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster088_rank1_idx0561515_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster085_rank0_idx0525955_CC,FAILED,Starting / In Progress,2026-03-07 15:21:59,Fatal Error (See Log),2026-03-03 15:19:13
+cluster085_rank3_idx0554472_CC,COMPLETED,MOMAP Kr Done,2026-03-16 09:54:51,Partial Completed (Kr),2026-03-16 05:44:44
+cluster086_rank2_idx0182412_CC,COMPLETED,MOMAP Kr Done,2026-03-10 01:48:08,Partial Completed (Kr),2026-03-09 19:29:27
+cluster086_rank5_idx0448423_CC,FAILED,Gaussian S0 Done,2026-03-07 15:21:59,Fatal Error (See Log),2026-02-28 16:52:25
+cluster087_rank0_idx0030735_CC,FAILED,Starting / In Progress,2026-03-17 06:20:55,Fatal Error (See Log),2026-03-17 04:45:41
+cluster087_rank1_idx0381515_CC,ERROR,Gaussian S0 Done,2026-03-17 06:36:29,[Errno 122] Disk quota exceeded,2026-03-08 14:46:23
+cluster088_rank0_idx0425743_CC,COMPLETED,MOMAP Kr Done,2026-03-09 04:27:58,Partial Completed (Kr),2026-03-08 17:56:50
+cluster088_rank1_idx0561515_CC,FAILED,Starting / In Progress,2026-03-12 17:14:53,Fatal Error (See Log),2026-03-12 00:02:34
 cluster089_rank2_idx0277517_CC,COMPLETED,MOMAP Kr Done,2026-03-04 04:55:57,Partial Completed (Kr),2026-03-03 20:04:47
-cluster089_rank3_idx0151955_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster089_rank3_idx0151955_CC,COMPLETED,MOMAP Kr Done,2026-03-08 12:51:06,Partial Completed (Kr),2026-03-08 03:44:19
 cluster090_rank0_idx0064833_CC,COMPLETED,MOMAP Kr Done,2026-03-02 06:20:42,Partial Completed (Kr),2026-03-02 03:55:30
-cluster090_rank1_idx0469185_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster091_rank0_idx0441221_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster091_rank2_idx0491285_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster092_rank0_idx0540504_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster092_rank1_idx0444882_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster093_rank0_idx0147828_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster093_rank2_idx0172226_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster095_rank0_idx0263870_CC,RUNNING,Starting / In Progress,2026-03-06 15:00:26,Processing,2026-03-01 19:30:01
-cluster095_rank2_idx0372304_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster096_rank0_idx0422729_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster090_rank1_idx0469185_CC,COMPLETED,MOMAP Kr Done,2026-03-14 16:26:04,Partial Completed (Kr),2026-03-14 11:10:44
+cluster091_rank0_idx0441221_CC,COMPLETED,MOMAP Kr Done,2026-03-08 03:39:18,Partial Completed (Kr),2026-03-07 15:26:59
+cluster091_rank2_idx0491285_CC,COMPLETED,MOMAP Kr Done,2026-03-09 20:34:37,Partial Completed (Kr),2026-03-09 10:13:34
+cluster092_rank0_idx0540504_CC,COMPLETED,MOMAP Kr Done,2026-03-13 21:39:58,Partial Completed (Kr),2026-03-13 15:44:36
+cluster092_rank1_idx0444882_CC,COMPLETED,MOMAP Kr Done,2026-03-10 03:33:18,Partial Completed (Kr),2026-03-10 00:51:48
+cluster093_rank0_idx0147828_CC,COMPLETED,MOMAP Kr Done,2026-03-10 07:58:43,Partial Completed (Kr),2026-03-10 03:03:14
+cluster093_rank2_idx0172226_CC,FAILED,Starting / In Progress,2026-03-17 04:30:40,Fatal Error (See Log),2026-03-17 04:05:38
+cluster095_rank0_idx0263870_CC,FAILED,Starting / In Progress,2026-03-07 15:21:59,Fatal Error (See Log),2026-03-01 19:30:01
+cluster095_rank2_idx0372304_CC,FAILED,Starting / In Progress,2026-03-17 03:05:32,Fatal Error (See Log),2026-03-17 02:00:28
+cluster096_rank0_idx0422729_CC,COMPLETED,MOMAP Kr Done,2026-03-09 19:24:27,Partial Completed (Kr),2026-03-09 14:18:59
 cluster096_rank2_idx0275075_CC,COMPLETED,MOMAP Kr Done,2026-03-04 07:31:10,Partial Completed (Kr),2026-03-04 01:25:38
 cluster097_rank1_idx0102648_CC,COMPLETED,MOMAP Kr Done,2026-03-01 19:10:00,Partial Completed (Kr),2026-03-01 13:19:32
 cluster097_rank2_idx0195242_CC,COMPLETED,MOMAP Kr Done,2026-03-03 11:03:43,Partial Completed (Kr),2026-02-28 16:52:25
-cluster098_rank0_idx0430183_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster098_rank0_idx0430183_CC,COMPLETED,MOMAP Kr Done,2026-03-08 17:51:50,Partial Completed (Kr),2026-03-08 08:20:05
 cluster098_rank2_idx0528247_CC,COMPLETED,MOMAP Kr Done,2026-03-05 13:43:47,Partial Completed (Kr),2026-03-05 06:13:14
-cluster099_rank3_idx0387459_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster099_rank3_idx0387459_CC,COMPLETED,MOMAP Kr Done,2026-03-08 05:34:33,Partial Completed (Kr),2026-03-07 20:17:49
 cluster099_rank5_idx0274982_CC,ERROR,Gaussian T1 Done,2026-03-06 09:05:04,[Errno 122] Disk quota exceeded: 'results/round1/c,2026-03-06 04:04:48
-cluster100_rank1_idx0277625_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster100_rank2_idx0529879_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster100_rank1_idx0277625_CC,COMPLETED,MOMAP Kr Done,2026-03-09 14:13:58,Partial Completed (Kr),2026-03-09 09:18:26
+cluster100_rank2_idx0529879_CC,ERROR,Init,2026-03-17 06:36:31,[Errno 122] Disk quota exceeded,2026-03-17 06:36:27
 cluster101_rank0_idx0165309_CC,COMPLETED,MOMAP Kr Done,2026-03-03 21:34:55,Partial Completed (Kr),2026-03-03 15:09:10
 cluster101_rank1_idx0391629_CC,COMPLETED,MOMAP Kr Done,2026-03-03 14:09:02,Partial Completed (Kr),2026-02-28 16:52:25
-cluster102_rank0_idx0399511_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster102_rank3_idx0575034_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster103_rank0_idx0188779_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster103_rank2_idx0188777_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster104_rank1_idx0097725_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster104_rank5_idx0603546_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster105_rank0_idx0409593_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster105_rank2_idx0171303_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster106_rank0_idx0596399_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster106_rank3_idx0027455_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster107_rank0_idx0029991_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster107_rank2_idx0169818_CC,RUNNING,Starting / In Progress,2026-03-06 15:00:26,Processing,2026-02-28 16:52:25
-cluster108_rank1_idx0523042_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster108_rank4_idx0402121_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster102_rank0_idx0399511_CC,FAILED,Starting / In Progress,2026-03-17 04:45:41,Fatal Error (See Log),2026-03-17 04:05:38
+cluster102_rank3_idx0575034_CC,COMPLETED,MOMAP Kr Done,2026-03-11 15:51:00,Partial Completed (Kr),2026-03-11 09:50:44
+cluster103_rank0_idx0188779_CC,COMPLETED,MOMAP Kr Done,2026-03-11 00:09:40,Partial Completed (Kr),2026-03-10 16:07:13
+cluster103_rank2_idx0188777_CC,COMPLETED,MOMAP Kr Done,2026-03-13 08:04:10,Partial Completed (Kr),2026-03-13 01:13:50
+cluster104_rank1_idx0097725_CC,ERROR,Init,2026-03-17 06:21:19,[Errno 122] Disk quota exceeded,2026-03-17 06:20:55
+cluster104_rank5_idx0603546_CC,COMPLETED,MOMAP Kr Done,2026-03-07 00:00:57,Partial Completed (Kr),2026-03-06 15:05:26
+cluster105_rank0_idx0409593_CC,COMPLETED,MOMAP Kr Done,2026-03-13 14:59:33,Partial Completed (Kr),2026-03-13 05:19:03
+cluster105_rank2_idx0171303_CC,FAILED,Starting / In Progress,2026-03-17 04:00:38,Fatal Error (See Log),2026-03-17 03:10:32
+cluster106_rank0_idx0596399_CC,COMPLETED,MOMAP Kr Done,2026-03-14 04:05:18,Partial Completed (Kr),2026-03-13 21:44:58
+cluster106_rank3_idx0027455_CC,ERROR,Init,2026-03-17 06:41:36,[Errno 122] Disk quota exceeded,2026-03-17 06:41:34
+cluster107_rank0_idx0029991_CC,COMPLETED,MOMAP Kr Done,2026-03-11 13:15:43,Partial Completed (Kr),2026-03-11 07:45:09
+cluster107_rank2_idx0169818_CC,FAILED,Starting / In Progress,2026-03-07 15:21:59,Fatal Error (See Log),2026-02-28 16:52:25
+cluster108_rank1_idx0523042_CC,COMPLETED,MOMAP Kr Done,2026-03-11 06:40:06,Partial Completed (Kr),2026-03-11 00:14:40
+cluster108_rank4_idx0402121_CC,FAILED,Starting / In Progress,2026-03-17 04:25:40,Fatal Error (See Log),2026-03-17 03:25:34
 cluster109_rank0_idx0347297_CC,COMPLETED,MOMAP Kr Done,2026-03-02 13:51:24,Partial Completed (Kr),2026-03-02 06:25:42
 cluster109_rank1_idx0381573_CC,COMPLETED,MOMAP Kr Done,2026-03-04 03:15:49,Partial Completed (Kr),2026-03-03 22:40:24
 cluster110_rank0_idx0164255_CC,COMPLETED,MOMAP Kr Done,2026-03-04 16:57:03,Partial Completed (Kr),2026-03-04 12:31:36
-cluster110_rank2_idx0034078_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster111_rank1_idx0168748_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster110_rank2_idx0034078_CC,COMPLETED,MOMAP Kr Done,2026-03-07 14:36:57,Partial Completed (Kr),2026-03-07 09:56:39
+cluster111_rank1_idx0168748_CC,ERROR,Starting / In Progress,2026-03-17 03:20:34,[Errno 122] Disk quota exceeded,2026-03-12 10:19:07
 cluster111_rank3_idx0379274_CC,COMPLETED,MOMAP Kr Done,2026-03-05 04:03:03,Partial Completed (Kr),2026-03-04 22:42:37
 cluster112_rank0_idx0468223_CC,COMPLETED,MOMAP Kr Done,2026-03-03 18:19:36,Partial Completed (Kr),2026-03-03 11:08:44
 cluster112_rank1_idx0324391_CC,COMPLETED,MOMAP Kr Done,2026-03-01 09:24:12,Partial Completed (Kr),2026-03-01 00:08:23
-cluster113_rank3_idx0498480_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster113_rank7_idx0331632_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster114_rank0_idx0295119_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster113_rank3_idx0498480_CC,FAILED,Starting / In Progress,2026-03-17 04:35:40,Fatal Error (See Log),2026-03-17 02:50:29
+cluster113_rank7_idx0331632_CC,COMPLETED,MOMAP Kr Done,2026-03-08 09:10:21,Partial Completed (Kr),2026-03-08 00:28:51
+cluster114_rank0_idx0295119_CC,ERROR,Init,2026-03-17 06:31:25,[Errno 122] Disk quota exceeded,2026-03-17 06:31:23
 cluster114_rank7_idx0577597_CC,COMPLETED,MOMAP Kr Done,2026-02-28 23:43:19,Partial Completed (Kr),2026-02-28 16:52:25
-cluster115_rank0_idx0480636_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster115_rank0_idx0480636_CC,COMPLETED,MOMAP Kr Done,2026-03-11 18:11:15,Partial Completed (Kr),2026-03-11 13:15:20
 cluster115_rank1_idx0442775_CC,FAILED,ORCA Done,2026-03-05 15:54:01,Fatal Error (See Log),2026-03-05 09:18:28
 cluster116_rank1_idx0312583_CC,COMPLETED,MOMAP Kr Done,2026-03-01 19:25:01,Partial Completed (Kr),2026-03-01 14:24:36
-cluster116_rank3_idx0113096_CC,RUNNING,Starting / In Progress,2026-03-06 15:00:26,Processing,2026-03-01 00:18:27
+cluster116_rank3_idx0113096_CC,FAILED,Starting / In Progress,2026-03-07 15:21:59,Fatal Error (See Log),2026-03-01 00:18:27
 cluster117_rank0_idx0554479_CC,COMPLETED,MOMAP Kr Done,2026-03-01 09:19:12,Partial Completed (Kr),2026-03-01 00:23:28
-cluster117_rank4_idx0280160_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster117_rank4_idx0280160_CC,FAILED,Starting / In Progress,2026-03-17 03:30:35,Fatal Error (See Log),2026-03-17 01:40:27
 cluster118_rank3_idx0254873_CC,COMPLETED,MOMAP Kr Done,2026-03-02 14:36:27,Partial Completed (Kr),2026-03-02 08:35:52
 cluster118_rank7_idx0373528_CC,COMPLETED,MOMAP Kr Done,2026-03-04 01:20:38,Partial Completed (Kr),2026-03-03 14:14:02
-cluster119_rank2_idx0392326_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster119_rank3_idx0249195_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster120_rank0_idx0151416_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster120_rank3_idx0491735_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster121_rank0_idx0080060_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster121_rank3_idx0385101_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster119_rank2_idx0392326_CC,ERROR,Init,2026-03-17 06:36:30,[Errno 122] Disk quota exceeded,2026-03-17 06:36:27
+cluster119_rank3_idx0249195_CC,COMPLETED,MOMAP Kr Done,2026-03-16 05:39:44,Partial Completed (Kr),2026-03-16 00:19:35
+cluster120_rank0_idx0151416_CC,ERROR,Init,2026-03-17 06:36:32,[Errno 122] Disk quota exceeded,2026-03-17 06:36:27
+cluster120_rank3_idx0491735_CC,FAILED,Starting / In Progress,2026-03-16 23:20:19,Fatal Error (See Log),2026-03-16 21:15:08
+cluster121_rank0_idx0080060_CC,FAILED,Starting / In Progress,2026-03-17 07:21:38,Fatal Error (See Log),2026-03-17 05:00:43
+cluster121_rank3_idx0385101_CC,ERROR,Starting / In Progress,2026-03-16 22:10:12,[Errno 122] Disk quota exceeded,2026-03-08 00:28:51
 cluster122_rank3_idx0190721_CC,COMPLETED,MOMAP Kr Done,2026-03-05 05:58:13,Partial Completed (Kr),2026-03-04 23:07:41
-cluster122_rank4_idx0455819_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster123_rank2_idx0401034_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster123_rank5_idx0529097_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster124_rank0_idx0408519_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster124_rank2_idx0306422_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster125_rank0_idx0266221_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster125_rank2_idx0118486_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster126_rank3_idx0226723_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster122_rank4_idx0455819_CC,COMPLETED,MOMAP Kr Done,2026-03-14 11:50:47,Partial Completed (Kr),2026-03-14 07:05:27
+cluster123_rank2_idx0401034_CC,ERROR,Init,2026-03-17 06:36:33,[Errno 122] Disk quota exceeded,2026-03-17 06:36:27
+cluster123_rank5_idx0529097_CC,COMPLETED,MOMAP Kr Done,2026-03-09 03:37:52,Partial Completed (Kr),2026-03-08 17:56:50
+cluster124_rank0_idx0408519_CC,ERROR,Init,2026-03-17 06:15:54,[Errno 122] Disk quota exceeded,2026-03-17 06:15:53
+cluster124_rank2_idx0306422_CC,COMPLETED,MOMAP Kr Done,2026-03-08 08:15:04,Partial Completed (Kr),2026-03-07 20:47:55
+cluster125_rank0_idx0266221_CC,COMPLETED,MOMAP Kr Done,2026-03-08 10:45:37,Partial Completed (Kr),2026-03-08 00:18:48
+cluster125_rank2_idx0118486_CC,COMPLETED,MOMAP Kr Done,2026-03-08 05:54:38,Partial Completed (Kr),2026-03-07 20:32:51
+cluster126_rank3_idx0226723_CC,COMPLETED,MOMAP Kr Done,2026-03-09 00:42:35,Partial Completed (Kr),2026-03-08 17:11:40
 cluster126_rank8_idx0412622_CC,COMPLETED,MOMAP Kr Done,2026-03-05 04:18:05,Partial Completed (Kr),2026-03-04 23:02:41
 cluster127_rank4_idx0204720_CC,COMPLETED,MOMAP Kr Done,2026-03-05 13:48:47,Partial Completed (Kr),2026-03-05 07:28:20
 cluster127_rank5_idx0204240_CC,COMPLETED,MOMAP Kr Done,2026-03-04 23:02:41,Partial Completed (Kr),2026-03-04 17:02:03
-cluster128_rank0_idx0147089_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster128_rank2_idx0080802_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster129_rank0_idx0441720_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster128_rank0_idx0147089_CC,COMPLETED,MOMAP Kr Done,2026-03-10 04:28:24,Partial Completed (Kr),2026-03-09 22:34:53
+cluster128_rank2_idx0080802_CC,COMPLETED,MOMAP Kr Done,2026-03-11 01:44:47,Partial Completed (Kr),2026-03-10 21:49:29
+cluster129_rank0_idx0441720_CC,COMPLETED,MOMAP Kr Done,2026-03-07 23:23:31,Partial Completed (Kr),2026-03-07 12:41:52
 cluster129_rank4_idx0576734_CC,COMPLETED,MOMAP Kr Done,2026-03-05 10:33:33,Partial Completed (Kr),2026-03-05 04:08:03
-cluster130_rank2_idx0497463_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster130_rank2_idx0497463_CC,COMPLETED,MOMAP Kr Done,2026-03-13 01:08:50,Partial Completed (Kr),2026-03-12 18:17:36
 cluster130_rank3_idx0296450_CC,COMPLETED,MOMAP Kr Done,2026-03-01 00:18:27,Partial Completed (Kr),2026-02-28 16:52:25
-cluster131_rank1_idx0177666_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster131_rank3_idx0420403_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster132_rank0_idx0484301_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster132_rank3_idx0551446_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster133_rank0_idx0207252_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster133_rank1_idx0041988_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster134_rank2_idx0213632_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster131_rank1_idx0177666_CC,COMPLETED,MOMAP Kr Done,2026-03-10 21:44:29,Partial Completed (Kr),2026-03-10 15:08:16
+cluster131_rank3_idx0420403_CC,COMPLETED,MOMAP Kr Done,2026-03-09 01:37:41,Partial Completed (Kr),2026-03-08 20:17:10
+cluster132_rank0_idx0484301_CC,COMPLETED,MOMAP Kr Done,2026-03-08 08:35:09,Partial Completed (Kr),2026-03-07 21:28:03
+cluster132_rank3_idx0551446_CC,COMPLETED,MOMAP Kr Done,2026-03-09 17:04:16,Partial Completed (Kr),2026-03-09 10:33:37
+cluster133_rank0_idx0207252_CC,FAILED,Starting / In Progress,2026-03-17 02:45:29,Fatal Error (See Log),2026-03-17 02:10:28
+cluster133_rank1_idx0041988_CC,COMPLETED,MOMAP Kr Done,2026-03-12 18:12:34,Partial Completed (Kr),2026-03-12 12:24:23
+cluster134_rank2_idx0213632_CC,COMPLETED,MOMAP Kr Done,2026-03-10 17:49:46,Partial Completed (Kr),2026-03-10 10:52:41
 cluster134_rank4_idx0596289_CC,COMPLETED,MOMAP Kr Done,2026-03-03 02:57:46,Partial Completed (Kr),2026-03-02 20:47:00
-cluster135_rank1_idx0325238_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster135_rank3_idx0458731_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster136_rank0_idx0022412_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster136_rank1_idx0490745_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster137_rank2_idx0012219_CC,RUNNING,Gaussian S0 Done,2026-03-06 15:00:26,Processing,2026-03-03 16:59:27
-cluster138_rank1_idx0524785_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster138_rank2_idx0033905_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster139_rank0_idx0591577_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster139_rank3_idx0525964_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster135_rank1_idx0325238_CC,COMPLETED,MOMAP Kr Done,2026-03-08 17:26:42,Partial Completed (Kr),2026-03-08 09:40:27
+cluster135_rank3_idx0458731_CC,COMPLETED,MOMAP Kr Done,2026-03-14 12:50:52,Partial Completed (Kr),2026-03-14 07:55:31
+cluster136_rank0_idx0022412_CC,ERROR,Starting / In Progress,2026-03-17 05:50:47,[Errno 122] Disk quota exceeded,2026-03-15 16:01:53
+cluster136_rank1_idx0490745_CC,COMPLETED,MOMAP Kr Done,2026-03-10 07:33:41,Partial Completed (Kr),2026-03-10 01:53:08
+cluster137_rank2_idx0012219_CC,FAILED,Gaussian S0 Done,2026-03-07 15:21:59,Fatal Error (See Log),2026-03-03 16:59:27
+cluster138_rank1_idx0524785_CC,COMPLETED,MOMAP Kr Done,2026-03-12 02:32:47,Partial Completed (Kr),2026-03-11 20:57:10
+cluster138_rank2_idx0033905_CC,ERROR,Init,2026-03-17 06:10:51,[Errno 122] Disk quota exceeded,2026-03-17 06:10:50
+cluster139_rank0_idx0591577_CC,COMPLETED,MOMAP Kr Done,2026-03-09 07:43:16,Partial Completed (Kr),2026-03-09 02:52:46
+cluster139_rank3_idx0525964_CC,COMPLETED,MOMAP Kr Done,2026-03-12 09:44:01,Partial Completed (Kr),2026-03-12 02:37:47
 cluster140_rank0_idx0042890_CC,COMPLETED,MOMAP Kr Done,2026-03-03 12:08:51,Partial Completed (Kr),2026-03-03 06:18:05
-cluster140_rank3_idx0448633_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster141_rank1_idx0263256_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster141_rank2_idx0412816_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster142_rank0_idx0183758_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster140_rank3_idx0448633_CC,COMPLETED,MOMAP Kr Done,2026-03-07 10:16:41,Partial Completed (Kr),2026-03-07 06:06:21
+cluster141_rank1_idx0263256_CC,COMPLETED,MOMAP Kr Done,2026-03-08 12:20:58,Partial Completed (Kr),2026-03-08 05:59:39
+cluster141_rank2_idx0412816_CC,COMPLETED,MOMAP Kr Done,2026-03-08 01:29:01,Partial Completed (Kr),2026-03-07 15:26:59
+cluster142_rank0_idx0183758_CC,FAILED,Gaussian S0 Done,2026-03-07 20:27:51,Fatal Error (See Log),2026-03-07 15:26:59
 cluster142_rank1_idx0124479_CC,COMPLETED,MOMAP Kr Done,2026-03-05 09:13:28,Partial Completed (Kr),2026-03-05 02:52:58
-cluster143_rank3_idx0384483_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster143_rank4_idx0239174_CC,RUNNING,Gaussian T1 Done,2026-03-06 15:00:26,Processing,2026-03-06 09:10:04
-cluster144_rank0_idx0162870_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster143_rank3_idx0384483_CC,COMPLETED,MOMAP Kr Done,2026-03-09 10:08:34,Partial Completed (Kr),2026-03-09 04:32:59
+cluster143_rank4_idx0239174_CC,COMPLETED,MOMAP Kr Done,2026-03-06 19:35:40,Partial Completed (Kr),2026-03-06 09:10:04
+cluster144_rank0_idx0162870_CC,COMPLETED,MOMAP Kr Done,2026-03-08 17:51:50,Partial Completed (Kr),2026-03-08 11:55:54
 cluster144_rank1_idx0546033_CC,COMPLETED,MOMAP Kr Done,2026-03-01 17:54:54,Partial Completed (Kr),2026-03-01 12:34:26
 cluster145_rank0_idx0063498_CC,COMPLETED,MOMAP Kr Done,2026-03-04 12:06:34,Partial Completed (Kr),2026-03-04 06:36:05
-cluster145_rank1_idx0063499_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster146_rank2_idx0491738_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster146_rank7_idx0179387_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster147_rank1_idx0471768_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster145_rank1_idx0063499_CC,COMPLETED,MOMAP Kr Done,2026-03-07 22:43:19,Partial Completed (Kr),2026-03-07 15:26:59
+cluster146_rank2_idx0491738_CC,FAILED,Gaussian T1 Done,2026-03-16 21:10:08,Fatal Error (See Log),2026-03-16 16:00:01
+cluster146_rank7_idx0179387_CC,FAILED,Starting / In Progress,2026-03-17 06:15:53,Fatal Error (See Log),2026-03-17 04:55:43
+cluster147_rank1_idx0471768_CC,COMPLETED,MOMAP Kr Done,2026-03-11 23:57:34,Partial Completed (Kr),2026-03-11 13:20:51
 cluster147_rank5_idx0323314_CC,COMPLETED,MOMAP Kr Done,2026-03-03 06:13:05,Partial Completed (Kr),2026-03-03 01:22:37
-cluster148_rank2_idx0072644_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster148_rank3_idx0304577_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster149_rank0_idx0448697_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster149_rank1_idx0393353_CC,RUNNING,Gaussian S0 Done,2026-03-06 15:00:26,Processing,2026-03-05 13:48:47
-cluster150_rank3_idx0055802_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster148_rank2_idx0072644_CC,COMPLETED,MOMAP Kr Done,2026-03-09 03:37:52,Partial Completed (Kr),2026-03-08 21:42:18
+cluster148_rank3_idx0304577_CC,COMPLETED,MOMAP Kr Done,2026-03-09 22:24:52,Partial Completed (Kr),2026-03-09 17:54:19
+cluster149_rank0_idx0448697_CC,ERROR,Gaussian S0 Done,2026-03-17 07:06:38,[Errno 122] Disk quota exceeded,2026-03-09 06:18:08
+cluster149_rank1_idx0393353_CC,COMPLETED,MOMAP Kr Done,2026-03-06 23:10:53,Partial Completed (Kr),2026-03-05 13:48:47
+cluster150_rank3_idx0055802_CC,COMPLETED,MOMAP Kr Done,2026-03-10 04:48:26,Partial Completed (Kr),2026-03-09 22:29:52
 cluster150_rank7_idx0515736_CC,COMPLETED,MOMAP Kr Done,2026-03-02 10:41:02,Partial Completed (Kr),2026-03-02 07:35:48
-cluster151_rank0_idx0455739_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster151_rank0_idx0455739_CC,FAILED,Starting / In Progress,2026-03-17 02:05:28,Fatal Error (See Log),2026-03-17 01:15:25
 cluster151_rank1_idx0461984_CC,COMPLETED,MOMAP Kr Done,2026-03-02 18:21:48,Partial Completed (Kr),2026-03-02 13:56:24
 cluster152_rank1_idx0041454_CC,COMPLETED,MOMAP Kr Done,2026-03-04 16:42:00,Partial Completed (Kr),2026-03-04 03:20:49
-cluster152_rank2_idx0223618_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster152_rank2_idx0223618_CC,ERROR,Init,2026-03-17 06:26:22,[Errno 122] Disk quota exceeded,2026-03-17 06:26:20
 cluster153_rank2_idx0357791_CC,COMPLETED,MOMAP Kr Done,2026-03-01 08:09:03,Partial Completed (Kr),2026-02-28 23:18:17
-cluster153_rank3_idx0357790_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster154_rank1_idx0577589_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster154_rank2_idx0453221_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster155_rank1_idx0183992_CC,RUNNING,Gaussian S0 Done,2026-03-06 15:00:26,Processing,2026-03-05 04:23:06
-cluster155_rank2_idx0340088_CC,RUNNING,Gaussian S0 Done,2026-03-06 15:00:26,Processing,2026-03-03 20:49:52
+cluster153_rank3_idx0357790_CC,COMPLETED,MOMAP Kr Done,2026-03-11 20:52:10,Partial Completed (Kr),2026-03-11 13:20:51
+cluster154_rank1_idx0577589_CC,COMPLETED,MOMAP Kr Done,2026-03-14 20:11:12,Partial Completed (Kr),2026-03-14 12:55:52
+cluster154_rank2_idx0453221_CC,ERROR,Init,2026-03-17 06:26:21,[Errno 122] Disk quota exceeded,2026-03-17 06:26:20
+cluster155_rank1_idx0183992_CC,FAILED,Gaussian S0 Done,2026-03-07 15:21:59,Fatal Error (See Log),2026-03-05 04:23:06
+cluster155_rank2_idx0340088_CC,FAILED,Gaussian S0 Done,2026-03-07 15:21:59,Fatal Error (See Log),2026-03-03 20:49:52
 cluster156_rank0_idx0383024_CC,COMPLETED,MOMAP Kr Done,2026-03-06 08:20:01,Partial Completed (Kr),2026-03-06 02:54:41
 cluster156_rank1_idx0536627_CC,COMPLETED,MOMAP Kr Done,2026-03-02 06:45:45,Partial Completed (Kr),2026-03-01 23:50:16
-cluster157_rank6_idx0460543_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster157_rank8_idx0509122_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster157_rank6_idx0460543_CC,ERROR,Init,2026-03-17 06:26:22,[Errno 122] Disk quota exceeded,2026-03-17 06:26:20
+cluster157_rank8_idx0509122_CC,COMPLETED,MOMAP Kr Done,2026-03-13 15:39:36,Partial Completed (Kr),2026-03-13 08:09:11
 cluster158_rank0_idx0252031_CC,COMPLETED,MOMAP Kr Done,2026-03-03 01:17:35,Partial Completed (Kr),2026-03-02 21:57:09
-cluster158_rank1_idx0368915_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster158_rank1_idx0368915_CC,FAILED,Starting / In Progress,2026-03-17 07:46:38,Fatal Error (See Log),2026-03-17 05:55:47
 cluster159_rank0_idx0204622_CC,COMPLETED,MOMAP Kr Done,2026-03-01 12:29:26,Partial Completed (Kr),2026-03-01 05:18:48
-cluster159_rank2_idx0479277_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster159_rank2_idx0479277_CC,RUNNING,Starting / In Progress,2026-03-18 17:12:27,Processing,2026-03-09 10:13:34
 cluster160_rank0_idx0509000_CC,COMPLETED,MOMAP Kr Done,2026-03-04 17:12:05,Partial Completed (Kr),2026-03-04 12:11:34
-cluster160_rank2_idx0457231_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster161_rank3_idx0355525_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster161_rank5_idx0061672_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster160_rank2_idx0457231_CC,COMPLETED,MOMAP Kr Done,2026-03-14 11:55:48,Partial Completed (Kr),2026-03-14 07:50:30
+cluster161_rank3_idx0355525_CC,ERROR,Init,2026-03-17 06:15:54,[Errno 122] Disk quota exceeded,2026-03-17 06:15:53
+cluster161_rank5_idx0061672_CC,ERROR,Init,2026-03-17 06:00:49,[Errno 122] Disk quota exceeded,2026-03-17 06:00:48
 cluster162_rank0_idx0368742_CC,COMPLETED,MOMAP Kr Done,2026-03-01 18:49:56,Partial Completed (Kr),2026-03-01 09:29:13
-cluster162_rank2_idx0492006_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster162_rank2_idx0492006_CC,COMPLETED,MOMAP Kr Done,2026-03-11 13:15:43,Partial Completed (Kr),2026-03-11 06:45:06
 cluster163_rank2_idx0195181_CC,COMPLETED,MOMAP Kr Done,2026-03-04 01:20:38,Partial Completed (Kr),2026-03-03 18:24:36
-cluster163_rank7_idx0017216_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster164_rank1_idx0561516_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster164_rank2_idx0102829_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster163_rank7_idx0017216_CC,COMPLETED,MOMAP Kr Done,2026-03-08 19:37:02,Partial Completed (Kr),2026-03-08 09:15:22
+cluster164_rank1_idx0561516_CC,COMPLETED,MOMAP Kr Done,2026-03-11 06:50:07,Partial Completed (Kr),2026-03-11 00:04:39
+cluster164_rank2_idx0102829_CC,COMPLETED,MOMAP Kr Done,2026-03-14 07:45:29,Partial Completed (Kr),2026-03-13 23:10:02
 cluster165_rank4_idx0056529_CC,COMPLETED,MOMAP Kr Done,2026-03-06 03:29:44,Partial Completed (Kr),2026-03-05 19:59:16
 cluster165_rank9_idx0376260_CC,COMPLETED,MOMAP Kr Done,2026-03-03 22:35:24,Partial Completed (Kr),2026-03-03 15:19:13
-cluster166_rank3_idx0428564_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster166_rank3_idx0428564_CC,RUNNING,Starting / In Progress,2026-03-18 17:12:27,Processing,2026-03-09 14:39:02
 cluster166_rank6_idx0328484_CC,COMPLETED,MOMAP Kr Done,2026-03-01 05:13:48,Partial Completed (Kr),2026-02-28 23:48:19
 cluster167_rank3_idx0502125_CC,COMPLETED,MOMAP Kr Done,2026-03-01 14:19:36,Partial Completed (Kr),2026-03-01 07:44:02
-cluster167_rank4_idx0502127_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster168_rank1_idx0231568_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster168_rank2_idx0231878_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster167_rank4_idx0502127_CC,FAILED,Gaussian S0 Done,2026-03-10 15:03:13,Fatal Error (See Log),2026-03-10 13:14:57
+cluster168_rank1_idx0231568_CC,COMPLETED,MOMAP Kr Done,2026-03-09 01:17:38,Partial Completed (Kr),2026-03-08 17:41:43
+cluster168_rank2_idx0231878_CC,FAILED,Starting / In Progress,2026-03-17 01:55:27,Fatal Error (See Log),2026-03-17 01:10:25
 cluster169_rank0_idx0137450_CC,COMPLETED,MOMAP Kr Done,2026-03-04 22:32:36,Partial Completed (Kr),2026-03-04 16:57:03
-cluster169_rank1_idx0389162_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster169_rank1_idx0389162_CC,COMPLETED,MOMAP Kr Done,2026-03-07 20:42:54,Partial Completed (Kr),2026-03-07 15:26:59
 cluster170_rank0_idx0347297_CC,COMPLETED,MOMAP Kr Done,2026-03-03 16:54:27,Partial Completed (Kr),2026-03-03 09:43:33
-cluster170_rank2_idx0271211_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster170_rank2_idx0271211_CC,ERROR,Init,2026-03-17 06:05:50,[Errno 122] Disk quota exceeded,2026-03-17 06:05:49
 cluster171_rank3_idx0433539_CC,COMPLETED,MOMAP Kr Done,2026-03-02 08:30:52,Partial Completed (Kr),2026-03-02 01:30:22
-cluster171_rank9_idx0523382_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster171_rank9_idx0523382_CC,ERROR,Starting / In Progress,2026-03-17 02:50:30,[Errno 122] Disk quota exceeded,2026-03-15 13:06:45
 cluster172_rank0_idx0487524_CC,COMPLETED,MOMAP Kr Done,2026-03-03 03:47:49,Partial Completed (Kr),2026-03-02 20:41:59
-cluster172_rank1_idx0322214_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster173_rank1_idx0524242_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster172_rank1_idx0322214_CC,FAILED,Starting / In Progress,2026-03-17 05:25:45,Fatal Error (See Log),2026-03-17 04:05:38
+cluster173_rank1_idx0524242_CC,FAILED,Starting / In Progress,2026-03-17 05:55:47,Fatal Error (See Log),2026-03-17 04:50:42
 cluster173_rank2_idx0118657_CC,COMPLETED,MOMAP Kr Done,2026-03-03 19:19:45,Partial Completed (Kr),2026-03-03 12:18:51
-cluster174_rank0_idx0253622_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster174_rank2_idx0374775_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster174_rank0_idx0253622_CC,COMPLETED,MOMAP Kr Done,2026-03-10 12:43:53,Partial Completed (Kr),2026-03-10 05:58:32
+cluster174_rank2_idx0374775_CC,FAILED,Starting / In Progress,2026-03-17 04:40:41,Fatal Error (See Log),2026-03-17 03:50:36
 cluster175_rank0_idx0382353_CC,COMPLETED,MOMAP Kr Done,2026-03-05 02:47:58,Partial Completed (Kr),2026-03-04 21:52:33
-cluster175_rank1_idx0253746_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster176_rank2_idx0441219_CC,RUNNING,Gaussian T1 Done,2026-03-06 15:00:26,Processing,2026-03-06 08:25:01
+cluster175_rank1_idx0253746_CC,COMPLETED,MOMAP Kr Done,2026-03-07 11:56:47,Partial Completed (Kr),2026-03-07 06:21:24
+cluster176_rank2_idx0441219_CC,ERROR,Gaussian T1 Done,2026-03-06 15:05:27,[Errno 122] Disk quota exceeded: 'results/round1/c,2026-03-06 08:25:01
 cluster176_rank3_idx0366099_CC,COMPLETED,MOMAP Kr Done,2026-03-03 20:44:52,Partial Completed (Kr),2026-03-03 12:13:51
 cluster177_rank0_idx0309615_CC,COMPLETED,MOMAP Kr Done,2026-03-02 05:20:38,Partial Completed (Kr),2026-03-01 23:05:13
 cluster177_rank2_idx0029341_CC,FAILED,Gaussian T1 Done,2026-03-06 15:00:26,Fatal Error (See Log),2026-03-06 09:15:06
-cluster178_rank2_idx0567002_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster178_rank2_idx0567002_CC,COMPLETED,MOMAP Kr Done,2026-03-12 15:44:43,Partial Completed (Kr),2026-03-12 09:49:01
 cluster178_rank3_idx0137642_CC,FAILED,Gaussian S0 Done,2026-03-02 17:16:42,Fatal Error (See Log),2026-03-01 12:54:29
-cluster179_rank0_idx0146101_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster179_rank2_idx0401511_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster180_rank5_idx0198760_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster180_rank7_idx0547047_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster181_rank3_idx0076531_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster181_rank6_idx0427311_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster179_rank0_idx0146101_CC,COMPLETED,MOMAP Kr Done,2026-03-08 11:50:53,Partial Completed (Kr),2026-03-07 23:38:35
+cluster179_rank2_idx0401511_CC,COMPLETED,MOMAP Kr Done,2026-03-11 09:45:44,Partial Completed (Kr),2026-03-11 02:49:51
+cluster180_rank5_idx0198760_CC,FAILED,Starting / In Progress,2026-03-09 02:47:45,Fatal Error (See Log),2026-03-08 12:25:59
+cluster180_rank7_idx0547047_CC,COMPLETED,MOMAP Kr Done,2026-03-10 20:12:09,Partial Completed (Kr),2026-03-10 12:48:56
+cluster181_rank3_idx0076531_CC,COMPLETED,MOMAP Kr Done,2026-03-08 17:06:40,Partial Completed (Kr),2026-03-08 10:50:39
+cluster181_rank6_idx0427311_CC,ERROR,Init,2026-03-17 06:31:26,[Errno 122] Disk quota exceeded,2026-03-17 06:31:23
 cluster182_rank2_idx0133082_CC,COMPLETED,MOMAP Kr Done,2026-03-03 21:39:56,Partial Completed (Kr),2026-03-03 15:39:18
-cluster182_rank4_idx0455940_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster183_rank0_idx0267535_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster182_rank4_idx0455940_CC,COMPLETED,MOMAP Kr Done,2026-03-14 02:15:12,Partial Completed (Kr),2026-03-13 19:39:47
+cluster183_rank0_idx0267535_CC,COMPLETED,MOMAP Kr Done,2026-03-12 15:39:42,Partial Completed (Kr),2026-03-12 08:48:06
 cluster183_rank3_idx0409717_CC,COMPLETED,MOMAP Kr Done,2026-03-04 22:37:37,Partial Completed (Kr),2026-03-04 15:11:53
 cluster184_rank0_idx0606840_CC,COMPLETED,MOMAP Kr Done,2026-03-02 12:16:14,Partial Completed (Kr),2026-03-02 05:25:38
-cluster184_rank3_idx0563643_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster185_rank1_idx0046074_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster184_rank3_idx0563643_CC,FAILED,Starting / In Progress,2026-03-17 04:00:38,Fatal Error (See Log),2026-03-17 01:20:26
+cluster185_rank1_idx0046074_CC,COMPLETED,MOMAP Kr Done,2026-03-13 23:05:02,Partial Completed (Kr),2026-03-13 15:04:33
 cluster185_rank6_idx0453846_CC,COMPLETED,MOMAP Kr Done,2026-03-05 21:54:24,Partial Completed (Kr),2026-03-05 16:09:04
 cluster186_rank1_idx0188673_CC,COMPLETED,MOMAP Kr Done,2026-03-04 12:26:35,Partial Completed (Kr),2026-03-04 05:00:58
-cluster186_rank5_idx0379712_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster186_rank5_idx0379712_CC,COMPLETED,MOMAP Kr Done,2026-03-07 23:33:34,Partial Completed (Kr),2026-03-07 15:26:59
 cluster187_rank0_idx0219618_CC,COMPLETED,MOMAP Kr Done,2026-03-04 06:31:05,Partial Completed (Kr),2026-03-04 01:25:38
 cluster187_rank1_idx0226719_CC,COMPLETED,MOMAP Kr Done,2026-03-03 15:14:12,Partial Completed (Kr),2026-03-03 07:03:11
-cluster188_rank0_idx0491062_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster188_rank8_idx0395962_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster189_rank1_idx0038227_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster189_rank3_idx0351032_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster190_rank1_idx0313903_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster190_rank2_idx0420416_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster191_rank1_idx0453798_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster188_rank0_idx0491062_CC,COMPLETED,MOMAP Kr Done,2026-03-07 06:16:24,Partial Completed (Kr),2026-03-07 00:05:57
+cluster188_rank8_idx0395962_CC,COMPLETED,MOMAP Kr Done,2026-03-15 03:06:29,Partial Completed (Kr),2026-03-14 20:31:13
+cluster189_rank1_idx0038227_CC,RUNNING,Gaussian S0 Done,2026-03-18 17:12:27,Processing,2026-03-08 18:01:51
+cluster189_rank3_idx0351032_CC,COMPLETED,MOMAP Kr Done,2026-03-07 15:57:09,Partial Completed (Kr),2026-03-07 10:21:41
+cluster190_rank1_idx0313903_CC,COMPLETED,MOMAP Kr Done,2026-03-11 01:39:45,Partial Completed (Kr),2026-03-10 17:44:22
+cluster190_rank2_idx0420416_CC,COMPLETED,MOMAP Kr Done,2026-03-10 10:47:38,Partial Completed (Kr),2026-03-10 03:18:16
+cluster191_rank1_idx0453798_CC,COMPLETED,MOMAP Kr Done,2026-03-09 16:09:10,Partial Completed (Kr),2026-03-09 10:23:35
 cluster191_rank2_idx0154534_CC,COMPLETED,MOMAP Kr Done,2026-03-01 07:39:02,Partial Completed (Kr),2026-02-28 23:13:16
 cluster192_rank6_idx0376897_CC,COMPLETED,MOMAP Kr Done,2026-03-05 16:04:03,Partial Completed (Kr),2026-03-05 10:38:33
-cluster192_rank8_idx0231841_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster193_rank4_idx0560880_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster193_rank5_idx0276336_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster194_rank1_idx0314499_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster194_rank2_idx0439156_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster192_rank8_idx0231841_CC,ERROR,Gaussian S0 Done,2026-03-17 04:55:43,[Errno 122] Disk quota exceeded,2026-03-11 01:49:47
+cluster193_rank4_idx0560880_CC,COMPLETED,MOMAP Kr Done,2026-03-08 06:59:46,Partial Completed (Kr),2026-03-07 23:28:32
+cluster193_rank5_idx0276336_CC,FAILED,Starting / In Progress,2026-03-17 01:15:26,Fatal Error (See Log),2026-03-17 00:05:23
+cluster194_rank1_idx0314499_CC,COMPLETED,MOMAP Kr Done,2026-03-09 10:13:34,Partial Completed (Kr),2026-03-09 03:42:53
+cluster194_rank2_idx0439156_CC,COMPLETED,MOMAP Kr Done,2026-03-14 07:50:30,Partial Completed (Kr),2026-03-14 02:20:12
 cluster195_rank4_idx0403264_CC,FAILED,Gaussian S0 Done,2026-03-06 09:10:05,Fatal Error (See Log),2026-03-06 07:59:58
 cluster195_rank6_idx0237613_CC,COMPLETED,MOMAP Kr Done,2026-03-01 23:00:13,Partial Completed (Kr),2026-03-01 17:59:54
 cluster196_rank1_idx0218025_CC,COMPLETED,MOMAP Kr Done,2026-03-02 16:11:39,Partial Completed (Kr),2026-03-02 10:46:02
-cluster196_rank5_idx0320171_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster197_rank2_idx0084327_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster196_rank5_idx0320171_CC,COMPLETED,MOMAP Kr Done,2026-03-08 20:07:08,Partial Completed (Kr),2026-03-08 12:56:06
+cluster197_rank2_idx0084327_CC,ERROR,Init,2026-03-17 06:41:37,[Errno 122] Disk quota exceeded,2026-03-17 06:41:34
 cluster197_rank4_idx0107069_CC,COMPLETED,MOMAP Kr Done,2026-03-02 13:31:21,Partial Completed (Kr),2026-03-02 06:50:45
-cluster198_rank4_idx0041080_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
-cluster198_rank5_idx0401748_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster198_rank4_idx0041080_CC,COMPLETED,MOMAP Kr Done,2026-03-09 17:49:19,Partial Completed (Kr),2026-03-09 12:13:48
+cluster198_rank5_idx0401748_CC,COMPLETED,MOMAP Kr Done,2026-03-08 14:41:23,Partial Completed (Kr),2026-03-08 05:39:34
 cluster199_rank0_idx0158073_CC,COMPLETED,MOMAP Kr Done,2026-02-28 23:13:16,Partial Completed (Kr),2026-02-28 16:52:25
-cluster199_rank3_idx0351880_CC,PENDING,Init,2026-02-28 16:52:24,Newly added,
+cluster199_rank3_idx0351880_CC,COMPLETED,MOMAP Kr Done,2026-03-08 17:36:43,Partial Completed (Kr),2026-03-08 08:40:10
 idx_0004258_CC,FAILED,MOMAP Kic Done,2026-02-22 08:36:37,Fatal Error (See Log),2026-02-20 21:04:33
 idx_0007539_CC,FAILED,Starting / In Progress,2026-02-20 21:14:34,Fatal Error (See Log),2026-02-20 21:04:33
 idx_0009777_CC,FAILED,Starting / In Progress,2026-02-20 21:24:38,Fatal Error (See Log),2026-02-20 21:14:34
