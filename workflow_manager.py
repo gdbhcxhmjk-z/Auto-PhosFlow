@@ -54,6 +54,8 @@ class MoleculeFlow:
             't1_td':   self.root / "06b_T1_TD",
             # 后处理步骤
             'orca':    self.root / "07_ORCA_SOC",
+            'evc_t1':  self.root / "07b_EVC_T1",   # <--- 新增: 专供 S0-T1
+            'evc_s1':  self.root / "07c_EVC_S1",   # <--- 新增: 专供 S0-S1
             'kr':      self.root / "08_MOMAP_Kr",
             'kisc':    self.root / "09_MOMAP_Kisc",
             'kic':     self.root / "10_MOMAP_Kic",
@@ -117,18 +119,28 @@ class MoleculeFlow:
         # --- 4. ORCA SOC Calculation [保留] ---
         self._handle_orca_step()
         
-        # --- 5. MOMAP Logic (恢复三大速率并行) ---
+        # --- 5. MOMAP Logic (物理隔离的 EVC) ---
         s0_done = self._check_done(self.dirs['s0_freq'])
         s1_done = self._check_done(self.dirs['s1_freq'])
         t1_done = self._check_done(self.dirs['t1_freq'])
         orca_done = self._check_done(self.dirs['orca'])
         
-        if s0_done and t1_done and orca_done:
-            self._handle_momap_kr()
-            self._handle_momap_kisc() # <--- 恢复 Kisc
+        # 1. 独立执行 S0-T1 和 S0-S1 的 EVC
+        evc_t1_ok = False
+        if s0_done and t1_done:
+            evc_t1_ok = self._handle_evc_t1()
             
+        evc_s1_ok = False
         if s0_done and s1_done:
-            self._handle_momap_kic()  # <--- 恢复 Kic
+            evc_s1_ok = self._handle_evc_s1()
+
+        # 2. 只有 EVC 就位后，才流转到对应的速率计算
+        if evc_t1_ok and orca_done:
+            self._handle_momap_kr()
+            self._handle_momap_kisc()
+            
+        if evc_s1_ok:
+            self._handle_momap_kic()
 
         # --- 6. Analysis (接入 T1 TD 能量) ---    
         kr_done = (self.dirs['kr'] / "job.done").exists()
@@ -388,304 +400,234 @@ class MoleculeFlow:
         self._submit_to_queue(folder)
 
     # =========================================================================
+    # EVC 处理逻辑 (S0-T1 和 S0-S1 分开处理)
+    # =========================================================================
+    def _handle_evc_t1(self):
+        """处理 S0-T1 的 EVC (Kr, Kisc 专属)，不计算 NAC"""
+        folder = self.dirs['evc_t1']
+        if self._check_done(folder): return True
+
+        print(f"  [Step] Running MOMAP EVC (S0-T1) for {self.name}...")
+        folder.mkdir(parents=True, exist_ok=True)
+
+        s0_log_src = self.dirs['s0_freq'] / f"{self.name}_s0_freq.log"
+        t1_log_src = self.dirs['t1_freq'] / f"{self.name}_t1_freq.log"
+        
+        # [修复] 提取对应的 .fchk 文件
+        s0_fchk_src = self.dirs['s0_freq'] / f"{self.name}_s0_freq.fchk"
+        t1_fchk_src = self.dirs['t1_freq'] / f"{self.name}_t1_freq.fchk"
+
+        if not s0_log_src.exists() or not t1_log_src.exists() or not s0_fchk_src or not t1_fchk_src:
+            self._mark_fatal_error("MOMAP EVC (S0-T1) Failed: Missing .log or .fchk files.")
+            return False
+
+        shutil.copy(s0_log_src, folder / "s0.log")
+        shutil.copy(t1_log_src, folder / "t1.log")
+        # [修复] 复制 .fchk 到当前目录
+        shutil.copy(s0_fchk_src, folder / "s0.fchk")
+        shutil.copy(t1_fchk_src, folder / "t1.fchk")
+
+        from lib.momap_handler import write_momap_inp
+        import subprocess
+        import sys
+
+        # 生成给新模块用的 evc.inp
+        write_momap_inp(folder, 'evc', use_cartesian=False, inp_filename="momap_evc.inp", s0_log="s0.log", t1_log="t1.log")
+
+        print("    -> Running DINT Module for S0-T1 EVC...")
+        dint_main_path = "/home/zhangwenjie/work/workflow_pt/software/dint_main.py"
+        
+        try:
+            res = subprocess.run(f"{sys.executable} {dint_main_path}", shell=True, cwd=folder, check=True, capture_output=True)
+            (folder / "dint_t1.log").write_bytes(res.stdout + res.stderr)
+        except subprocess.CalledProcessError as e:
+            (folder / "dint_t1.log").write_bytes(e.stdout + e.stderr)
+            self._mark_fatal_error(f"DINT Module Failed (S0-T1). Please check dint_t1.log for details.")
+            return False
+
+        dat_file = folder / "evc.chenxiao.dat"
+        if dat_file.exists() and dat_file.stat().st_size > 100:
+            (folder / "job.done").touch()
+            print("    -> EVC (S0-T1) successfully completed and validated!")
+            return True
+        else:
+            self._mark_fatal_error("EVC (S0-T1) failed validation: .dat file is missing or exceptionally small.")
+            return False
+
+
+    def _handle_evc_s1(self):
+        """处理 S0-S1 的 EVC (Kic 专属)，需调用原生 MOMAP 计算 NAC"""
+        folder = self.dirs['evc_s1']
+        if self._check_done(folder): return True
+
+        print(f"  [Step] Running MOMAP EVC (S0-S1) for {self.name}...")
+        folder.mkdir(parents=True, exist_ok=True)
+
+        s0_log_src = self.dirs['s0_freq'] / f"{self.name}_s0_freq.log"
+        s1_log_src = self.dirs['s1_freq'] / f"{self.name}_s1_freq.log"
+        
+        s0_fchk_src = self.dirs['s0_freq'] / f"{self.name}_s0_freq.fchk"
+        s1_fchk_src = self.dirs['s1_freq'] / f"{self.name}_s1_freq.fchk"
+
+        if not s0_log_src.exists() or not s1_log_src.exists() or not s0_fchk_src or not s1_fchk_src:
+            self._mark_fatal_error("MOMAP EVC (S0-S1) Failed: Missing .log or .fchk files.")
+            return False
+
+        shutil.copy(s0_log_src, folder / "s0.log")
+        shutil.copy(s1_log_src, folder / "s1.log")
+        shutil.copy(s0_fchk_src, folder / "s0.fchk")
+        shutil.copy(s1_fchk_src, folder / "s1.fchk")
+
+        from lib.momap_handler import write_momap_inp
+        import subprocess
+        import sys
+
+        # 1. 严格使用原生 MOMAP 提取 S1 激发态 NAC
+        write_momap_inp(folder, 'evc', use_cartesian=True, inp_filename="momap_cart.inp", s0_log="s0.log", t1_log="s1.log", fnacme="s1.log")
+        # 2. 给新模块使用的 inp
+        write_momap_inp(folder, 'evc', use_cartesian=False, inp_filename="momap_evc.inp", s0_log="s0.log", t1_log="s1.log")
+
+        print("    -> Running Native MOMAP for S0-S1 NAC...")
+        
+        # [精准修复] 直接 source 你们专属的环境变量脚本
+        run_native_script = folder / "run_native.sh"
+        script_content = "#!/bin/bash\n" \
+                         "source /home/software/momap/2024a/env.sh\n" \
+                         "momap -i momap_cart.inp\n"
+        run_native_script.write_text(script_content)
+        run_native_script.chmod(0o755)
+
+        try:
+            # 此时普通的 bash 运行即可，它会自然执行 source
+            res_native = subprocess.run("bash run_native.sh", shell=True, cwd=folder, check=True, capture_output=True)
+            (folder / "native_momap_s1.log").write_bytes(res_native.stdout + res_native.stderr)
+        except subprocess.CalledProcessError as e:
+            (folder / "native_momap_s1.log").write_bytes(e.stdout + e.stderr)
+            self._mark_fatal_error(f"Native MOMAP Failed (S0-S1). Please check native_momap_s1.log for details.")
+            return False
+
+        print("    -> Running DINT Module for S0-S1 EVC...")
+        dint_main_path = "/home/zhangwenjie/work/workflow_pt/software/dint_main.py"
+        try:
+            res_dint = subprocess.run(f"{sys.executable} {dint_main_path}", shell=True, cwd=folder, check=True, capture_output=True)
+            (folder / "dint_s1.log").write_bytes(res_dint.stdout + res_dint.stderr)
+        except subprocess.CalledProcessError as e:
+            (folder / "dint_s1.log").write_bytes(e.stdout + e.stderr)
+            self._mark_fatal_error(f"DINT Module Failed (S0-S1). Please check dint_s1.log for details.")
+            return False
+
+        dat_file = folder / "evc.chenxiao.dat"
+        nac_file = folder / "evc.cart.nac"
+        
+        if dat_file.exists() and dat_file.stat().st_size > 100 and nac_file.exists() and nac_file.stat().st_size > 100:
+            (folder / "job.done").touch()
+            print("    -> EVC (S0-S1) perfectly completed and validated!")
+            return True
+        else:
+            self._mark_fatal_error("EVC (S0-S1) failed validation: target files (.dat or .nac) are missing or exceptionally small.")
+            return False
+
+    # =========================================================================
     # MOMAP Kr 处理
     # =========================================================================   
     def _handle_momap_kr(self):
         folder = self.dirs['kr']
-        job_name = f"{self.name}_kr"
-        evc_done_flag = folder / "evc.done"
-        retry_flag = folder / "RETRY_CART"
+        if self._check_done(folder): return True
+        if (folder / "run.slurm").exists(): return False
+
+        print(f"  [Step] Preparing MOMAP Kr for {self.name}...")
+        folder.mkdir(parents=True, exist_ok=True)
         
-        # --- Phase 1: EVC ---
-        if not evc_done_flag.exists():
-            # [Fix] 检查是否卡在报错状态
-            err_status = check_evc_err_file(folder)
-            
-            if err_status == 'COORD_ERROR':
-                if not retry_flag.exists():
-                    print(f"  [Repair] EVC Internal Coord Error. Retrying with set_cart=t ...")
-                    # 创建标记
-                    retry_flag.touch()
-                    # 删除旧的 slurm 和 job.done，强制重跑
-                    if (folder / "run.slurm").exists(): (folder / "run.slurm").unlink()
-                    if (folder / "job.done").exists(): (folder / "job.done").unlink()
-                    # 重新生成输入文件 (use_cartesian=True)
-                    write_momap_inp(folder, mode='evc', s0_log="s0.log", t1_log="t1.log", use_cartesian=True)
-                    # 重新生成 Slurm 脚本
-                    write_momap_slurm(folder, f"{job_name}_evc", input_file="momap.inp")
-                    # 提交
-                    self._submit_to_queue(folder)
-                    return
-                else:
-                    self._mark_fatal_error("EVC failed even with set_cart=t.")
-                    return
-            elif err_status == 'FATAL':
-                 self._mark_fatal_error("MOMAP EVC calculation crashed (See momap.err).")
-                 return
+        # [精准提取] 从 evc_t1 拿 .dat，不需要 .nac
+        evc_dat = self.dirs['evc_t1'] / "evc.chenxiao.dat"
+        edme_file = self.dirs['orca'] / f"{self.name}_orca.edme"
+        if not evc_dat.exists() or not edme_file.exists(): return False
 
-            if (folder / "run_evc.slurm").exists() and not (folder / "job.done").exists():
-                 return
+        shutil.copy(evc_dat, folder / "evc.chenxiao.dat")
+        shutil.copy(edme_file, folder / edme_file.name)
 
-            print(f"  [Step] Preparing MOMAP EVC for Kr...")
-            folder.mkdir(parents=True, exist_ok=True)
-            
-            s0_src = self.dirs['s0_freq'] / f"{self.name}_s0_freq.log"
-            t1_src = self.dirs['t1_freq'] / f"{self.name}_t1_freq.log"
-            s0_fchk = self.dirs['s0_freq'] / f"{self.name}_s0_freq.fchk"
-            t1_fchk = self.dirs['t1_freq'] / f"{self.name}_t1_freq.fchk"
-
-            if not (s0_src.exists() and t1_src.exists()): return
-            
-            shutil.copy(s0_src, folder / "s0.log")
-            shutil.copy(t1_src, folder / "t1.log")
-            if s0_fchk.exists(): shutil.copy(s0_fchk, folder / "s0.fchk")
-            if t1_fchk.exists(): shutil.copy(t1_fchk, folder / "t1.fchk")
-
-            use_cart = retry_flag.exists()
-            write_momap_inp(folder, mode='evc', s0_log="s0.log", t1_log="t1.log", use_cartesian=use_cart)
-            
-            write_momap_slurm(folder, f"{job_name}_evc", input_file="momap.inp")
-            
-            if not (folder / "evc.out").exists():
-                 self._submit_to_queue(folder)
-            
-            # 检查 EVC 结果
-            if (folder / "job.done").exists():
-                print("  [Check] EVC finished. Validating results...")
-                passed, best_file = check_evc_reorg(folder)
-                if passed:
-                    (folder / "job.done").unlink()
-                    # [Fix] 删除旧的 slurm，防止死锁
-                    if (folder / "run.slurm").exists():
-                        (folder / "run.slurm").unlink()
-                        
-                    with open(evc_done_flag, 'w') as f:
-                        f.write(best_file)
-                    print(f"  [Done] EVC passed. Selected {best_file}")
-                else:
-                    self._mark_fatal_error("MOMAP EVC Reorg Energy too high.")
-            return
-
-        # --- Phase 2: Kr Rate ---
-        if (folder / "job.done").exists(): return
-        if (folder / "run.slurm").exists(): return
-
-        print(f"  [Step] Preparing MOMAP Kr calculation...")
+        from lib.momap_handler import write_momap_inp, get_gaussian_energy
+        from lib.slurm_utils import write_momap_slurm
+        from lib.orca_handler import read_edme
+        edme_val = read_edme(edme_file)
         
-        with open(evc_done_flag, 'r') as f:
-            ds_file = f.read().strip()
-        
-        e_s0 = get_gaussian_energy(folder / "s0.log")
-        e_t1 = get_gaussian_energy(folder / "t1.log")
-        ead = abs(e_t1 - e_s0)
+        s0_log = self.dirs['s0_freq'] / f"{self.name}_s0_freq.log"
+        t1_log = self.dirs['t1_freq'] / f"{self.name}_t1_freq.log"
+        ead_val = get_gaussian_energy(s0_log) - get_gaussian_energy(t1_log)
 
-        orca_out = self.dirs['orca'] / "orca.out"
-        if not orca_out.exists(): 
-            orca_out = self.dirs['orca'] / f"{self.name}_orca.out"
-        if not orca_out.exists():
-            orca_out = self.dirs['orca'] / "orca.log"
-        edme = extract_orca_edme(orca_out)
-
-        write_momap_inp(folder, mode='kr', config_params=MOMAP_PARAMS,
-                        ds_file=ds_file, Ead=ead, EDME=edme)
-        
-        write_momap_slurm(folder, job_name, input_file="momap.inp")
+        # 命名为标准 momap.inp
+        write_momap_inp(folder, 'kr', config_params=MOMAP_PARAMS, inp_filename="momap.inp",
+                        DSFile="evc.chenxiao.dat", EDME=edme_val, Ead=ead_val)
+        write_momap_slurm(folder, "kr", nproc=G16_PARAMS['nproc'])
         self._submit_to_queue(folder)
+        return False
 
     # =========================================================================
     # MOMAP Kisc 处理
     # =========================================================================       
     def _handle_momap_kisc(self):
         folder = self.dirs['kisc']
-        job_name = f"{self.name}_kisc"
-        evc_done_flag = folder / "evc.done"
-        retry_flag = folder / "RETRY_CART"
+        if self._check_done(folder): return True
+        if (folder / "run.slurm").exists(): return False
+
+        print(f"  [Step] Preparing MOMAP Kisc for {self.name}...")
+        folder.mkdir(parents=True, exist_ok=True)
         
-        if not evc_done_flag.exists():
-            # [Fix] 检查是否卡在报错状态
-            err_status = check_evc_err_file(folder)
-            
-            if err_status == 'COORD_ERROR':
-                if not retry_flag.exists():
-                    print(f"  [Repair] EVC Internal Coord Error. Retrying with set_cart=t ...")
-                    # 创建标记
-                    retry_flag.touch()
-                    # 删除旧的 slurm 和 job.done，强制重跑
-                    if (folder / "run.slurm").exists(): (folder / "run.slurm").unlink()
-                    if (folder / "job.done").exists(): (folder / "job.done").unlink()
-                    # 重新生成输入文件 (use_cartesian=True)
-                    write_momap_inp(folder, mode='evc', s0_log="s0.log", t1_log="t1.log", use_cartesian=True)
-                    # 重新生成 Slurm 脚本
-                    write_momap_slurm(folder, f"{job_name}_evc", input_file="momap.inp")
-                    # 提交
-                    self._submit_to_queue(folder)
-                    return
-                else:
-                    self._mark_fatal_error("EVC failed even with set_cart=t.")
-                    return
-            elif err_status == 'FATAL':
-                 self._mark_fatal_error("MOMAP EVC calculation crashed (See momap.err).")
-                 return
+        # [精准提取] 从 evc_t1 拿 .dat，不需要 .nac
+        evc_dat = self.dirs['evc_t1'] / "evc.chenxiao.dat"
+        soc_file = self.dirs['orca'] / f"{self.name}_orca.soc"
+        if not evc_dat.exists() or not soc_file.exists(): return False
 
+        shutil.copy(evc_dat, folder / "evc.chenxiao.dat")
 
+        from lib.momap_handler import write_momap_inp, get_gaussian_energy
+        from lib.slurm_utils import write_momap_slurm
+        from lib.orca_handler import read_soc
 
-            if (folder / "run.slurm").exists() and not (folder / "job.done").exists(): return
+        hso_val = read_soc(soc_file)
 
-            print(f"  [Step] Preparing MOMAP EVC for Kisc...")
-            folder.mkdir(parents=True, exist_ok=True)
-            
-            s0_src = self.dirs['s0_freq'] / f"{self.name}_s0_freq.log"
-            t1_src = self.dirs['t1_freq'] / f"{self.name}_t1_freq.log"
-            
-            # [Fix] Kisc 也加上 fchk 复制逻辑 (更稳健)
-            s0_fchk = self.dirs['s0_freq'] / f"{self.name}_s0_freq.fchk"
-            t1_fchk = self.dirs['t1_freq'] / f"{self.name}_t1_freq.fchk"
+        s0_log = self.dirs['s0_freq'] / f"{self.name}_s0_freq.log"
+        t1_log = self.dirs['t1_freq'] / f"{self.name}_t1_freq.log"
+        ead_val = get_gaussian_energy(s0_log) - get_gaussian_energy(t1_log)
 
-            if not (s0_src.exists() and t1_src.exists()): return
-            
-            shutil.copy(s0_src, folder / "s0.log")
-            shutil.copy(t1_src, folder / "t1.log")
-            if s0_fchk.exists(): shutil.copy(s0_fchk, folder / "s0.fchk")
-            if t1_fchk.exists(): shutil.copy(t1_fchk, folder / "t1.fchk")
-            
-            use_cart = retry_flag.exists()
-            write_momap_inp(folder, mode='evc', s0_log="s0.log", t1_log="t1.log", use_cartesian=use_cart)
-            
-            write_momap_slurm(folder, f"{job_name}_evc", input_file="momap.inp")
-            
-            if not (folder / "evc.out").exists():
-                 self._submit_to_queue(folder)
-            
-            if (folder / "job.done").exists():
-                passed, best_file = check_evc_reorg(folder)
-                if passed:
-                    (folder / "job.done").unlink()
-                    # [Fix] 删除旧的 slurm
-                    if (folder / "run.slurm").exists():
-                        (folder / "run.slurm").unlink()
-                    with open(evc_done_flag, 'w') as f:
-                        f.write(best_file)
-                else:
-                    self._mark_fatal_error("Kisc EVC Reorg too high.")
-            return
-
-        if (folder / "job.done").exists(): return
-        if (folder / "run.slurm").exists(): return
-
-        print(f"  [Step] Preparing MOMAP Kisc calculation...")
-        
-        with open(evc_done_flag, 'r') as f:
-            ds_file = f.read().strip()
-            
-        e_s0 = get_gaussian_energy(folder / "s0.log")
-        e_t1 = get_gaussian_energy(folder / "t1.log")
-        ead = abs(e_t1 - e_s0)
-        
-        orca_out = self.dirs['orca'] / "orca.out"
-        
-        if not orca_out.exists(): 
-            orca_out = self.dirs['orca'] / f"{self.name}_orca.out"
-        if not orca_out.exists():
-            orca_out = self.dirs['orca'] / "orca.log"
-        hso = extract_orca_soc(orca_out)
-        
-        write_momap_inp(folder, mode='kisc', config_params=MOMAP_PARAMS,
-                        DSFile=ds_file, Ead=ead, Hso=hso)
-        
-        write_momap_slurm(folder, job_name, input_file="momap.inp")
+        write_momap_inp(folder, 'kisc', config_params=MOMAP_PARAMS, inp_filename="momap.inp",
+                        DSFile="evc.chenxiao.dat", Hso=hso_val, Ead=ead_val)
+        write_momap_slurm(folder, "kisc", nproc=G16_PARAMS['nproc'])
         self._submit_to_queue(folder)
+        return False
 
     # =========================================================================
     # MOMAP Kic 处理
     # =========================================================================       
     def _handle_momap_kic(self):
         folder = self.dirs['kic']
-        job_name = f"{self.name}_kic"
-        evc_done_flag = folder / "evc.done"
-        retry_flag = folder / "RETRY_CART"
+        if self._check_done(folder): return True
+        if (folder / "run.slurm").exists(): return False
+
+        print(f"  [Step] Preparing MOMAP Kic for {self.name}...")
+        folder.mkdir(parents=True, exist_ok=True)
         
-        if not evc_done_flag.exists():
-            # [Fix] 检查是否卡在报错状态
-            err_status = check_evc_err_file(folder)
-            
-            if err_status == 'COORD_ERROR':
-                if not retry_flag.exists():
-                    print(f"  [Repair] EVC Internal Coord Error. Retrying with set_cart=t ...")
-                    # 创建标记
-                    retry_flag.touch()
-                    # 删除旧的 slurm 和 job.done，强制重跑
-                    if (folder / "run.slurm").exists(): (folder / "run.slurm").unlink()
-                    if (folder / "job.done").exists(): (folder / "job.done").unlink()
-                    # 重新生成输入文件 (use_cartesian=True)
-                    write_momap_inp(folder, mode='evc', s0_log="s0.log", t1_log="s1.log", use_cartesian=True)
-                    # 重新生成 Slurm 脚本
-                    write_momap_slurm(folder, f"{job_name}_evc", input_file="momap.inp")
-                    # 提交
-                    self._submit_to_queue(folder)
-                    return
-                else:
-                    self._mark_fatal_error("EVC failed even with set_cart=t.")
-                    return
-            elif err_status == 'FATAL':
-                 self._mark_fatal_error("MOMAP EVC calculation crashed (See momap.err).")
-                 return
+        # [精准提取] 从 evc_s1 拿 .dat 和 原生的 .nac
+        evc_dat = self.dirs['evc_s1'] / "evc.chenxiao.dat"
+        nac_file = self.dirs['evc_s1'] / "evc.cart.nac"
+        if not evc_dat.exists() or not nac_file.exists(): return False
 
-            if (folder / "run.slurm").exists() and not (folder / "job.done").exists(): return
+        shutil.copy(evc_dat, folder / "evc.chenxiao.dat")
+        shutil.copy(nac_file, folder / "evc.cart.nac")
 
-            print(f"  [Step] Preparing MOMAP EVC for Kic...")
-            folder.mkdir(parents=True, exist_ok=True)
-            
-            s0_src = self.dirs['s0_freq'] / f"{self.name}_s0_freq.log"
-            s1_src = self.dirs['s1_freq'] / f"{self.name}_s1_freq.log"
-            
-            # [Fix] 之前缺失的 fchk 处理逻辑
-            s0_fchk = self.dirs['s0_freq'] / f"{self.name}_s0_freq.fchk"
-            s1_fchk = self.dirs['s1_freq'] / f"{self.name}_s1_freq.fchk"
-
-            if not (s0_src.exists() and s1_src.exists()): return
-            
-            shutil.copy(s0_src, folder / "s0.log")
-            shutil.copy(s1_src, folder / "s1.log")
-            
-            # [Fix] 复制 fchk 文件
-            if s0_fchk.exists(): shutil.copy(s0_fchk, folder / "s0.fchk")
-            if s1_fchk.exists(): shutil.copy(s1_fchk, folder / "s1.fchk")
-            
-            use_cart = retry_flag.exists()
-            write_momap_inp(folder, mode='evc', s0_log="s0.log", t1_log="s1.log",fnacme="s1.log", use_cartesian=use_cart)
-            
-            write_momap_slurm(folder, f"{job_name}_evc", input_file="momap.inp")
-            
-            if not (folder / "evc.out").exists():
-                 self._submit_to_queue(folder)
-            
-            if (folder / "job.done").exists():
-                passed, _ = check_evc_reorg(folder)
-                if passed:
-                    (folder / "job.done").unlink()
-                    # [Fix] 删除旧的 slurm
-                    if (folder / "run.slurm").exists():
-                        (folder / "run.slurm").unlink()
-                    with open(evc_done_flag, 'w') as f:
-                        f.write("evc.cart.dat") 
-                else:
-                    self._mark_fatal_error("Kic EVC Reorg too high.")
-            return
-
-        if (folder / "job.done").exists(): return
-        if (folder / "run.slurm").exists(): return
-
-        print(f"  [Step] Preparing MOMAP Kic calculation...")
+        from lib.momap_handler import write_momap_inp, get_gaussian_energy
+        from lib.slurm_utils import write_momap_slurm
         
-        e_s0 = get_gaussian_energy(folder / "s0.log")
-        e_s1 = get_gaussian_energy(folder / "s1.log")
-        ead = abs(e_s1 - e_s0)
-        
-        write_momap_inp(folder, mode='kic', config_params=MOMAP_PARAMS,
-                        Ead=ead, DSFile="evc.cart.dat", CoulFile="evc.cart.nac")
-        
-        write_momap_slurm(folder, job_name, input_file="momap.inp")
+        s0_log = self.dirs['s0_freq'] / f"{self.name}_s0_freq.log"
+        s1_log = self.dirs['s1_freq'] / f"{self.name}_s1_freq.log"
+        ead_val = get_gaussian_energy(s0_log) - get_gaussian_energy(s1_log)
+
+        # 同时向 momap.inp 提供 DSFile 和 CoulFile
+        write_momap_inp(folder, 'kic', config_params=MOMAP_PARAMS, inp_filename="momap.inp",
+                        DSFile="evc.chenxiao.dat", CoulFile="evc.cart.nac", Ead=ead_val)
+        write_momap_slurm(folder, "ic", nproc=G16_PARAMS['nproc'])
         self._submit_to_queue(folder)
+        return False
 
     # =========================================================================
     # 结果分析 (请直接替换原来的 _run_final_analysis)

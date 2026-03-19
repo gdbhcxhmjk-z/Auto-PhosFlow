@@ -1,5 +1,11 @@
+import os
+import sys
 import numpy as np
 from itertools import product
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+CX_CODE_DIR = os.path.join(CURRENT_DIR, "cx_code")
+if CX_CODE_DIR not in sys.path:
+    sys.path.insert(0, CX_CODE_DIR)
 
 from cx_code.readin_g import readin_g
 from cx_code.Norm import Normfreq

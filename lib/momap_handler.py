@@ -264,7 +264,7 @@ def check_evc_err_file(folder):
 
 
 # --- 更新: 输入文件生成器 (支持 kisc) ---
-def write_momap_inp(folder, mode, config_params=None, use_cartesian=False, **runtime_kwargs):
+def write_momap_inp(folder, mode, config_params=None, use_cartesian=False, inp_filename="momap.inp", **runtime_kwargs):
     """
     Args:
         mode: 'evc', 'kr', 'kisc', 'kic'
@@ -273,7 +273,7 @@ def write_momap_inp(folder, mode, config_params=None, use_cartesian=False, **run
     """
     if config_params is None: config_params = {}
     
-    inp_path = folder / "momap.inp"
+    inp_path = folder / inp_filename  
     content = ""
 
     # --- EVC 模式 ---

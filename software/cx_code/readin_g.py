@@ -115,7 +115,7 @@ def readin_g(logfile,fchkfile):             # Read atomic numbers, atomic mass, 
                   for a in range(natom):
                         nacm_y[a] = np.array(f_line[l+3+a].split()[-3:], dtype=float)
             if ' Excited State   1:' in f_line[l]:
-                  Ee_eV = np.float(f_line[l].split()[4])
+                  Ee_eV = float(f_line[l].split()[4])
         f_nac.close()
 
     return atomic_num, atomic_mass, coorx, force_matrix, Ee_eV, nacm_y
