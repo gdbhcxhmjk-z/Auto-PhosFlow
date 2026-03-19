@@ -276,14 +276,21 @@ class BatchController:
                      self.db[name]['Status'] = 'FAILED'
                      self.db[name]['Remark'] = 'Fatal Error (See Log)'
                 
-                elif (flow.root / "REPORT_PLQY.txt").exists() or (flow.dirs['kr'] / "job.done").exists():
+                elif (flow.root / "REPORT_PLQY.txt").exists():
                     if self.db[name]['Status'] != 'COMPLETED':
-                        self.log(f"[Done] Molecule {name} Partial Stage (Kr) Completed!")
+                        self.log(f"[Done] Molecule {name} Analysis Completed!")
                     
-                    # 标记为完成，释放并发名额，躲避看门狗追杀
-                    self.db[name]['Status'] = 'COMPLETED' 
-                    self.db[name]['Current_Stage'] = self.determine_stage(flow) # 这里会显示 MOMAP Kr Done
-                    self.db[name]['Remark'] = 'Partial Completed (Kr)'
+                    self.db[name]['Status'] = 'COMPLETED'
+                    self.db[name]['Current_Stage'] = 'Finished'
+                    self.db[name]['Remark'] = 'PLQY Report Generated'
+                # elif (flow.root / "REPORT_PLQY.txt").exists() or (flow.dirs['kr'] / "job.done").exists():
+                #     if self.db[name]['Status'] != 'COMPLETED':
+                #         self.log(f"[Done] Molecule {name} Partial Stage (Kr) Completed!")
+                    
+                #     # 标记为完成，释放并发名额，躲避看门狗追杀
+                #     self.db[name]['Status'] = 'COMPLETED' 
+                #     self.db[name]['Current_Stage'] = self.determine_stage(flow) # 这里会显示 MOMAP Kr Done
+                #     self.db[name]['Remark'] = 'Partial Completed (Kr)'
                 
                 else:
                     mol_log_path = flow.root / "workflow.log"

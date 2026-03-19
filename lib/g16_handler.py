@@ -49,6 +49,40 @@ def write_gjf(folder, job_name, keywords, charge, spin, coords, nproc=56, mem="5
     print(f"  [Gen] Input generated: {filename}")
     return filename
 
+def extract_td_energy(log_file, state_type="Triplet"):
+    """
+    提取 TD-DFT 计算的绝对能量 (Hartree)
+    """
+    log_file = Path(log_file)
+    if not log_file.exists():
+        return 0.0
+    
+    scf_energy = None
+    with open(log_file, 'r', encoding='utf-8', errors='ignore') as f:
+        lines = f.readlines()
+        
+    for line in reversed(lines):
+        if "Total Energy, E(" in line:
+            try: return float(line.strip().split('=')[1].strip())
+            except: pass
+        if scf_energy is None and "SCF Done:" in line:
+            try: scf_energy = float(line.split()[4])
+            except: pass
+            
+    if scf_energy is not None:
+        for line in lines:
+            # 找到第一个匹配的 Triplet/Singlet 状态
+            if "Excited State" in line and state_type in line:
+                try:
+                    parts = line.split()
+                    ev_index = parts.index("eV")
+                    excitation_ev = float(parts[ev_index - 1])
+                    # 将基态 SCF 加上激发能 (1 eV = 0.0367493 Hartree)
+                    return scf_energy + excitation_ev * 0.03674930883
+                except:
+                    pass
+    return 0.0
+
 def extract_geom_with_obabel(log_file, temp_dir=None):
     """
     使用 obabel 从 log 文件提取优化的几何结构。

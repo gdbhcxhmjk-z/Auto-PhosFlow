@@ -38,7 +38,8 @@ G16_PARAMS = {
     # 5. T1 结构优化 (基于 S0 结构，使用 Unrestricted DFT，Spin=3)
     't1_opt': "#p opt TPSSh/def2svp scrf=solvent=CH2Cl2 empiricaldispersion=gd3bj IOp(3/174=1000000,3/175=2238200,3/177=452900,3/178=4655000) nosymm",
     # 6. T1 频率 (读取 t1_opt.chk)
-    't1_freq': "#p freq TPSSh/def2svp scrf=solvent=CH2Cl2 empiricaldispersion=gd3bj IOp(3/174=1000000,3/175=2238200,3/177=452900,3/178=4655000) nosymm"
+    't1_freq': "#p freq TPSSh/def2svp scrf=solvent=CH2Cl2 empiricaldispersion=gd3bj IOp(3/174=1000000,3/175=2238200,3/177=452900,3/178=4655000) nosymm",
+    't1_td': "#p td(50-50,nstate=10) TPSSh/def2svp scrf=solvent=CH2Cl2 empiricaldispersion=gd3bj IOp(3/174=1000000,3/175=2238200,3/177=452900,3/178=4655000) nosymm",
 }
 
 # --- MOMAP 参数配置 ---

@@ -51,6 +51,7 @@ class MoleculeFlow:
             's1_freq': self.root / "04_S1_Freq",
             't1_opt':  self.root / "05_T1_Opt",
             't1_freq': self.root / "06_T1_Freq",
+            't1_td':   self.root / "06b_T1_TD",
             # 后处理步骤
             'orca':    self.root / "07_ORCA_SOC",
             'kr':      self.root / "08_MOMAP_Kr",
@@ -97,48 +98,45 @@ class MoleculeFlow:
 
         s0_log = self.dirs['s0_opt'] / f"{self.name}_s0_opt.log"
 
-        # --- 2. S1 State Cycle [暂时跳过] ---
-        # s1_ok = self._handle_gaussian_cycle('s1', 'log', s0_log, 0, 1, silent)
-        # if not s1_ok: return
-        
-        # [伪造 S1 成功标志，防止后续的 "s1_ok and t1_ok" 检查卡死]
-        s1_ok = True
+        # --- 2. S1 State Cycle [恢复完整流程] ---
+        s1_ok = self._handle_gaussian_cycle('s1', 'log', s0_log, 0, 1, silent)
+        if not s1_ok: return
 
-        # --- 3. T1 State Cycle ---
+        # --- 3. T1 State Cycle [保留] ---
         t1_ok = self._handle_gaussian_cycle('t1', 'log', s0_log, 0, 3, silent)
         if not t1_ok: return
         
-        # [修改] 只有第一次达成时(或非静默)才打印
-        if s1_ok and t1_ok and not silent:
+        # --- 3.5 T1 TD 计算 [新增] ---
+        # 注意：使用 S0 闭壳层基态参考系计算激发态，因此 spin 填 1
+        t1_td_ok = self._handle_td_step('t1_td', 't1_opt', charge=0, spin=1)
+        if not t1_td_ok: return
+        
+        if not silent:
             print(f"  [Info] Gaussian stages completed. Ready for ORCA/MOMAP.")
         
-        # --- 4. ORCA SOC Calculation ---
-        # ORCA 内部逻辑是 "有锁即停"，所以不需要 silent 参数，它如果不跑就是静默的
-        if s1_ok and t1_ok:
-            self._handle_orca_step()
+        # --- 4. ORCA SOC Calculation [保留] ---
+        self._handle_orca_step()
         
-        # --- 5. MOMAP Logic ---
+        # --- 5. MOMAP Logic (恢复三大速率并行) ---
         s0_done = self._check_done(self.dirs['s0_freq'])
         s1_done = self._check_done(self.dirs['s1_freq'])
         t1_done = self._check_done(self.dirs['t1_freq'])
         orca_done = self._check_done(self.dirs['orca'])
         
-        # Kr & Kisc 依赖 S0, T1, ORCA
         if s0_done and t1_done and orca_done:
             self._handle_momap_kr()
-            # self._handle_momap_kisc()
+            self._handle_momap_kisc() # <--- 恢复 Kisc
             
-        # # Kic 依赖 S0, S1 (不依赖 ORCA)
-        # if s0_done and s1_done:
-        #     self._handle_momap_kic()
+        if s0_done and s1_done:
+            self._handle_momap_kic()  # <--- 恢复 Kic
 
-        # # --- 6. Analysis ---    
-        # kr_done = (self.dirs['kr'] / "job.done").exists()
-        # kisc_done = (self.dirs['kisc'] / "job.done").exists()
-        # kic_done = (self.dirs['kic'] / "job.done").exists()
+        # --- 6. Analysis (接入 T1 TD 能量) ---    
+        kr_done = (self.dirs['kr'] / "job.done").exists()
+        kisc_done = (self.dirs['kisc'] / "job.done").exists()
+        kic_done = (self.dirs['kic'] / "job.done").exists()
         
-        # if kr_done and kisc_done and kic_done:
-        #     self._run_final_analysis()
+        if kr_done and kisc_done and kic_done and t1_td_ok:
+            self._run_final_analysis()
 
     # =========================================================================
     # 核心逻辑：高斯计算循环 (Opt + Freq + Imag Check + Retry)
@@ -269,6 +267,40 @@ class MoleculeFlow:
         # 3. 生成并提交 Slurm
         write_g16_slurm(folder, job_name, nproc=G16_PARAMS['nproc'])
         self._submit_to_queue(folder)
+    
+    def _handle_td_step(self, step_key, prev_opt_key, charge, spin):
+        folder = self.dirs[step_key]
+        job_name = f"{self.name}_{step_key}"
+        sp_log = folder / f"{job_name}.log"
+        
+        if self._check_done(folder):
+            if not check_g16_termination(sp_log):
+                self._mark_fatal_error(f"{step_key} 异常结束 (Error Termination)。")
+                return False
+            return True
+            
+        if (folder / "run.slurm").exists(): return False
+
+        print(f"  [Step] Preparing {job_name} (TD Energy Calculation)...")
+        folder.mkdir(parents=True, exist_ok=True)
+        
+        # 提取优化好的坐标
+        prev_opt_log = self.dirs[prev_opt_key] / f"{self.name}_{prev_opt_key}.log"
+        try:
+            coords = extract_geom_with_obabel(prev_opt_log, temp_dir=folder)
+        except Exception as e:
+            self._mark_fatal_error(f"TD Failed to extract coords from {prev_opt_key}: {e}")
+            return False
+
+        keywords = G16_PARAMS[step_key]
+        write_gjf(
+            folder=folder, job_name=job_name, coords=coords,
+            charge=charge, spin=spin, keywords=keywords,
+            nproc=G16_PARAMS['nproc'], mem=G16_PARAMS.get('mem', '256GB')
+        )
+        write_g16_slurm(folder, job_name, nproc=G16_PARAMS['nproc'])
+        self._submit_to_queue(folder)
+        return False
 
     def _run_freq_step(self, step_key, prev_opt_key, charge, spin):
         folder = self.dirs[step_key]
@@ -656,7 +688,7 @@ class MoleculeFlow:
         self._submit_to_queue(folder)
 
     # =========================================================================
-    # 结果分析
+    # 结果分析 (请直接替换原来的 _run_final_analysis)
     # =========================================================================       
     def _run_final_analysis(self):
         report_file = self.root / "REPORT_PLQY.txt"
@@ -670,11 +702,12 @@ class MoleculeFlow:
         
         kr, kisc, kic = extract_rates_from_logs(kr_log, kisc_log, kic_log)
         
+        # 能量提取逻辑变更：s1 用 freq(SCF)，t1 用 td
         s1_log = self.dirs['s1_freq'] / f"{self.name}_s1_freq.log"
-        t1_log = self.dirs['t1_freq'] / f"{self.name}_t1_freq.log"
+        t1_td_log = self.dirs['t1_td'] / f"{self.name}_t1_td.log"
         
         e_s1 = get_gaussian_energy(s1_log)
-        e_t1 = get_gaussian_energy(t1_log)
+        e_t1 = extract_td_energy(t1_td_log, state_type="Triplet")
         delta_E = e_s1 - e_t1 
         
         temp = 300 
@@ -692,8 +725,8 @@ class MoleculeFlow:
 Analysis Report for {self.name}
 ==================================================
 1. Energies (Hartree)
-   E(S1): {e_s1:.6f}
-   E(T1): {e_t1:.6f}
+   E(S1) [from SCF]: {e_s1:.6f}
+   E(T1) [from TD] : {e_t1:.6f}
    dE(S1-T1): {delta_E:.6f} Ha ({delta_E * 27.2114:.3f} eV)
    Boltzmann Ratio n(S1)/n(T1): {ratio:.4e} (at {temp} K)
 
