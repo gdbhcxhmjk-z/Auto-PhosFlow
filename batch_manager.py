@@ -59,6 +59,96 @@ class BatchController:
         with open(STATUS_FILE, 'w', encoding='utf-8', newline='') as f:
             writer = csv.writer(f)
             writer.writerow(['Name', 'Status', 'Current_Stage', 'Last_Updated', 'Remark', 'Start_Time'])
+    
+    def _manage_data_lifecycle(self):
+        """
+        全自动数据生命周期管理：
+        1. 废弃清理：秒级清理 FAILED 任务残留。
+        2. 黄金提取：提取 COMPLETED 任务的 .xyz 和 REPORT 存入精简库。
+        3. 云端归档：静默触发 migrate_result.py 异步带走波函数重文件。
+        """
+        import shutil
+        import subprocess
+        import sys
+        from pathlib import Path
+
+        cleaned_count = 0
+        need_migration = False
+
+        # --- 1. 同步清理：计算失败的任务 ---
+        for name, info in self.db.items():
+            if info['Status'] == 'FAILED':
+                # 清理 1: 删除本地 Results 中的庞大残留
+                for mol_dir in Path("results").rglob(name):
+                    if mol_dir.is_dir():
+                        try:
+                            shutil.rmtree(mol_dir)
+                            cleaned_count += 1
+                        except Exception as e:
+                            self.log(f"  [Clean Error] Failed to remove {mol_dir}: {e}")
+
+                # 清理 2: 将 .xyz 文件打入冷宫
+                for xyz_file in Path("molecules").rglob(f"{name}.xyz"):
+                    if xyz_file.is_file():
+                        round_name = xyz_file.parent.name
+                        archive_dir = Path("abandoned_molecules") / round_name
+                        archive_dir.mkdir(parents=True, exist_ok=True)
+                        shutil.move(str(xyz_file), str(archive_dir / xyz_file.name))
+                        self.log(f"  [Archive] Moved failed {xyz_file.name} to abandoned.")
+
+            # --- 2. 黄金提取 & 嗅探迁移：成功的任务 ---
+            elif info['Status'] == 'COMPLETED':
+                found_dirs = list(Path("results").rglob(name))
+                if found_dirs:
+                    need_migration = True
+                    mol_dir = found_dirs[0]
+                    round_name = mol_dir.parent.name
+                    
+                    # ====================================================
+                    # [新增] 淘金行动：在远端迁移前，提取最核心的轻量化数据到本地库
+                    # ====================================================
+                    local_db_dir = Path("completed_database") / round_name / name
+                    if not local_db_dir.exists():
+                        local_db_dir.mkdir(parents=True, exist_ok=True)
+                        
+                        # 1. 归档 Report 文件
+                        report_src = mol_dir / "REPORT_PLQY.txt"
+                        if report_src.exists():
+                            shutil.copy(report_src, local_db_dir / "REPORT_PLQY.txt")
+                        
+                        # 2. 归档 S0 的 XYZ 文件 (直接从确认无虚频的 Freq 环节提取，保证最准)
+                        s0_freq_dir = mol_dir / "02_S0_Freq"
+                        s0_xyz_list = list(s0_freq_dir.glob("*.xyz"))
+                        
+                        target_xyz = local_db_dir / f"{name}_s0.xyz"
+                        if s0_xyz_list:
+                            # 如果 Freq 目录下有现成的 xyz，直接拷贝
+                            shutil.copy(s0_xyz_list[0], target_xyz)
+                        else:
+                            # 否则，利用 obabel 从频率计算的 log 中精准提取唯一构型
+                            s0_log = s0_freq_dir / f"{name}_s0_freq.log"
+                            if s0_log.exists():
+                                subprocess.run(f"obabel -ig09 {s0_log} -oxyz -O {target_xyz}", shell=True, stderr=subprocess.DEVNULL)
+                                
+                        self.log(f"  [Database] 📦 Saved lightweight core data for {name}.")
+                    # ====================================================
+
+        if cleaned_count > 0:
+            self.log(f"  [Lifecycle] Successfully cleared {cleaned_count} failed task folders.")
+
+        # --- 3. 异步触发迁移脚本 (绝不阻塞主线程) ---
+        if need_migration:
+            migrate_script = Path("migrate_result.py")
+            if migrate_script.exists():
+                try:
+                    ps_output = subprocess.check_output("ps aux | grep migrate_result.py | grep -v grep", shell=True, text=True)
+                    if "migrate_result.py" in ps_output:
+                        return 
+                except subprocess.CalledProcessError:
+                    self.log("  [Lifecycle] Triggering background sync for COMPLETED tasks...")
+                    subprocess.Popen([sys.executable, str(migrate_script)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            else:
+                self.log("  [Warning] migrate_result.py not found. Cannot migrate COMPLETED tasks.")
 
     def _save_db(self):
         with open(STATUS_FILE, 'w', encoding='utf-8', newline='') as f:
@@ -315,6 +405,7 @@ class BatchController:
 
         self._save_db()
         self.run_watchdog()
+        self._manage_data_lifecycle()
         #print(f"  [Cycle] Finished.")
 
 if __name__ == "__main__":

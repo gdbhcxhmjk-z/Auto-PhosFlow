@@ -1,139 +1,62 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
+# migrate_result.py
 import os
-import csv
-import shutil
 import subprocess
 from pathlib import Path
+import shutil
 
-# ================= 配置区域 =================
-STATUS_FILE = Path("status_report.csv")
-RESULTS_DIR = Path("results")
+# ================= 远端服务器配置区 =================
+REMOTE_USER = "root"               # 例如: zhangwenjie
+REMOTE_HOST = "ercm1428943.bohrium.tech"           # 例如: 192.168.1.100
+REMOTE_DIR  = "/share/Pt/fully_completed"   # 远端存放计算结果的绝对路径
+# (强烈建议在此前配置好两台服务器的 SSH 密钥免密登录，否则脚本在后台会被卡在要求输入密码的阶段)
+# ====================================================
 
-# 云服务器配置 (通过 SSH/SCP/RSYNC)
-REMOTE_USER = "root"        # 云端用户名
-REMOTE_HOST = "ercm1428943.bohrium.tech"        # 云端IP或域名
-REMOTE_BASE_DIR = "/share/Pt" # 云端存放数据的根目录
-
-# 迁移模式
-USE_RSYNC = True    # 推荐为True，支持断点续传。若云端无rsync，可改为False使用scp
-DELETE_AFTER_MIGRATE = True # 传输成功后是否立刻删除本地文件夹以释放空间
-# ===========================================
-
-def get_completed_molecules():
-    """解析 CSV，将完成的分子分为全完结和半完结两组"""
-    full_completed = []
-    kr_only_completed = []
+def migrate_completed_tasks():
+    print("🚀 Background Migration Started...")
     
-    if not STATUS_FILE.exists():
-        print(f"❌ 找不到状态文件: {STATUS_FILE}")
-        return full_completed, kr_only_completed
-        
-    with open(STATUS_FILE, 'r', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            if row.get('Status') == 'COMPLETED':
-                name = row['Name']
-                remark = row.get('Remark', '')
-                
-                # 根据 Remark 区分
-                if 'Partial Completed' in remark or 'Kr' in remark:
-                    kr_only_completed.append(name)
-                else:
-                    full_completed.append(name)
-                    
-    return full_completed, kr_only_completed
-
-def run_transfer(source_path, target_type, round_name):
-    """
-    执行文件传输
-    source_path: 本地文件夹路径 (如 results/round0/idx_123)
-    target_type: "fully_completed" 或 "kr_only_completed"
-    """
-    # 构造云端目标路径：/云端目录/分类/roundX/
-    remote_target_dir = f"{REMOTE_BASE_DIR}/{target_type}/{round_name}/"
-    remote_full_path = f"{REMOTE_USER}@{REMOTE_HOST}:{remote_target_dir}"
-    
-    # 第一步：在云端创建对应目录
-    mkdir_cmd = f"ssh {REMOTE_USER}@{REMOTE_HOST} 'mkdir -p {remote_target_dir}'"
-    subprocess.run(mkdir_cmd, shell=True, stderr=subprocess.DEVNULL)
-    
-    # 第二步：传输数据
-    if USE_RSYNC:
-        # rsync -avz 
-        # a: 归档模式(保留权限时间), v: 详细输出, z: 传输时压缩
-        cmd = f"rsync -avz '{source_path}' {remote_full_path}"
-    else:
-        # scp -r
-        cmd = f"scp -r '{source_path}' {remote_full_path}"
-        
-    print(f"  ⬆️  正在传输: {source_path.name} -> {target_type} ...")
-    res = subprocess.run(cmd, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True)
-    
-    if res.returncode == 0:
-        return True
-    else:
-        print(f"  ❌ 传输失败: {res.stderr.strip()}")
-        return False
-
-def migrate():
-    print("🔍 正在扫描已完成的计算任务...")
-    full_mols, kr_mols = get_completed_molecules()
-    
-    total_mols = len(full_mols) + len(kr_mols)
-    if total_mols == 0:
-        print("✅ 当前没有处于 COMPLETED 状态的分子需要迁移。")
+    # 1. 扫描状态表，获取所有 COMPLETED 分子名单
+    completed_mols = []
+    try:
+        with open("status_report.csv", "r") as f:
+            for line in f:
+                if "COMPLETED" in line:
+                    completed_mols.append(line.split(",")[0].strip())
+    except FileNotFoundError:
         return
-        
-    print(f"📦 发现 {total_mols} 个可迁移分子：")
-    print(f"   - 🏅 完全算完 (含PLQY报告): {len(full_mols)} 个")
-    print(f"   - 🥈 仅完成 Kr (等待后续计算): {len(kr_mols)} 个")
-    
-    confirm = input("\n⚠️ 是否开始向云端迁移并释放本地空间？(y/n): ").strip().lower()
-    if confirm != 'y':
-        print("👋 迁移取消。")
-        return
-        
-    success_count = 0
-    freed_mols = 0
-    
-    # 合并处理清单 (分子名, 目标分类)
-    tasks = [(mol, "fully_completed") for mol in full_mols] + \
-            [(mol, "kr_only_completed") for mol in kr_mols]
-            
-    for mol, target_type in tasks:
-        # 穿透搜索找到实际路径 (适配 roundX)
-        found_dirs = list(RESULTS_DIR.rglob(mol))
+
+    results_dir = Path("results")
+    if not results_dir.exists(): return
+
+    # 2. 遍历比对本地文件
+    for mol in completed_mols:
+        found_dirs = list(results_dir.rglob(mol))
         if not found_dirs:
-            print(f"  [跳过] 找不到分子 {mol} 的结果文件夹。可能已被清理。")
-            continue
-            
-        source_path = found_dirs[0]
-        if not source_path.is_dir(): continue
-        
-        round_name = source_path.parent.name
-        
-        # 执行传输
-        is_success = run_transfer(source_path, target_type, round_name)
-        
-        # 如果传输成功且开启了删除选项，释放本地空间
-        if is_success:
-            success_count += 1
-            if DELETE_AFTER_MIGRATE:
-                try:
-                    shutil.rmtree(source_path)
-                    print(f"  🗑️  已删除本地文件夹释放空间: {source_path}")
-                    freed_mols += 1
-                except Exception as e:
-                    print(f"  ⚠️ 删除本地文件夹失败: {e}")
+            continue # 本地已经没了，说明前几轮早就成功送走并删除了
 
-    print("\n==================================================")
-    print(f"✅ 迁移任务结束！")
-    print(f"📊 统计: 成功传输 {success_count}/{total_mols} 个分子。")
-    if DELETE_AFTER_MIGRATE:
-        print(f"🧹 空间释放: 成功清理 {freed_mols} 个本地文件夹。")
-    print("==================================================")
+        mol_dir = found_dirs[0]
+        round_name = mol_dir.parent.name # 比如 round0 
+        
+        remote_target = f"{REMOTE_USER}@{REMOTE_HOST}:{REMOTE_DIR}/{round_name}/"
+        
+        # 提前在远端创建对应的 round 目录，防止 rsync 找不到路径报错
+        subprocess.run(["ssh", f"{REMOTE_USER}@{REMOTE_HOST}", f"mkdir -p {REMOTE_DIR}/{round_name}"], check=False)
+
+        # 构建 rsync 断点续传命令
+        cmd = ["rsync", "-avz", str(mol_dir), remote_target]
+        print(f"  -> Syncing {mol} to remote server...")
+        
+        # 执行上传
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        
+        # 3. 严格判定：只有 rsync 状态码为 0 (完全成功无中断)，才敢销毁本地数据
+        if result.returncode == 0:
+            print(f"  ✅ {mol} perfectly synced. Nuking local copy to free space...")
+            try:
+                shutil.rmtree(mol_dir)
+            except Exception as e:
+                print(f"  ❌ Failed to remove local copy {mol_dir}: {e}")
+        else:
+            print(f"  ⚠️ Rsync for {mol} was interrupted or failed. Will try again next cycle.\nError:\n{result.stderr}")
 
 if __name__ == "__main__":
-    migrate()
+    migrate_completed_tasks()

@@ -17,6 +17,7 @@ from lib.g16_handler import (
     write_gjf, 
     read_xyz_coords, 
     extract_geom_with_obabel, 
+    extract_td_energy,
     check_imaginary_frequencies,
     check_job_elapsed_time, 
     check_g16_termination,
@@ -540,15 +541,14 @@ class MoleculeFlow:
         
         # [精准提取] 从 evc_t1 拿 .dat，不需要 .nac
         evc_dat = self.dirs['evc_t1'] / "evc.chenxiao.dat"
-        orca_out = self.dirs['orca'] / f"{self.name}_orca.out"
+        orca_out = self.dirs['orca'] / "orca.out"
         if not evc_dat.exists() or not orca_out.exists(): return False
 
         shutil.copy(evc_dat, folder / "evc.chenxiao.dat")
 
-        from lib.momap_handler import write_momap_inp, get_gaussian_energy
+        from lib.momap_handler import write_momap_inp, get_gaussian_energy,extract_orca_edme
         from lib.slurm_utils import write_momap_slurm
-        from lib.orca_handler import read_edme
-        edme_val = read_edme(edme_file)
+        edme_val = extract_orca_edme(orca_out)
         
         s0_log = self.dirs['s0_freq'] / f"{self.name}_s0_freq.log"
         t1_log = self.dirs['t1_freq'] / f"{self.name}_t1_freq.log"
@@ -574,16 +574,15 @@ class MoleculeFlow:
         
         # [精准提取] 从 evc_t1 拿 .dat，不需要 .nac
         evc_dat = self.dirs['evc_t1'] / "evc.chenxiao.dat"
-        orca_out = self.dirs['orca'] / f"{self.name}_orca.out"
+        orca_out = self.dirs['orca'] / "orca.out"
         if not evc_dat.exists() or not orca_out.exists(): return False
 
         shutil.copy(evc_dat, folder / "evc.chenxiao.dat")
 
-        from lib.momap_handler import write_momap_inp, get_gaussian_energy
+        from lib.momap_handler import write_momap_inp, get_gaussian_energy,extract_orca_soc
         from lib.slurm_utils import write_momap_slurm
-        from lib.orca_handler import read_soc
 
-        hso_val = read_soc(orca_out)
+        hso_val = extract_orca_soc(orca_out)
 
         s0_log = self.dirs['s0_freq'] / f"{self.name}_s0_freq.log"
         t1_log = self.dirs['t1_freq'] / f"{self.name}_t1_freq.log"
