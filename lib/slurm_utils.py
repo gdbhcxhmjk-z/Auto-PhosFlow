@@ -6,57 +6,74 @@ from config import ENV_PATHS
 
 def get_idle_partition(default_partition="planck-cpu01", required_cores=56):
     """
-    动态获取空闲的计算队列。
-    利用标准 sinfo 命令查询，输出决策日志到 workflow.log。
+    临时补救版队列选择逻辑：
+    1) 只在偏好队列中选择，绝不返回非偏好队列
+    2) 只接受 idle，不接受 mix
+    3) 如果偏好队列都没有满足条件的 idle，则强制回退到 planck 系列
     """
-    preferred_partitions = ["planck-cpu01", "planck-cpu02",  "airs-cpu","bayestat-cpu"]
-    
+    import re
+    import subprocess
+
+    preferred_partitions = ["planck-cpu01", "planck-cpu02", "airs-cpu", "bayestat-cpu","gosset-cpu"]
+    planck_fallbacks = ["planck-cpu02", "planck-cpu01"]
+
     try:
-        # [修改1] 去掉 -N，加上 shell=True 保证能继承环境变量找到 sinfo 命令
-        # 使用你测试成功的原生命令格式
         cmd = 'sinfo -h -o "%P %T %c"'
         res = subprocess.run(cmd, shell=True, capture_output=True, text=True)
-        
+
         if res.returncode != 0:
             print(f"  [Queue Warning] sinfo failed: {res.stderr.strip()}")
+            print(f"  [Queue Fallback] Force fallback to planck queue: {default_partition}")
             return default_partition
-            
+
         lines = res.stdout.strip().split('\n')
-        idle_parts = []
-        
+        part_info = {}
+
         for line in lines:
             parts = line.split()
-            if len(parts) >= 3:
-                part_name = parts[0].replace('*', '')
-                state = parts[1].lower()
-                
-                # 提取纯数字核心数
-                core_str = re.sub(r'\D', '', parts[2])
-                if not core_str: continue
-                cores = int(core_str)
-                
-                # 状态包含 idle 或 mix，且核心数达标
-                if ('idle' in state or 'mix' in state) and cores >= required_cores:
-                    if part_name not in idle_parts:
-                        idle_parts.append(part_name)
-        
-        print(f"  [Queue Scan] Discovered available queues: {idle_parts}")
-        
-        # 优先从偏好列表中挑
+            if len(parts) < 3:
+                continue
+
+            part_name = parts[0].replace('*', '')
+            state = parts[1].lower()
+
+            # 只看偏好队列，其他队列直接忽略
+            if part_name not in preferred_partitions:
+                continue
+
+            core_str = re.sub(r'\D', '', parts[2])
+            if not core_str:
+                continue
+            cores = int(core_str)
+
+            # 核数不够也忽略
+            if cores < required_cores:
+                continue
+
+            # 记录状态；如果同一分区出现多次，优先保留 idle
+            if part_name not in part_info:
+                part_info[part_name] = state
+            elif "idle" in state:
+                part_info[part_name] = state
+
+        print(f"  [Queue Scan] Preferred queues status: {part_info}")
+
+        # 第一优先：只接受 idle，明确拒绝 mix
         for p in preferred_partitions:
-            if p in idle_parts:
-                print(f"  [Queue Auto-Select] Assigned to preferred queue: {p}")
+            state = part_info.get(p, "")
+            if "idle" in state and "mix" not in state:
+                print(f"  [Queue Auto-Select] Assigned to preferred idle queue: {p}")
                 return p
-                
-        # 如果偏好列表没找到，随便给一个满足条件的
-        if idle_parts:
-            print(f"  [Queue Auto-Select] Assigned to backup queue: {idle_parts[0]}")
-            return idle_parts[0]
-            
+
+        # 第二优先：如果都不是 idle，则强制回退到 planck 系列
+        for p in planck_fallbacks:
+            print(f"  [Queue Fallback] No preferred idle queue available. Force submit to planck queue: {p}")
+            return p
+
     except Exception as e:
         print(f"  [Queue Error] Auto-select crashed: {e}")
-        
-    print(f"  [Queue Default] Falling back to default: {default_partition}")
+
+    print(f"  [Queue Default] Falling back to default planck queue: {default_partition}")
     return default_partition
 
 
