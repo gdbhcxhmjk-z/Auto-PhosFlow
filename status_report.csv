@@ -6,150 +6,150 @@ cluster000_rank2_idx0568338_CC,COMPLETED,Finished,2026-03-22 13:48:02,PLQY Repor
 cluster000_rank2_idx0568338_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-22 23:26:42
 cluster001_rank0_idx0180412_CC,COMPLETED,Finished,2026-03-22 23:16:34,PLQY Report Generated,2026-03-21 23:05:53
 cluster001_rank0_idx0180412_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-22 23:31:49
-cluster001_rank4_idx0071392_CC,RUNNING,MOMAP Kisc Done,2026-03-23 00:12:51,Processing,2026-03-22 13:53:05
+cluster001_rank4_idx0071392_CC,COMPLETED,Finished,2026-03-23 07:33:53,PLQY Report Generated,2026-03-22 13:53:05
 cluster001_rank4_idx0071392_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-22 23:37:01
-cluster002_rank0_idx0133509_CC,RUNNING,ORCA Done,2026-03-23 00:12:51,Processing,2026-03-22 19:56:18
+cluster002_rank0_idx0133509_CC,COMPLETED,Finished,2026-03-24 08:58:56,PLQY Report Generated,2026-03-22 19:56:18
 cluster002_rank0_idx0133509_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-22 23:42:10
 cluster002_rank2_idx0177384_CC,FAILED,Init,2026-03-21 01:23:44,XYZ Missing,2026-03-22 20:06:24
-cluster003_rank0_idx0417248_CC,RUNNING,ORCA Done,2026-03-23 00:12:51,Processing,2026-03-22 20:13:17
+cluster003_rank0_idx0417248_CC,FAILED,ORCA Done,2026-03-23 06:37:56,Fatal Error (See Log),2026-03-22 20:13:17
 cluster003_rank0_idx0417248_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-22 23:47:15
-cluster003_rank2_idx0242147_CC,RUNNING,ORCA Done,2026-03-23 00:12:51,Processing,2026-03-22 20:44:43
+cluster003_rank2_idx0242147_CC,COMPLETED,Finished,2026-03-25 00:17:12,PLQY Report Generated,2026-03-22 20:44:43
 cluster003_rank2_idx0242147_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-22 23:52:26
-cluster004_rank0_idx0482095_CC,RUNNING,ORCA Done,2026-03-23 00:12:51,Processing,2026-03-22 21:28:20
+cluster004_rank0_idx0482095_CC,COMPLETED,Finished,2026-03-23 11:32:19,PLQY Report Generated,2026-03-22 21:28:20
 cluster004_rank0_idx0482095_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-22 23:57:37
-cluster004_rank5_idx0259375_CC,RUNNING,ORCA Done,2026-03-23 00:12:51,Processing,2026-03-23 00:02:42
-cluster004_rank5_idx0259375_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster005_rank0_idx0067226_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster005_rank0_idx0067226_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster005_rank2_idx0461890_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster005_rank2_idx0461890_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster006_rank2_idx0401797_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster006_rank2_idx0401797_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster006_rank3_idx0019492_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster006_rank3_idx0019492_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster007_rank1_idx0140880_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster007_rank1_idx0140880_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster007_rank4_idx0208752_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster007_rank4_idx0208752_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster008_rank1_idx0339958_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster008_rank1_idx0339958_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster008_rank2_idx0131206_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster008_rank2_idx0131206_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster009_rank0_idx0275600_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster009_rank0_idx0275600_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster010_rank1_idx0385279_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster010_rank3_idx0198207_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster010_rank3_idx0198207_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster011_rank0_idx0521349_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster011_rank0_idx0521349_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster011_rank3_idx0060890_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster011_rank3_idx0060890_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster012_rank1_idx0312840_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster012_rank1_idx0312840_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster012_rank4_idx0355989_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster012_rank4_idx0355989_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster013_rank0_idx0429291_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster013_rank1_idx0202185_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster013_rank1_idx0202185_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster014_rank0_idx0038592_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster014_rank5_idx0468288_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster014_rank5_idx0468288_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster015_rank0_idx0158959_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster015_rank0_idx0158959_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster016_rank0_idx0599935_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster016_rank0_idx0599935_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster016_rank2_idx0495918_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster016_rank2_idx0495918_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster017_rank2_idx0297207_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster017_rank2_idx0297207_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster017_rank3_idx0297205_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster017_rank3_idx0297205_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster018_rank0_idx0529377_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster018_rank0_idx0529377_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster018_rank4_idx0323209_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster018_rank4_idx0323209_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster019_rank3_idx0360556_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster019_rank3_idx0360556_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster020_rank0_idx0545240_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster020_rank0_idx0545240_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster020_rank1_idx0396536_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster020_rank1_idx0396536_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster021_rank0_idx0433701_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster021_rank4_idx0100823_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster021_rank4_idx0100823_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster022_rank0_idx0388763_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster022_rank2_idx0238343_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster022_rank2_idx0238343_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster023_rank0_idx0603280_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster023_rank0_idx0603280_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster023_rank3_idx0166670_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster023_rank3_idx0166670_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster024_rank0_idx0198520_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster024_rank0_idx0198520_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster025_rank0_idx0334696_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster025_rank0_idx0334696_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster026_rank0_idx0487387_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster026_rank0_idx0487387_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster026_rank1_idx0487388_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster027_rank4_idx0558183_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster027_rank4_idx0558183_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster027_rank6_idx0559335_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster027_rank6_idx0559335_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster028_rank1_idx0242421_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster029_rank3_idx0288496_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster029_rank3_idx0288496_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster030_rank0_idx0128282_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster030_rank0_idx0128282_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster030_rank2_idx0001032_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster030_rank2_idx0001032_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster031_rank1_idx0229699_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster031_rank1_idx0229699_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster031_rank4_idx0286293_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster032_rank0_idx0329169_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster032_rank0_idx0329169_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster032_rank1_idx0034728_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster032_rank1_idx0034728_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster033_rank0_idx0397989_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster033_rank0_idx0397989_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster033_rank1_idx0036883_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster033_rank1_idx0036883_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster034_rank2_idx0050533_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster034_rank2_idx0050533_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster034_rank3_idx0533700_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster034_rank3_idx0533700_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster035_rank2_idx0173734_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster035_rank2_idx0173734_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster035_rank3_idx0398172_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster035_rank3_idx0398172_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster037_rank0_idx0570165_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster038_rank0_idx0536717_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster038_rank0_idx0536717_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster038_rank1_idx0507959_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster039_rank0_idx0028050_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster040_rank1_idx0229374_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster040_rank1_idx0229374_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster040_rank3_idx0463420_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster040_rank3_idx0463420_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster041_rank2_idx0487507_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster041_rank2_idx0487507_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster041_rank3_idx0380747_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster041_rank3_idx0380747_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster042_rank0_idx0524275_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster042_rank0_idx0524275_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster043_rank0_idx0114895_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster043_rank0_idx0114895_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster043_rank1_idx0193140_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster043_rank1_idx0193140_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster044_rank4_idx0580725_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster044_rank4_idx0580725_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster045_rank2_idx0402757_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster045_rank2_idx0402757_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster045_rank7_idx0051493_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster045_rank7_idx0051493_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster046_rank0_idx0197300_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster046_rank0_idx0197300_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
-cluster047_rank6_idx0232741_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-cluster048_rank0_idx0208761_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
+cluster004_rank5_idx0259375_CC,COMPLETED,Finished,2026-03-24 21:35:10,PLQY Report Generated,2026-03-23 00:02:42
+cluster004_rank5_idx0259375_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-23 02:08:46
+cluster005_rank0_idx0067226_CC,COMPLETED,Finished,2026-03-24 04:06:12,PLQY Report Generated,2026-03-23 02:13:51
+cluster005_rank0_idx0067226_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-23 02:39:15
+cluster005_rank2_idx0461890_CC,COMPLETED,Finished,2026-03-23 20:08:35,PLQY Report Generated,2026-03-23 02:44:21
+cluster005_rank2_idx0461890_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-23 06:43:01
+cluster006_rank2_idx0401797_CC,COMPLETED,Finished,2026-03-24 08:37:12,PLQY Report Generated,2026-03-23 06:48:06
+cluster006_rank2_idx0401797_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-23 07:33:53
+cluster006_rank3_idx0019492_CC,COMPLETED,Finished,2026-03-24 16:46:32,PLQY Report Generated,2026-03-23 07:39:00
+cluster006_rank3_idx0019492_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-23 07:39:00
+cluster007_rank1_idx0140880_CC,COMPLETED,Finished,2026-03-24 22:35:22,PLQY Report Generated,2026-03-23 07:44:08
+cluster007_rank1_idx0140880_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-23 07:59:27
+cluster007_rank4_idx0208752_CC,COMPLETED,Finished,2026-03-24 10:16:41,PLQY Report Generated,2026-03-23 08:04:34
+cluster007_rank4_idx0208752_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-23 08:04:34
+cluster008_rank1_idx0339958_CC,COMPLETED,Finished,2026-03-25 02:40:45,PLQY Report Generated,2026-03-23 08:09:43
+cluster008_rank1_idx0339958_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-23 08:25:04
+cluster008_rank2_idx0131206_CC,COMPLETED,Finished,2026-03-25 14:41:02,PLQY Report Generated,2026-03-23 08:30:13
+cluster008_rank2_idx0131206_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-23 08:40:28
+cluster009_rank0_idx0275600_CC,COMPLETED,Finished,2026-03-25 02:08:12,PLQY Report Generated,2026-03-23 08:46:43
+cluster009_rank0_idx0275600_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-23 09:12:20
+cluster010_rank1_idx0385279_CC,FAILED,Init,2026-03-21 01:23:44,XYZ Missing,2026-03-23 09:17:29
+cluster010_rank3_idx0198207_CC,COMPLETED,Finished,2026-03-23 16:00:07,PLQY Report Generated,2026-03-23 09:22:37
+cluster010_rank3_idx0198207_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-23 10:10:07
+cluster011_rank0_idx0521349_CC,COMPLETED,Finished,2026-03-24 21:40:23,PLQY Report Generated,2026-03-23 10:15:17
+cluster011_rank0_idx0521349_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-23 11:37:27
+cluster011_rank3_idx0060890_CC,COMPLETED,Finished,2026-03-24 23:11:46,PLQY Report Generated,2026-03-23 11:42:35
+cluster011_rank3_idx0060890_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-23 16:05:15
+cluster012_rank1_idx0312840_CC,COMPLETED,Finished,2026-03-23 23:05:46,PLQY Report Generated,2026-03-23 16:10:27
+cluster012_rank1_idx0312840_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-23 20:13:45
+cluster012_rank4_idx0355989_CC,COMPLETED,Finished,2026-03-24 08:53:46,PLQY Report Generated,2026-03-23 20:18:55
+cluster012_rank4_idx0355989_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-23 23:10:55
+cluster013_rank0_idx0429291_CC,FAILED,Init,2026-03-21 01:23:44,XYZ Missing,2026-03-23 23:16:05
+cluster013_rank1_idx0202185_CC,COMPLETED,Finished,2026-03-25 13:34:53,PLQY Report Generated,2026-03-23 23:21:21
+cluster013_rank1_idx0202185_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-24 04:11:23
+cluster014_rank0_idx0038592_CC,FAILED,Init,2026-03-21 01:23:44,XYZ Missing,2026-03-24 04:16:34
+cluster014_rank5_idx0468288_CC,COMPLETED,Finished,2026-03-24 23:11:46,PLQY Report Generated,2026-03-24 04:21:46
+cluster014_rank5_idx0468288_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-24 08:42:22
+cluster015_rank0_idx0158959_CC,COMPLETED,Finished,2026-03-25 20:01:53,PLQY Report Generated,2026-03-24 08:47:33
+cluster015_rank0_idx0158959_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-24 08:58:56
+cluster016_rank0_idx0599935_CC,COMPLETED,Finished,2026-03-25 04:21:18,PLQY Report Generated,2026-03-24 09:04:08
+cluster016_rank0_idx0599935_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-24 09:04:08
+cluster016_rank2_idx0495918_CC,COMPLETED,Finished,2026-03-24 19:43:04,PLQY Report Generated,2026-03-24 09:09:20
+cluster016_rank2_idx0495918_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-24 10:21:52
+cluster017_rank2_idx0297207_CC,COMPLETED,Finished,2026-03-25 05:03:20,PLQY Report Generated,2026-03-24 10:27:05
+cluster017_rank2_idx0297207_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-24 16:51:44
+cluster017_rank3_idx0297205_CC,RUNNING,ORCA Done,2026-03-27 22:13:29,Processing,2026-03-24 16:56:57
+cluster017_rank3_idx0297205_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-24 19:48:16
+cluster018_rank0_idx0529377_CC,COMPLETED,Finished,2026-03-26 08:05:11,PLQY Report Generated,2026-03-24 19:53:32
+cluster018_rank0_idx0529377_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-24 21:40:23
+cluster018_rank4_idx0323209_CC,COMPLETED,Finished,2026-03-25 15:07:37,PLQY Report Generated,2026-03-24 21:45:39
+cluster018_rank4_idx0323209_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-24 21:45:39
+cluster019_rank3_idx0360556_CC,COMPLETED,Finished,2026-03-25 10:24:38,PLQY Report Generated,2026-03-24 21:51:54
+cluster019_rank3_idx0360556_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-24 22:44:02
+cluster020_rank0_idx0545240_CC,COMPLETED,Finished,2026-03-26 00:23:47,PLQY Report Generated,2026-03-24 22:53:16
+cluster020_rank0_idx0545240_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-24 23:20:13
+cluster020_rank1_idx0396536_CC,COMPLETED,Finished,2026-03-26 12:59:33,PLQY Report Generated,2026-03-24 23:20:13
+cluster020_rank1_idx0396536_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-24 23:30:20
+cluster021_rank0_idx0433701_CC,FAILED,Init,2026-03-21 01:23:44,XYZ Missing,2026-03-24 23:38:26
+cluster021_rank4_idx0100823_CC,COMPLETED,Finished,2026-03-26 07:01:25,PLQY Report Generated,2026-03-24 23:47:31
+cluster021_rank4_idx0100823_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-25 00:22:26
+cluster022_rank0_idx0388763_CC,FAILED,Init,2026-03-21 01:23:44,XYZ Missing,2026-03-25 00:27:42
+cluster022_rank2_idx0238343_CC,COMPLETED,Finished,2026-03-27 13:41:59,PLQY Report Generated,2026-03-25 00:32:57
+cluster022_rank2_idx0238343_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-25 02:13:26
+cluster023_rank0_idx0603280_CC,COMPLETED,Finished,2026-03-25 18:58:06,PLQY Report Generated,2026-03-25 02:18:41
+cluster023_rank0_idx0603280_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-25 02:45:59
+cluster023_rank3_idx0166670_CC,COMPLETED,Finished,2026-03-26 23:48:54,PLQY Report Generated,2026-03-25 02:51:15
+cluster023_rank3_idx0166670_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-25 04:26:32
+cluster024_rank0_idx0198520_CC,COMPLETED,Finished,2026-03-25 14:02:37,PLQY Report Generated,2026-03-25 04:31:48
+cluster024_rank0_idx0198520_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-25 05:08:35
+cluster025_rank0_idx0334696_CC,COMPLETED,Finished,2026-03-26 16:55:42,PLQY Report Generated,2026-03-25 05:13:53
+cluster025_rank0_idx0334696_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-25 10:29:53
+cluster026_rank0_idx0487387_CC,COMPLETED,Finished,2026-03-26 12:27:09,PLQY Report Generated,2026-03-25 10:35:11
+cluster026_rank0_idx0487387_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-25 13:40:11
+cluster026_rank1_idx0487388_CC,FAILED,Init,2026-03-21 01:23:44,XYZ Missing,2026-03-25 13:45:28
+cluster027_rank4_idx0558183_CC,COMPLETED,Finished,2026-03-26 11:30:42,PLQY Report Generated,2026-03-25 13:50:45
+cluster027_rank4_idx0558183_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-25 14:08:03
+cluster027_rank6_idx0559335_CC,COMPLETED,Finished,2026-03-26 03:25:13,PLQY Report Generated,2026-03-25 14:13:23
+cluster027_rank6_idx0559335_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-25 14:46:20
+cluster028_rank1_idx0242421_CC,FAILED,Init,2026-03-21 01:23:44,XYZ Missing,2026-03-25 14:51:38
+cluster029_rank3_idx0288496_CC,COMPLETED,Finished,2026-03-26 08:54:18,PLQY Report Generated,2026-03-25 14:56:56
+cluster029_rank3_idx0288496_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-25 15:12:55
+cluster030_rank0_idx0128282_CC,COMPLETED,Finished,2026-03-26 13:24:14,PLQY Report Generated,2026-03-25 15:18:16
+cluster030_rank0_idx0128282_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-25 19:03:27
+cluster030_rank2_idx0001032_CC,COMPLETED,Finished,2026-03-26 09:15:39,PLQY Report Generated,2026-03-25 19:08:47
+cluster030_rank2_idx0001032_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-25 20:07:11
+cluster031_rank1_idx0229699_CC,COMPLETED,Finished,2026-03-26 10:26:17,PLQY Report Generated,2026-03-25 20:12:30
+cluster031_rank1_idx0229699_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-26 00:29:07
+cluster031_rank4_idx0286293_CC,FAILED,Init,2026-03-21 01:23:44,XYZ Missing,2026-03-26 00:34:28
+cluster032_rank0_idx0329169_CC,COMPLETED,Finished,2026-03-26 15:51:41,PLQY Report Generated,2026-03-26 00:39:49
+cluster032_rank0_idx0329169_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-26 03:30:32
+cluster032_rank1_idx0034728_CC,RUNNING,ORCA Done,2026-03-27 22:13:29,Processing,2026-03-26 03:35:52
+cluster032_rank1_idx0034728_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-26 07:06:43
+cluster033_rank0_idx0397989_CC,COMPLETED,Finished,2026-03-27 00:15:48,PLQY Report Generated,2026-03-26 07:12:08
+cluster033_rank0_idx0397989_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-26 08:10:31
+cluster033_rank1_idx0036883_CC,RUNNING,ORCA Done,2026-03-27 22:13:29,Processing,2026-03-26 08:17:08
+cluster033_rank1_idx0036883_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-26 08:59:37
+cluster034_rank2_idx0050533_CC,RUNNING,ORCA Done,2026-03-27 22:13:29,Processing,2026-03-26 09:05:00
+cluster034_rank2_idx0050533_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-26 09:21:03
+cluster034_rank3_idx0533700_CC,COMPLETED,Finished,2026-03-27 12:21:28,PLQY Report Generated,2026-03-26 09:26:27
+cluster034_rank3_idx0533700_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-26 10:31:37
+cluster035_rank2_idx0173734_CC,COMPLETED,Finished,2026-03-27 18:56:03,PLQY Report Generated,2026-03-26 10:37:01
+cluster035_rank2_idx0173734_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-26 11:37:14
+cluster035_rank3_idx0398172_CC,RUNNING,ORCA Done,2026-03-27 22:13:29,Processing,2026-03-26 11:42:50
+cluster035_rank3_idx0398172_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-26 12:32:30
+cluster037_rank0_idx0570165_CC,FAILED,Init,2026-03-21 01:23:44,XYZ Missing,2026-03-26 12:37:53
+cluster038_rank0_idx0536717_CC,RUNNING,ORCA Done,2026-03-27 22:13:29,Processing,2026-03-26 12:43:16
+cluster038_rank0_idx0536717_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-26 13:05:25
+cluster038_rank1_idx0507959_CC,FAILED,Init,2026-03-21 01:23:44,XYZ Missing,2026-03-26 13:14:29
+cluster039_rank0_idx0028050_CC,FAILED,Init,2026-03-21 01:23:44,XYZ Missing,2026-03-26 13:23:33
+cluster040_rank1_idx0229374_CC,COMPLETED,Finished,2026-03-26 23:38:07,PLQY Report Generated,2026-03-26 13:32:35
+cluster040_rank1_idx0229374_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-26 13:32:35
+cluster040_rank3_idx0463420_CC,RUNNING,ORCA Done,2026-03-27 22:13:29,Processing,2026-03-26 13:41:40
+cluster040_rank3_idx0463420_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-26 16:00:20
+cluster041_rank2_idx0487507_CC,RUNNING,ORCA Done,2026-03-27 22:13:29,Processing,2026-03-26 16:09:28
+cluster041_rank2_idx0487507_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-26 17:04:18
+cluster041_rank3_idx0380747_CC,RUNNING,ORCA Done,2026-03-27 22:13:29,Processing,2026-03-26 17:13:29
+cluster041_rank3_idx0380747_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-26 23:43:28
+cluster042_rank0_idx0524275_CC,RUNNING,MOMAP Kisc Done,2026-03-27 22:13:29,Processing,2026-03-26 23:48:54
+cluster042_rank0_idx0524275_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-26 23:54:17
+cluster043_rank0_idx0114895_CC,FAILED,ORCA Done,2026-03-27 17:40:40,Fatal Error (See Log),2026-03-26 23:59:41
+cluster043_rank0_idx0114895_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-27 00:21:10
+cluster043_rank1_idx0193140_CC,COMPLETED,Finished,2026-03-27 16:46:50,PLQY Report Generated,2026-03-27 00:26:36
+cluster043_rank1_idx0193140_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-27 12:26:50
+cluster044_rank4_idx0580725_CC,RUNNING,Analysis Done,2026-03-27 22:13:30,Processing,2026-03-27 12:32:12
+cluster044_rank4_idx0580725_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-27 13:47:21
+cluster045_rank2_idx0402757_CC,RUNNING,ORCA Done,2026-03-27 22:13:30,Processing,2026-03-27 13:52:44
+cluster045_rank2_idx0402757_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-27 16:52:12
+cluster045_rank7_idx0051493_CC,RUNNING,ORCA Done,2026-03-27 22:13:30,Processing,2026-03-27 16:57:37
+cluster045_rank7_idx0051493_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-27 17:46:03
+cluster046_rank0_idx0197300_CC,RUNNING,ORCA Done,2026-03-27 22:13:30,Processing,2026-03-27 17:51:29
+cluster046_rank0_idx0197300_CC_s0_opt_traj,FAILED,Init,2026-03-21 23:00:51,XYZ Missing,2026-03-27 19:01:25
+cluster047_rank6_idx0232741_CC,FAILED,Init,2026-03-21 01:23:44,XYZ Missing,2026-03-27 19:06:49
+cluster048_rank0_idx0208761_CC,RUNNING,ORCA Done,2026-03-27 22:13:30,Processing,2026-03-27 19:12:13
 cluster048_rank0_idx0208761_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
 cluster048_rank1_idx0071529_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
 cluster048_rank1_idx0071529_CC_s0_opt_traj,PENDING,Init,2026-03-21 23:00:51,Newly added,
@@ -614,23 +614,23 @@ idx_0063498_CC,COMPLETED,Finished,2026-03-22 19:50:03,PLQY Report Generated,2026
 idx_0064833_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
 idx_0067226_CC,COMPLETED,Finished,2026-03-22 20:39:41,PLQY Report Generated,2026-03-21 01:23:44
 idx_0133509_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-idx_0137450_CC,RUNNING,MOMAP Kisc Done,2026-03-23 00:12:51,Processing,2026-03-21 01:23:44
+idx_0137450_CC,COMPLETED,Finished,2026-03-23 07:59:27,PLQY Report Generated,2026-03-21 01:23:44
 idx_0147828_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
 idx_0158073_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-idx_0162870_CC,RUNNING,MOMAP Kisc Done,2026-03-23 00:12:51,Processing,2026-03-21 01:23:44
+idx_0162870_CC,COMPLETED,Finished,2026-03-23 07:54:21,PLQY Report Generated,2026-03-21 01:23:44
 idx_0164255_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
 idx_0180412_CC,COMPLETED,Finished,2026-03-22 21:23:18,PLQY Report Generated,2026-03-21 01:23:44
-idx_0208761_CC,RUNNING,MOMAP Kisc Done,2026-03-23 00:12:51,Processing,2026-03-21 01:23:44
-idx_0219618_CC,RUNNING,MOMAP Kisc Done,2026-03-23 00:12:51,Processing,2026-03-21 01:23:44
+idx_0208761_CC,COMPLETED,Finished,2026-03-23 08:19:58,PLQY Report Generated,2026-03-21 01:23:44
+idx_0219618_CC,COMPLETED,Finished,2026-03-23 08:35:21,PLQY Report Generated,2026-03-21 01:23:44
 idx_0252031_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-idx_0275600_CC,RUNNING,MOMAP Kr Done,2026-03-23 00:12:51,Processing,2026-03-21 01:23:44
+idx_0275600_CC,COMPLETED,Finished,2026-03-23 09:07:12,PLQY Report Generated,2026-03-21 01:23:44
 idx_0329169_CC,COMPLETED,Finished,2026-03-21 17:00:13,PLQY Report Generated,2026-03-21 02:18:59
 idx_0341345_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
 idx_0382353_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-idx_0409593_CC,RUNNING,ORCA Done,2026-03-23 00:12:51,Processing,2026-03-21 01:23:44
+idx_0409593_CC,COMPLETED,Finished,2026-03-23 10:04:59,PLQY Report Generated,2026-03-21 01:23:44
 idx_0429291_CC,FAILED,ORCA Done,2026-03-21 23:00:52,Fatal Error (See Log),2026-03-21 13:10:30
-idx_0482095_CC,RUNNING,ORCA Done,2026-03-23 00:12:51,Processing,2026-03-21 01:23:44
-idx_0524078_CC,RUNNING,ORCA Done,2026-03-23 00:12:51,Processing,2026-03-21 01:23:44
+idx_0482095_CC,COMPLETED,Finished,2026-03-23 02:03:42,PLQY Report Generated,2026-03-21 01:23:44
+idx_0524078_CC,COMPLETED,Finished,2026-03-23 07:28:48,PLQY Report Generated,2026-03-21 01:23:44
 idx_0529377_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
 idx_0540504_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
 idx_0545240_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
@@ -641,4 +641,4 @@ idx_0591577_CC,COMPLETED,Finished,2026-03-21 13:05:30,PLQY Report Generated,2026
 idx_0596399_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
 idx_0601964_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
 idx_0603280_CC,PENDING,Init,2026-03-21 01:23:44,Newly added,
-idx_0606840_CC,RUNNING,ORCA Done,2026-03-23 00:12:51,Processing,2026-03-21 01:23:44
+idx_0606840_CC,COMPLETED,Finished,2026-03-23 02:34:11,PLQY Report Generated,2026-03-21 01:23:44
