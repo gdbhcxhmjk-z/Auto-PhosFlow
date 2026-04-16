@@ -90,7 +90,7 @@ def calculate_plqy(kr, kisc, kic, delta_E_hartree, Temp=300):
     kt = KB_HARTREE * Temp
     # 防止指数溢出
     try:
-        ratio = math.exp(-delta_E_hartree / kt)
+        ratio = math.exp(-delta_E_hartree / kt)/3  # 除以3是因为T1有三个简并态
     except OverflowError:
         ratio = 0.0
 
